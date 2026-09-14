@@ -68,6 +68,7 @@
   .scene-inner{max-width:1180px;width:100%;margin:0 auto;}
   .kicker{font-size:0.95rem;color:var(--accent);font-weight:600;margin-bottom:1.1rem;}
   .scene h2{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.08;max-width:16ch;}
+  .scene h2.h2-full{max-width:none;width:100%;}
   .lead{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink-soft);max-width:50ch;margin-top:1.3rem;line-height:1.55;}
 
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
@@ -133,7 +134,7 @@
   .scatter-box{position:relative;border:1px dashed var(--line);border-radius:4px;padding:2.6rem 1.6rem 1.6rem;margin-top:1.6rem;}
   .scatter-label{position:absolute;top:-11px;left:1.4rem;background:var(--paper);padding:0 .6rem;font-size:1.75rem;color:var(--muted);letter-spacing:.02em;}
   .chip-cloud{display:flex;flex-wrap:wrap;gap:.6rem .7rem;}
-  .chip{font-size:.72rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:20px;padding:.45rem .9rem;background:var(--paper-2);transition:transform .2s ease, border-color .2s, color .2s;}
+  .chip{font-size:.92rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:20px;padding:.45rem .9rem;background:var(--paper-2);transition:transform .2s ease, border-color .2s, color .2s;}
   .chip:nth-child(6n+1){transform:rotate(-2deg);}
   .chip:nth-child(6n+2){transform:rotate(1.5deg) translateY(-3px);}
   .chip:nth-child(6n+3){transform:rotate(-1deg) translateY(3px);}
@@ -141,6 +142,130 @@
   .chip:nth-child(6n+5){transform:rotate(-1.5deg) translateY(2px);}
   .chip:nth-child(6n){transform:rotate(1deg) translateY(-2px);}
   .chip:hover{transform:translateY(-3px) rotate(0deg);border-color:var(--accent);color:var(--ink);}
+
+  /* ---- scene: área familia — hitos ---- */
+  .fam-grid{margin-top:2rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;}
+  .fam-card{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.3rem 1.4rem 1.2rem;display:flex;flex-direction:column;gap:.75rem;position:relative;transition:border-color .25s;}
+  .fam-card:hover{border-color:var(--accent);}
+  .fam-card::before{content:'';position:absolute;left:0;top:1.3rem;bottom:1.2rem;width:2px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .6s ease .5s;}
+  .scene.in-view .fam-card::before{transform:scaleY(1);}
+  .fam-top{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+  .fam-office{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--ink);line-height:1.15;}
+  .fam-tag{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--line);border-radius:20px;padding:.18rem .65rem;}
+  .fam-text{font-size:.98rem;color:var(--ink-soft);line-height:1.5;margin:0;}
+  .fam-next{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:start;margin-top:.2rem;padding-top:.8rem;border-top:1px solid var(--line);}
+  .fam-next svg{width:26px;height:14px;margin-top:.3rem;overflow:visible;}
+  .fam-next svg path{stroke:var(--accent);stroke-width:1.5;fill:none;stroke-dasharray:40;stroke-dashoffset:40;transition:stroke-dashoffset .8s ease .9s;}
+  .scene.in-view .fam-next svg path{stroke-dashoffset:0;}
+  .fam-next p{margin:0;font-size:.92rem;color:var(--ink);line-height:1.5;}
+  .fam-next p b{display:block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.2rem;}
+  .reveal.r5{transition-delay:.54s;}
+  .reveal.r6{transition-delay:.66s;}
+
+  /* ---- scene: área violencia — hitos + gráfico ---- */
+  .vio-wrap{margin-top:1.6rem;display:grid;grid-template-columns:1.05fr 1fr;gap:1.1rem;align-items:stretch;}
+  .vio-cards{display:flex;flex-direction:column;gap:.9rem;}
+  .vio-cards .fam-card{padding:1.05rem 1.2rem 1rem;}
+  .vio-cards .fam-text,.vio-cards .fam-next p{font-size:.92rem;}
+  .fam-hl{background:var(--accent-soft);color:var(--ink);font-weight:600;padding:.05em .35em;border-radius:3px;box-decoration-break:clone;-webkit-box-decoration-break:clone;border-bottom:2px solid var(--accent);}
+  .vio-chart{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.2rem 1.3rem 1rem;display:flex;flex-direction:column;}
+  .vio-chart .vc-title{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--ink);line-height:1.2;margin:0;}
+  .vio-chart .vc-sub{font-size:.78rem;color:var(--muted);margin:.3rem 0 0;line-height:1.45;}
+  .vio-chart svg{width:100%;height:auto;display:block;margin-top:1rem;flex:1;font-family:'Public Sans',sans-serif;}
+  .vio-chart .vc-grid{stroke:var(--line);stroke-width:1;}
+  .vio-chart .vc-axis{font-size:11px;fill:var(--muted);}
+  .vio-chart .vc-cat{font-size:12px;fill:var(--ink-soft);}
+  .vio-chart .vc-val{font-size:13px;font-weight:600;fill:var(--ink);}
+  .vio-chart .vc-bar{fill:var(--ink);transform:scaleY(0);transform-origin:0 230px;transform-box:view-box;transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+  .vio-chart .vc-bar.b1{transition-delay:.55s;}.vio-chart .vc-bar.b2{transition-delay:.7s;}.vio-chart .vc-bar.b3{transition-delay:.85s;}
+  .scene.in-view .vio-chart .vc-bar{transform:scaleY(1);}
+  .vio-chart .vc-zero{opacity:0;transition:opacity .6s ease 1.2s;}
+  .scene.in-view .vio-chart .vc-zero{opacity:1;}
+  .vio-chart .vc-zero rect{fill:none;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:4 3;}
+  .vio-chart .vc-zero text{font-size:12px;font-weight:600;fill:var(--accent);}
+  .vio-chart .vc-note{font-size:.8rem;color:var(--ink-soft);margin:.8rem 0 0;line-height:1.45;}
+  .vio-chart .vc-note b{color:var(--accent);font-weight:600;}
+
+  /* ---- scene: área multifuero — pool de psiquiatras ---- */
+  .mf-wrap{margin-top:1.8rem;display:grid;grid-template-columns:1fr 1.15fr;gap:1.4rem;align-items:stretch;}
+  .mf-cards{display:flex;flex-direction:column;gap:1rem;}
+  .mf-cards .fam-card{flex:1;}
+  .mf-diagram{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.3rem 1.4rem 1.1rem;display:flex;flex-direction:column;}
+  .mf-diagram .vc-title{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--ink);line-height:1.2;margin:0;}
+  .mf-diagram .vc-sub{font-size:.78rem;color:var(--muted);margin:.3rem 0 0;line-height:1.45;}
+  .mf-diagram svg{width:100%;height:auto;display:block;margin-top:1rem;flex:1;font-family:'Public Sans',sans-serif;overflow:visible;}
+  .mf-diagram .md-lbl{font-size:12px;fill:var(--ink-soft);}
+  .mf-diagram .md-lbl.strong{fill:var(--ink);font-weight:600;font-size:12px;}
+  .mf-diagram .md-cap{font-size:10.5px;fill:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+  .mf-diagram .md-pool{font-family:'Fraunces',serif;font-size:15px;fill:var(--ink);}
+  .mf-diagram .md-doc{opacity:0;transform:translateX(-14px);transition:opacity .5s ease,transform .5s ease;}
+  .mf-diagram .md-doc.d1{transition-delay:.45s}.mf-diagram .md-doc.d2{transition-delay:.55s}.mf-diagram .md-doc.d3{transition-delay:.65s}.mf-diagram .md-doc.d4{transition-delay:.75s}.mf-diagram .md-doc.d5{transition-delay:.85s}
+  .scene.in-view .mf-diagram .md-doc{opacity:1;transform:none;}
+  .mf-diagram .md-line{stroke:var(--line);stroke-width:1.2;fill:none;stroke-dasharray:300;stroke-dashoffset:300;transition:stroke-dashoffset 1s ease 1s;}
+  .mf-diagram .md-line.out{stroke:var(--accent);transition-delay:1.5s;}
+  .scene.in-view .mf-diagram .md-line{stroke-dashoffset:0;}
+  .mf-diagram .md-box{opacity:0;transition:opacity .6s ease;}
+  .mf-diagram .md-box.pool{transition-delay:1.3s;}
+  .mf-diagram .md-box.dem{transition-delay:2s;}
+  .scene.in-view .mf-diagram .md-box{opacity:1;}
+
+  /* ---- scene: regularización administrativa ---- */
+  .reg-wrap{margin-top:1.6rem;display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;align-items:stretch;}
+  .reg-panel{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.3rem 1.4rem;display:flex;flex-direction:column;}
+  .reg-panel .vc-title{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--ink);line-height:1.2;margin:0;}
+  .reg-panel .vc-sub{font-size:.78rem;color:var(--muted);margin:.3rem 0 0;line-height:1.45;}
+  .reg-waffle{display:grid;grid-template-columns:repeat(25,1fr);gap:4px;margin-top:1.1rem;}
+  .reg-waffle i{aspect-ratio:1;border-radius:50%;background:var(--line);opacity:0;transform:scale(.4);transition:opacity .35s ease,transform .35s ease,background .4s ease;}
+  .reg-waffle i.x{background:var(--accent);}
+  .scene.in-view .reg-waffle i{opacity:1;transform:scale(1);}
+  .reg-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--line);}
+  .reg-stats .num{font-family:'Fraunces',serif;font-size:clamp(2rem,3.4vw,2.8rem);line-height:1;color:var(--ink);display:block;}
+  .reg-stats .hl .num{color:var(--accent);}
+  .reg-stats .cap{font-size:.8rem;color:var(--muted);display:block;margin-top:.35rem;line-height:1.4;}
+  .reg-stats .cap b{color:var(--ink-soft);font-weight:600;}
+  .reg-steps{list-style:none;margin:1.2rem 0 0;padding:0;display:flex;flex-direction:column;flex:1;justify-content:space-between;position:relative;}
+  .reg-steps::before{content:'';position:absolute;left:15px;top:16px;bottom:16px;width:1px;background:var(--line);}
+  .reg-steps::after{content:'';position:absolute;left:15px;top:16px;bottom:16px;width:1px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform 1.6s ease .6s;}
+  .scene.in-view .reg-steps::after{transform:scaleY(1);}
+  .reg-step{display:grid;grid-template-columns:32px 1fr;gap:.9rem;align-items:start;padding:.55rem 0;position:relative;opacity:0;transform:translateX(-10px);transition:opacity .5s ease,transform .5s ease;}
+  .scene.in-view .reg-step{opacity:1;transform:none;}
+  .reg-step:nth-child(1){transition-delay:.5s}.reg-step:nth-child(2){transition-delay:.9s}.reg-step:nth-child(3){transition-delay:1.3s}.reg-step:nth-child(4){transition-delay:1.8s}
+  .rs-n{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--paper);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:.95rem;color:var(--ink);position:relative;z-index:1;}
+  .reg-step.is-core .rs-n{border-color:var(--accent);background:var(--accent);color:var(--paper);}
+  .reg-step.is-end .rs-n{border-color:var(--ink);background:var(--ink);color:var(--paper);}
+  .reg-step > div > b{display:block;font-family:'Fraunces',serif;font-weight:440;font-size:1.1rem;color:var(--ink);line-height:1.2;margin-top:.3rem;}
+  .reg-step > div > span{display:block;font-size:.82rem;color:var(--muted);margin-top:.2rem;line-height:1.4;}
+  .rs-pill{font-family:'Public Sans',sans-serif;font-style:normal;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--paper);background:var(--ink);border-radius:20px;padding:.22rem .6rem;margin-left:.5rem;vertical-align:middle;display:inline-flex;align-items:center;gap:.4rem;}
+  .rs-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:regPulse 1.6s ease-in-out infinite;}
+  @keyframes regPulse{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+  @media (prefers-reduced-motion: reduce){.rs-pill::before{animation:none;}}
+  .reg-caps{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.7rem;}
+  .reg-cap{border:1px solid var(--line);border-radius:4px;background:var(--paper);padding:.6rem .4rem;text-align:center;transition:border-color .2s;}
+  .reg-cap:hover{border-color:var(--accent);}
+  .reg-cap svg{width:22px;height:22px;display:block;margin:0 auto .35rem;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+  .reg-cap b{display:block;font-size:.76rem;color:var(--ink);font-weight:600;line-height:1.2;}
+
+
+  /* ---- scene 02: áreas en tabs (proyector) ---- */
+  .area-tabs{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem;}
+  .area-tab{font-family:'Public Sans',sans-serif;font-size:1.25rem;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line);border-radius:20px;padding:.75rem 1.7rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;display:inline-flex;align-items:center;gap:.6rem;}
+  .area-tab .k{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--accent);}
+  .area-tab:hover{color:var(--ink);border-color:var(--accent);}
+  .area-tab.active{color:var(--paper);background:var(--ink);border-color:var(--ink);}
+  .area-tab.active .k{color:var(--accent-soft);}
+  .area-panel{display:none;margin-top:1.8rem;grid-template-columns:1fr 1.3fr;gap:2.4rem;align-items:start;}
+  .area-panel.active{display:grid;}
+  .area-panel .ap-info{animation:indmIn .45s ease both;}
+  .area-panel .ap-offices{animation:indmIn .45s ease .12s both;}
+  .ap-info h3{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(2.2rem,3.6vw,3rem);line-height:1.1;color:var(--ink);margin:0;}
+  .ap-ref{margin:1rem 0 0;font-size:clamp(1.2rem,1.8vw,1.5rem);color:var(--ink);line-height:1.4;}
+  .ap-ref span{display:block;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.2rem;}
+  .ap-count{margin:1.2rem 0 0;font-size:1.2rem;color:var(--muted);}
+  .ap-count b{font-family:'Fraunces',serif;font-weight:440;font-size:2.4rem;color:var(--ink);margin-right:.4rem;line-height:1;}
+  .ap-btn{margin-top:1.4rem;font-size:1rem;padding:.6rem 1.4rem;}
+  .ap-offices{list-style:none;margin:0;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.6rem;}
+  .ap-offices li{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink);line-height:1.35;padding-left:1.1rem;position:relative;}
+  .ap-offices li::before{content:'';position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--accent);}
 
   /* ---- scene: áreas acordeón ---- */
   .area-hub{width:100%;max-width:560px;display:block;margin:2rem auto 0;}
@@ -163,6 +288,97 @@
   .aa-actions{padding:0 1.1rem 1.2rem;}
   .aa-detail{background:none;border:1px solid var(--accent);border-radius:20px;padding:.45rem 1.1rem;font-size:.8rem;color:var(--accent);cursor:pointer;font-family:'Public Sans',sans-serif;transition:background .2s,color .2s;}
   .aa-detail:hover{background:var(--accent);color:var(--paper);}
+
+  /* ---- modal evidencia empírica (OVD) ---- */
+  .vc-actions{margin-top:.9rem;display:flex;justify-content:flex-end;}
+  #evModal{position:fixed;inset:0;z-index:96;background:rgba(10,10,12,.78);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
+  #evModal.open{opacity:1;visibility:visible;}
+  .ev-inner{background:var(--paper);border-radius:4px;width:min(1080px,94vw);padding:2.2rem 2.6rem;max-height:92vh;overflow:auto;}
+  .ev-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line);}
+  .ev-stat .num{font-family:'Fraunces',serif;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1;color:var(--ink);display:block;}
+  .ev-stat .num small{font-size:.45em;color:var(--accent);margin-left:.3em;}
+  .ev-stat .cap{font-size:.85rem;color:var(--muted);display:block;margin-top:.45rem;line-height:1.4;}
+  .ev-stat.hl .num{color:var(--accent);}
+  .ev-sec{margin-top:1.8rem;}
+  .ev-sec h4{font-family:'Fraunces',serif;font-weight:440;font-size:1.2rem;color:var(--ink);margin:0 0 .9rem;}
+  .ev-bar{display:flex;height:44px;border-radius:4px;overflow:hidden;gap:2px;}
+  .ev-bar span{display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600;color:var(--paper);width:0;transition:width .9s cubic-bezier(.2,.7,.2,1);overflow:hidden;white-space:nowrap;}
+  .ev-bar span.c1{background:var(--ink);}
+  .ev-bar span.c2{background:var(--accent);}
+  .ev-bar span.c3{background:var(--muted);}
+  #evModal.open .ev-bar span{width:var(--w);}
+  .ev-legend{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:.7rem;}
+  .ev-legend div{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--ink-soft);}
+  .ev-legend i{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+  .ev-legend b{color:var(--ink);font-weight:600;}
+  .ev-split{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.2rem;}
+  .ev-split > div{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1rem 1.1rem;}
+  .ev-split .ev-bar{height:32px;margin-top:.6rem;}
+  .ev-split .ev-bar span{font-size:.78rem;}
+  .ev-split p{margin:0;font-size:.85rem;color:var(--ink-soft);line-height:1.45;}
+  .ev-split p b{color:var(--ink);font-weight:600;}
+  .ev-foot{margin-top:1.6rem;}
+  .ev-foot > div{border:1px solid var(--line);border-radius:4px;padding:1.1rem 1.2rem;position:relative;}
+  .ev-foot .tag{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;flex-shrink:0;}
+  .ev-foot p{margin:0;font-size:.92rem;color:var(--ink-soft);line-height:1.5;}
+  .ev-foot .concl{border-color:var(--accent);background:var(--accent-soft);display:flex;align-items:baseline;gap:1.2rem;flex-wrap:wrap;}
+  .ev-foot .concl p{color:var(--ink);font-family:'Fraunces',serif;font-size:1.15rem;line-height:1.3;}
+
+  /* ---- galería de capturas del sistema ---- */
+  .reg-gal-btn{margin-top:.8rem;}
+  #galModal{position:fixed;inset:0;z-index:97;background:rgba(10,10,12,.85);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
+  #galModal.open{opacity:1;visibility:visible;}
+  .gal-inner{background:var(--paper);border-radius:4px;width:min(1180px,94vw);max-height:94vh;padding:1.4rem 1.6rem 1.2rem;display:flex;flex-direction:column;gap:.9rem;}
+  .gal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+  .gal-head .am-title{font-size:clamp(1.2rem,2vw,1.6rem);}
+  .gal-frame{position:relative;flex:1;min-height:0;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);overflow:auto;max-height:72vh;}
+  .gal-frame img{display:block;width:100%;height:auto;opacity:0;transition:opacity .35s ease;}
+  .gal-frame img.ready{opacity:1;}
+  .gal-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+  .gal-cap{font-size:.9rem;color:var(--ink-soft);margin:0;}
+  .gal-cap b{color:var(--ink);font-weight:600;}
+  .gal-nav{display:flex;align-items:center;gap:.6rem;}
+  .gal-nav button{background:none;border:1px solid var(--line);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);transition:border-color .2s,background .2s,color .2s;}
+  .gal-nav button:hover{border-color:var(--accent);background:var(--accent);color:var(--paper);}
+  .gal-nav button:disabled{opacity:.35;cursor:default;}
+  .gal-nav button:disabled:hover{border-color:var(--line);background:none;color:var(--ink);}
+  .gal-nav button svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .gal-count{font-family:'Fraunces',serif;font-size:1rem;color:var(--muted);min-width:3.4rem;text-align:center;}
+  .gal-dots{display:flex;gap:.4rem;}
+  .gal-dots i{width:8px;height:8px;border-radius:50%;border:1px solid var(--accent);background:none;cursor:pointer;}
+  .gal-dots i.on{background:var(--accent);}
+
+  /* ---- modal indicadores (qué muestra el sistema) ---- */
+  .reg-gal-btn{display:flex;gap:.5rem;flex-wrap:wrap;}
+  #indModal{position:fixed;inset:0;z-index:97;background:rgba(10,10,12,.78);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
+  #indModal.open{opacity:1;visibility:visible;}
+  .ind-inner{background:var(--paper);border-radius:4px;width:min(1320px,96vw);padding:2.2rem 2.8rem;max-height:94vh;overflow:auto;}
+  .ind-inner .am-title{font-size:clamp(1.8rem,3vw,2.4rem);}
+  .ind-inner .am-ref{font-size:1.05rem;}
+  .ind-inner .am-kicker{font-size:.95rem;}
+  .indm-tabs{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem;padding-top:1.4rem;border-top:1px solid var(--line);}
+  .indm-tab{font-family:'Public Sans',sans-serif;font-size:1.2rem;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line);border-radius:20px;padding:.7rem 1.6rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;display:inline-flex;align-items:center;gap:.6rem;}
+  .indm-tab .k{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--accent);}
+  .indm-tab:hover{color:var(--ink);border-color:var(--accent);}
+  .indm-tab.active{color:var(--paper);background:var(--ink);border-color:var(--ink);}
+  .indm-tab.active .k{color:var(--accent-soft);}
+  .indm-panel{display:none;margin-top:1.8rem;grid-template-columns:1fr 1.05fr;gap:2.4rem;align-items:center;min-height:400px;}
+  .indm-panel.active{display:grid;}
+  .indm-panel > div:first-child{animation:indmIn .45s ease both;}
+  .indm-panel > .vis{animation:indmIn .45s ease .12s both;}
+  @keyframes indmIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.indm-panel > div{animation:none!important;}}
+  .indm-panel h4{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(2.2rem,3.6vw,3rem);line-height:1.1;color:var(--ink);margin:0;}
+  .indm-panel .desc{font-size:clamp(1.3rem,1.9vw,1.6rem);color:var(--ink-soft);line-height:1.5;margin:1rem 0 0;}
+  .indm-panel ul{margin:1.2rem 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;}
+  .indm-panel li{font-size:1.15rem;color:var(--ink);border:1px solid var(--accent);border-radius:20px;padding:.45rem 1.1rem;}
+  .indm-panel .q{margin:1.6rem 0 0;font-size:1.25rem;color:var(--muted);line-height:1.5;padding-left:1rem;border-left:2px solid var(--accent);}
+  .indm-panel .q b{color:var(--ink);font-weight:600;}
+  .indm-panel .vis{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.6rem;}
+  .indm-panel .vis svg{width:100%;height:auto;display:block;font-family:'Public Sans',sans-serif;}
+  .indm-foot{margin-top:1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;border:1px solid var(--accent);background:var(--accent-soft);border-radius:4px;padding:1rem 1.3rem;}
+  .indm-foot p{margin:0;font-family:'Fraunces',serif;font-size:1.35rem;color:var(--ink);line-height:1.3;}
+  .indm-foot small{font-size:1rem;color:var(--ink);opacity:.8;}
 
   /* ---- modal dotación por área ---- */
   #areaModal{position:fixed;inset:0;z-index:95;background:rgba(10,10,12,.75);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
@@ -356,7 +572,21 @@
     #arrows{right:3vw;bottom:2.5vh;}
     #topbar{top:2.2vh;right:3vw;}
     .area-acc{grid-template-columns:1fr;gap:.7rem;}
+    .area-panel{grid-template-columns:1fr;gap:1.2rem;}
+    .ap-offices{grid-template-columns:1fr;}
     .area-hub{display:none;}
+    .fam-grid{grid-template-columns:1fr;gap:.8rem;}
+    .vio-wrap{grid-template-columns:1fr;}
+    .mf-wrap{grid-template-columns:1fr;}
+    .reg-wrap{grid-template-columns:1fr;}
+    .reg-caps{grid-template-columns:1fr 1fr;}
+    .reg-waffle{grid-template-columns:repeat(20,1fr);}
+    .ev-inner{padding:1.4rem;}
+    .gal-inner{padding:1rem;}
+    .ind-inner{padding:1.4rem;}
+    .indm-panel{grid-template-columns:1fr;min-height:0;}
+    .gal-frame{max-height:60vh;}
+    .ev-stats,.ev-split{grid-template-columns:1fr;}
     .thumb-btn{width:100%;}
     .preview-grid{gap:1rem;}
     .am-inner{padding:1.4rem;}
@@ -429,311 +659,194 @@
     <div class="scene-inner">
       <!-- <h2 class="reveal r1" style="font-size:45px">De una estructura descentralizada a una estructura centralizada, organizada en 4 áreas</h2> -->
       <br>
-      <h2 class="reveal r1" style="font-size:35px">A una estructura centralizada, organizada en 4 áreas</h2>
-      <svg class="area-hub reveal r2" viewBox="0 0 560 110" fill="none">
-        <circle cx="280" cy="16" r="4" fill="var(--ink)"/>
-        <line x1="280" y1="20" x2="70" y2="70" stroke="var(--line)"/>
-        <line x1="280" y1="20" x2="230" y2="70" stroke="var(--line)"/>
-        <line x1="280" y1="20" x2="340" y2="70" stroke="var(--line)"/>
-        <line x1="280" y1="20" x2="500" y2="70" stroke="var(--line)"/>
-        <g fill="var(--accent)"><circle cx="70" cy="70" r="3"/><circle cx="230" cy="70" r="3"/><circle cx="340" cy="70" r="3"/><circle cx="500" cy="70" r="3"/></g>
-      </svg>
-      <div class="area-acc reveal r3">
-        <div class="area-acc-item open">
-          <button class="area-acc-head">
-            <span class="aa-left"><span class="aa-name">Área de Flia</span><span class="aa-ref" style="font-size:18px">Referente: Psic. Elina Criado</span></span>
-            <span class="aa-right"><span class="aa-count" style="font-size:18px">4 oficinas</span><span class="aa-toggle">+</span></span>
-          </button>
-          <div class="area-acc-body">
-            <div class="aa-offices">
-              <span>RUPAT</span><span>Gabinete Flia y Suc.</span><span>Servicio de Revinculación</span><span>Gabinete Psicosocial Monteros</span>
-            </div>
-            <div class="aa-actions"><button class="aa-detail" data-area="flia">Ver dotación</button></div>
-          </div>
+      <h2 class="reveal r1 h2-full" style="font-size:47px; margin-top:15px">A una estructura centralizada, organizada en 4 áreas</h2>
+      <div class="area-tabs reveal r2" role="tablist">
+        <button class="area-tab active" data-apanel="flia"><span class="k">01</span>Familia</button>
+        <button class="area-tab" data-apanel="violencia"><span class="k">02</span>Violencia</button>
+        <button class="area-tab" data-apanel="multifuero"><span class="k">03</span>Multifuero</button>
+        <button class="area-tab" data-apanel="penal"><span class="k">04</span>Penal</button>
+      </div>
+      <div class="area-panel active" id="apanel-flia">
+        <div class="ap-info">
+          <h3>Área de Familia</h3>
+          <p class="ap-ref"><span>Referente</span>Ps. Elina Criado</p>
+          <p class="ap-count"><b>4</b> oficinas</p>
+          <button class="aa-detail ap-btn" data-area="flia">Ver dotación</button>
         </div>
-        <div class="area-acc-item open">
-          <button class="area-acc-head">
-            <span class="aa-left"><span class="aa-name">Área de Violencia</span><span class="aa-ref" style="font-size:18px">Referente: Abog. Natalia Spedaletti</span></span>
-            <span class="aa-right"><span class="aa-count" style="font-size:18px">6 oficinas</span><span class="aa-toggle">+</span></span>
-          </button>
-          <div class="area-acc-body">
-            <div class="aa-offices">
-              <span>OVD Capital</span><span>OVD Monteros</span><span>OVD Concepción</span><span>OVD Este</span><span>OVD Trancas</span><span>OM - GR</span>
-            </div>
-            <div class="aa-actions"><button class="aa-detail" data-area="violencia">Ver dotación</button></div>
-          </div>
+        <ul class="ap-offices"><li>RUPAT</li><li>Gabinete Flia y Suc.</li><li>Servicio de Revinculación</li><li>Gabinete Psicosocial Monteros</li></ul>
+      </div>
+      <div class="area-panel" id="apanel-violencia">
+        <div class="ap-info">
+          <h3>Área de Violencia</h3>
+          <p class="ap-ref"><span>Referente</span>Abog. Natalia Spedaletti</p>
+          <p class="ap-count"><b>6</b> oficinas</p>
+          <button class="aa-detail ap-btn" data-area="violencia">Ver dotación</button>
         </div>
-        <div class="area-acc-item open">
-          <button class="area-acc-head">
-            <span class="aa-left"><span class="aa-name">Área Multifuero</span><span class="aa-ref" style="font-size:18px">Referente: Dra. María José Gandur</span></span>
-            <span class="aa-right"><span class="aa-count" style="font-size:18px">9 oficinas</span><span class="aa-toggle">+</span></span>
-          </button>
-          <div class="area-acc-body">
-            <div class="aa-offices">
-              <span>CPM Capital</span>
-              <span>CPM Concepción</span>
-              <span>CPM Monteros</span>
-              <span>Gabinete Multifuero Capital</span>
-              <span>Gabinete Multifuero Concepción</span>
-              <span>Gabinete Multifuero Monteros</span>
-              <span>Gabinete Tecnico - Probation y Condenas Condicionales</span>              
-              <span>Gabinete Tecnico - Condenas Efectiva</span>              
-              <span>Gabinete Tecnico Ejecución Penal - Concepción</span>              
-            </div>
-            <div class="aa-actions"><button class="aa-detail" data-area="multifuero">Ver dotación</button></div>
-          </div>
+        <ul class="ap-offices"><li>OVD Capital</li><li>OVD Monteros</li><li>OVD Concepción</li><li>OVD Este</li><li>OVD Trancas</li><li>OM - GR</li></ul>
+      </div>
+      <div class="area-panel" id="apanel-multifuero">
+        <div class="ap-info">
+          <h3>Área Multifuero</h3>
+          <p class="ap-ref"><span>Referente</span>Dra. María José Gandur</p>
+          <p class="ap-count"><b>9</b> oficinas</p>
+          <button class="aa-detail ap-btn" data-area="multifuero">Ver dotación</button>
         </div>
-        <div class="area-acc-item open">
-          <button class="area-acc-head">
-            <span class="aa-left"><span class="aa-name">Área Penal</span><span class="aa-ref" style="font-size:18px">Referente: Ts. Adriana Barroso</span></span>
-            <span class="aa-right"><span class="aa-count" style="font-size:18px">5 oficinas</span><span class="aa-toggle">+</span></span>
-          </button>
-          <div class="area-acc-body">
-            <div class="aa-offices">
-              <span>OAVD Capital</span><span>OAVD Concepción</span><span>OAVD Monteros</span><span>GENNYA</span><span>Gabinete Penal Concepción</span>
-            </div>
-            <div class="aa-actions"><button class="aa-detail" data-area="penal">Ver dotación</button></div>
-          </div>
+        <ul class="ap-offices"><li>CPM Capital</li><li>CPM Concepción</li><li>CPM Monteros</li><li>Gabinete Multifuero Capital</li><li>Gabinete Multifuero Concepción</li><li>Gabinete Multifuero Monteros</li><li>Gabinete Técnico - Probation y Condenas Condicionales</li><li>Gabinete Técnico - Condenas Efectiva</li><li>Gabinete Técnico Ejecución Penal - Concepción</li></ul>
+      </div>
+      <div class="area-panel" id="apanel-penal">
+        <div class="ap-info">
+          <h3>Área Penal</h3>
+          <p class="ap-ref"><span>Referente</span>Ts. Adriana Barroso</p>
+          <p class="ap-count"><b>5</b> oficinas</p>
+          <button class="aa-detail ap-btn" data-area="penal">Ver dotación</button>
         </div>
+        <ul class="ap-offices"><li>OAVD Capital</li><li>OAVD Concepción</li><li>OAVD Monteros</li><li>GENNYA</li><li>Gabinete Penal Concepción</li></ul>
       </div>
     </div>
   </section>
 
-  <!-- 03 — LA HERRAMIENTA -->
+  <!-- 03 — ÁREA DE FAMILIA: HITOS Y HALLAZGOS -->
   <section class="scene" data-index="2">
     <p class="scene-num">03</p>
     <div class="scene-inner">
-      <h2 class="reveal r1">Una herramienta para conocer a cada persona</h2>
-      <p class="lead reveal r2">Para centralizar el personal de estas 23 oficinas nace una herramienta que funciona bajo la órbita de la OATE y organiza áreas, referentes, oficinas y personas. Conocer el cargo, la función, el área y el referente de cada persona es la base para decidir movimientos y rotaciones.</p>
-      <div class="preview-grid reveal r3">
-        <button class="thumb-btn" data-title="Ficha de personal" data-src="images/foto 1.png">
-          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
-            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
-            <circle cx="40" cy="45" r="18" fill="none" stroke="var(--ink-soft)"/>
-            <line x1="70" y1="38" x2="160" y2="38" stroke="var(--ink-soft)" stroke-width="2"/>
-            <line x1="70" y1="52" x2="130" y2="52" stroke="var(--line)" stroke-width="2"/>
-            <line x1="20" y1="90" x2="120" y2="90" stroke="var(--line)"/><line x1="20" y1="110" x2="140" y2="110" stroke="var(--line)"/>
-            <line x1="160" y1="90" x2="260" y2="90" stroke="var(--line)"/><line x1="160" y1="110" x2="240" y2="110" stroke="var(--line)"/>
-            <line x1="20" y1="140" x2="120" y2="140" stroke="var(--line)"/><line x1="20" y1="160" x2="140" y2="160" stroke="var(--line)"/>
-            <line x1="160" y1="140" x2="260" y2="140" stroke="var(--line)"/><line x1="160" y1="160" x2="240" y2="160" stroke="var(--line)"/>
-            <rect x="20" y="190" width="70" height="18" rx="2" fill="none" stroke="var(--accent)"/>
-          </svg></span>
-          <span class="thumb-cap">Ficha de personal</span>
-        </button>
-        <button class="thumb-btn" data-title="Organigrama dinámico">
-          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
-            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
-            <circle cx="150" cy="30" r="4" fill="var(--ink)"/>
-            <line x1="150" y1="34" x2="150" y2="70" stroke="var(--line)"/>
-            <line x1="150" y1="70" x2="80" y2="70" stroke="var(--line)"/><line x1="150" y1="70" x2="220" y2="70" stroke="var(--line)"/>
-            <circle cx="80" cy="70" r="3" fill="var(--accent)"/><circle cx="220" cy="70" r="3" fill="var(--accent)"/>
-            <line x1="80" y1="73" x2="55" y2="120" stroke="var(--line)"/><line x1="80" y1="73" x2="105" y2="120" stroke="var(--line)"/>
-            <line x1="220" y1="73" x2="195" y2="120" stroke="var(--line)"/><line x1="220" y1="73" x2="245" y2="120" stroke="var(--line)"/>
-            <g fill="var(--ink-soft)"><circle cx="55" cy="120" r="2.5"/><circle cx="105" cy="120" r="2.5"/><circle cx="195" cy="120" r="2.5"/><circle cx="245" cy="120" r="2.5"/></g>
-            <line x1="60" y1="170" x2="240" y2="170" stroke="var(--line)" stroke-dasharray="2 3"/>
-          </svg></span>
-          <span class="thumb-cap">Organigrama dinámico</span>
-        </button>
-        <button class="thumb-btn" data-title="Panel de áreas y referentes">
-          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
-            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
-            <line x1="20" y1="30" x2="120" y2="30" stroke="var(--ink-soft)" stroke-width="2"/>
-            <rect x="20" y="55" width="260" height="34" rx="2" fill="none" stroke="var(--line)"/>
-            <rect x="20" y="99" width="260" height="34" rx="2" fill="none" stroke="var(--line)"/>
-            <rect x="20" y="143" width="260" height="34" rx="2" fill="none" stroke="var(--line)"/>
-            <circle cx="35" cy="72" r="4" fill="var(--accent)"/><circle cx="35" cy="116" r="4" fill="var(--accent)"/><circle cx="35" cy="160" r="4" fill="var(--accent)"/>
-            <line x1="50" y1="68" x2="140" y2="68" stroke="var(--ink-soft)"/><line x1="50" y1="112" x2="150" y2="112" stroke="var(--ink-soft)"/><line x1="50" y1="156" x2="130" y2="156" stroke="var(--ink-soft)"/>
-          </svg></span>
-          <span class="thumb-cap">Panel de áreas y referentes</span>
-        </button>
+      <p class="kicker reveal r1">Área de Familia · Ref.: Ps. Elina Criado</p>
+      <h2 class="reveal r1 h2-full">Hitos y hallazgos en el Área de Familia</h2>
+      <p class="lead reveal r2">Un recorrido por las unidades del área: qué encontramos y cuál es el próximo paso en cada caso.</p>
+      <div class="fam-grid">
+        <article class="fam-card reveal r3">
+          <div class="fam-top"><span class="fam-office">RUPAT</span><span class="fam-tag">Hallazgo</span></div>
+          <p class="fam-text">Tiene un SAE, pero no está integrado al área y no posee indicadores de medición.</p>
+          <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Generar la lectura de los mapeos que se están trabajando en las unidades, para luego integrar y definir indicadores de medición.</p></div>
+        </article>
+        <article class="fam-card reveal r4">
+          <div class="fam-top"><span class="fam-office">Gabinete Psicosocial Monteros</span><span class="fam-tag">Hallazgo</span></div>
+          <p class="fam-text">Tiene SAE, pero todavía no se implementó.</p>
+          <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Capacitar al personal para iniciar con las cargas.</p></div>
+        </article>
+        <article class="fam-card reveal r5">
+          <div class="fam-top"><span class="fam-office">Cámara de Familia</span><span class="fam-tag">Solicitud</span></div>
+          <p class="fam-text">Solicitud de potenciar los informes psicosociales, para que los jueces puedan apoyarse en ellos al tomar una decisión.</p>
+        </article>
+        <article class="fam-card reveal r6">
+          <div class="fam-top"><span class="fam-office">Gabinete Psicosocial · Centro Judicial Monteros</span><span class="fam-tag">Hito</span></div>
+          <p class="fam-text">Se solicitó la regularización administrativa de la totalidad del equipo que integra el Gabinete.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- 04 — EL RECORRIDO -->
+  <!-- 04 — ÁREA DE VIOLENCIA: HITOS Y HALLAZGOS -->
   <section class="scene" data-index="3">
     <p class="scene-num">04</p>
     <div class="scene-inner">
-      <h2 class="reveal r1">Conservar el recorrido de cada persona</h2>
-      <p class="lead reveal r2">Otro objetivo es registrar el recorrido de cada persona dentro de la estructura, para reconstruir cómo fue cambiando la composición de oficinas y áreas.</p>
-      <div class="preview-grid reveal r3">
-        <button class="thumb-btn" data-title="Línea de tiempo de recorrido">
-          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
-            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
-            <line x1="30" y1="110" x2="270" y2="110" stroke="var(--line)"/>
-            <circle cx="60" cy="110" r="4" fill="var(--accent)"/><circle cx="120" cy="110" r="4" fill="var(--accent)"/>
-            <circle cx="180" cy="110" r="4" fill="var(--accent)"/><circle cx="240" cy="110" r="4" fill="var(--accent)"/>
-            <line x1="50" y1="140" x2="70" y2="140" stroke="var(--line)"/><line x1="110" y1="140" x2="130" y2="140" stroke="var(--line)"/>
-            <line x1="170" y1="140" x2="190" y2="140" stroke="var(--line)"/><line x1="230" y1="140" x2="250" y2="140" stroke="var(--line)"/>
-            <line x1="45" y1="85" x2="75" y2="85" stroke="var(--ink-soft)"/><line x1="105" y1="85" x2="135" y2="85" stroke="var(--ink-soft)"/>
-            <line x1="165" y1="85" x2="195" y2="85" stroke="var(--ink-soft)"/><line x1="225" y1="85" x2="255" y2="85" stroke="var(--ink-soft)"/>
-          </svg></span>
-          <span class="thumb-cap">Línea de tiempo de recorrido</span>
-        </button>
-        <button class="thumb-btn" data-title="Registro de movimientos">
-          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
-            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
-            <line x1="20" y1="40" x2="280" y2="40" stroke="var(--ink-soft)" stroke-width="1.5"/>
-            <line x1="20" y1="75" x2="280" y2="75" stroke="var(--line)"/><line x1="20" y1="105" x2="280" y2="105" stroke="var(--line)"/>
-            <line x1="20" y1="135" x2="280" y2="135" stroke="var(--line)"/><line x1="20" y1="165" x2="280" y2="165" stroke="var(--line)"/>
-            <circle cx="30" cy="60" r="2.5" fill="var(--accent)"/><circle cx="30" cy="90" r="2.5" fill="var(--accent)"/>
-            <circle cx="30" cy="120" r="2.5" fill="var(--accent)"/><circle cx="30" cy="150" r="2.5" fill="var(--accent)"/>
-          </svg></span>
-          <span class="thumb-cap">Registro de movimientos</span>
-        </button>
+      <p class="kicker reveal r1">Área de Violencia · Ref.: Abog. Natalia Spedaletti</p>
+      <h2 class="reveal r1 h2-full">Hitos y hallazgos en el Área de Violencia</h2>
+      <div class="vio-wrap">
+        <div class="vio-cards">
+          <article class="fam-card reveal r2">
+            <div class="fam-top"><span class="fam-office">OVD · Informes de riesgo</span><span class="fam-tag">Hito</span></div>
+            <p class="fam-text">En el marco del fortalecimiento de los informes de riesgo elaborados por los equipos interdisciplinarios de la OVD, se invitó a Tony Buttler a un trabajo conjunto orientado a fortalecer los abordajes profesionales y favorecer una mayor consistencia y solidez técnica en su elaboración.</p>
+          </article>
+          <article class="fam-card reveal r3">
+            <div class="fam-top"><span class="fam-office">SAE OVD</span><span class="fam-tag">Hito</span></div>
+            <p class="fam-text">Implementado el 1 de septiembre. Una vez consolidadas las cargas y estable el sistema, se extiende al resto de las dependencias.</p>
+            <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Capacitar e implementar el nuevo aplicativo en las demás dependencias.</p></div>
+          </article>
+          <article class="fam-card reveal r4">
+            <div class="fam-top"><span class="fam-office">OVD · Turnos y atención</span><span class="fam-tag">Solicitud</span></div>
+            <p class="fam-text">Se solicitó la readecuación del régimen de turnos, horarios y modalidad de atención de la OVD: <mark class="fam-hl">se propone una OVD provincial</mark> para unificar procesos y respuestas.</p>
+          </article>
+        </div>
+        <div class="vio-chart reveal r4">
+          <p class="vc-title">Distribución horaria de legajos</p>
+          <p class="vc-sub">Muestra del sistema OVD Nación · 1 de mayo al 1 de agosto de 2026 · nivel provincial · 16 legajos</p>
+          <svg viewBox="0 0 520 270" role="img" aria-label="Distribución horaria de legajos: 13 entre 08:40 y 18:23, 2 entre 21:02 y 21:21, 1 a las 22:16, 0 entre 23:00 y 07:00"><line class="vc-grid" x1="44" x2="500" y1="230.0" y2="230.0"/><text class="vc-axis" x="36" y="234.0" text-anchor="end">0</text><line class="vc-grid" x1="44" x2="500" y1="201.4" y2="201.4"/><text class="vc-axis" x="36" y="205.4" text-anchor="end">2</text><line class="vc-grid" x1="44" x2="500" y1="172.9" y2="172.9"/><text class="vc-axis" x="36" y="176.9" text-anchor="end">4</text><line class="vc-grid" x1="44" x2="500" y1="144.3" y2="144.3"/><text class="vc-axis" x="36" y="148.3" text-anchor="end">6</text><line class="vc-grid" x1="44" x2="500" y1="115.7" y2="115.7"/><text class="vc-axis" x="36" y="119.7" text-anchor="end">8</text><line class="vc-grid" x1="44" x2="500" y1="87.1" y2="87.1"/><text class="vc-axis" x="36" y="91.1" text-anchor="end">10</text><line class="vc-grid" x1="44" x2="500" y1="58.6" y2="58.6"/><text class="vc-axis" x="36" y="62.6" text-anchor="end">12</text><line class="vc-grid" x1="44" x2="500" y1="30.0" y2="30.0"/><text class="vc-axis" x="36" y="34.0" text-anchor="end">14</text><rect class="vc-bar b0" x="66.0" y="44.3" width="70" height="185.7" rx="3"><title>08:40 – 18:23 hs.: 13 legajos</title></rect><text class="vc-val" x="101.0" y="37.3" text-anchor="middle">13</text><text class="vc-cat" x="101.0" y="252" text-anchor="middle">08:40 – 18:23 hs.</text><rect class="vc-bar b1" x="180.0" y="201.4" width="70" height="28.6" rx="3"><title>21:02 – 21:21 hs.: 2 legajos</title></rect><text class="vc-val" x="215.0" y="194.4" text-anchor="middle">2</text><text class="vc-cat" x="215.0" y="252" text-anchor="middle">21:02 – 21:21 hs.</text><rect class="vc-bar b2" x="294.0" y="215.7" width="70" height="14.3" rx="3"><title>22:16 hs.: 1 legajos</title></rect><text class="vc-val" x="329.0" y="208.7" text-anchor="middle">1</text><text class="vc-cat" x="329.0" y="252" text-anchor="middle">22:16 hs.</text><text class="vc-val" x="443.0" y="222.0" text-anchor="middle">0</text><text class="vc-cat" x="443.0" y="252" text-anchor="middle">23:00 – 07:00 hs.</text><g class="vc-zero"><rect x="392.0" y="38" width="102.0" height="192" rx="3"/><text x="443.0" y="58" text-anchor="middle">Sin legajos</text></g><line x1="44" x2="500" y1="230" y2="230" stroke="var(--ink-soft)" stroke-width="1"/><text class="vc-axis" x="14" y="130" text-anchor="middle" transform="rotate(-90 14 130)">Legajos</text></svg>
+          <p class="vc-note" style="font-size: 20px;">Entre las <b>23:00 y las 07:00 hs.</b> no se confeccionó ningún legajo en toda la provincia.</p>
+          <div class="vc-actions"><button class="aa-detail" id="evOpen">Ver evidencia empírica</button></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 05 — PORTADA -->
-  <section class="scene s1" data-index="4">
+  <!-- 05 — ÁREA MULTIFUERO: HITOS -->
+  <section class="scene" data-index="4">
+    <p class="scene-num">05</p>
     <div class="scene-inner">
-      <p class="kicker reveal r1">Dirección · Estructura organizacional</p>
-      <h1 class="s1-title reveal r2">Conocer y gestionar<br>la estructura de<br>oficinas de la Dirección.</h1>
-      <p class="lead reveal r3">Una representación dinámica y trazable de las áreas, oficinas, referentes y personas que la integran.</p>
+      <p class="kicker reveal r1">Área Multifuero · Ref.: Dra. María José Gandur</p>
+      <h2 class="reveal r1 h2-full">Hitos en el Área Multifuero</h2>
+      <div class="mf-wrap">
+        <div class="mf-cards">
+          <article class="fam-card reveal r2">
+            <div class="fam-top"><span class="fam-office">Pool Provincial de Psiquiatras</span><span class="fam-tag">Hito</span></div>
+            <p class="fam-text">Se constituyó el Pool Provincial de Psiquiatras: un equipo único que responde a los requerimientos de todos los Centros Judiciales de la provincia.</p>
+          </article>
+          <article class="fam-card reveal r3">
+            <div class="fam-top"><span class="fam-office">Capital · Traslado de profesionales</span><span class="fam-tag">Hito</span></div>
+            <p class="fam-text">Se trasladaron <b>5 psiquiatras</b> al área para cubrir requerimientos a nivel provincial según la demanda de oficiamiento.</p>
+            <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Demanda cubierta</b>Juicios de capacidad, internaciones y pericias complejas.</p></div>
+          </article>
+        </div>
+        <div class="mf-diagram reveal r4">
+          <p class="vc-title">Cómo se organiza el pool</p>
+          <p class="vc-sub">De profesionales dispersos por Centro Judicial a un equipo provincial que se asigna según la demanda.</p>
+          <svg viewBox="0 0 560 300" role="img" aria-label="5 psiquiatras de Capital se integran al Pool Provincial de Psiquiatras, que responde a juicios de capacidad, internaciones y pericias complejas"><text class="md-cap" x="27" y="18">Capital · 5 trasladados</text><text class="md-cap" x="240" y="18">Área Multifuero</text><text class="md-cap" x="425" y="18">Demanda provincial</text><path class="md-line" d="M130 48 C 190 48, 190 150, 240 150"/><path class="md-line" d="M130 94 C 190 94, 190 150, 240 150"/><path class="md-line" d="M130 140 C 190 140, 190 150, 240 150"/><path class="md-line" d="M130 186 C 190 186, 190 150, 240 150"/><path class="md-line" d="M130 232 C 190 232, 190 150, 240 150"/><path class="md-line out" d="M370 150 C 400 150, 400 80, 425 80"/><path class="md-line out" d="M370 150 C 400 150, 400 150, 425 150"/><path class="md-line out" d="M370 150 C 400 150, 400 220, 425 220"/><g transform="translate(40 40)"><g class="md-doc d1"><circle cx="0" cy="0" r="7" fill="var(--ink)"/><path d="M-13 22c0-8 6-13 13-13s13 5 13 13" fill="var(--ink)"/><text class="md-lbl" x="24" y="14">Psiquiatra 1</text></g></g><g transform="translate(40 86)"><g class="md-doc d2"><circle cx="0" cy="0" r="7" fill="var(--ink)"/><path d="M-13 22c0-8 6-13 13-13s13 5 13 13" fill="var(--ink)"/><text class="md-lbl" x="24" y="14">Psiquiatra 2</text></g></g><g transform="translate(40 132)"><g class="md-doc d3"><circle cx="0" cy="0" r="7" fill="var(--ink)"/><path d="M-13 22c0-8 6-13 13-13s13 5 13 13" fill="var(--ink)"/><text class="md-lbl" x="24" y="14">Psiquiatra 3</text></g></g><g transform="translate(40 178)"><g class="md-doc d4"><circle cx="0" cy="0" r="7" fill="var(--ink)"/><path d="M-13 22c0-8 6-13 13-13s13 5 13 13" fill="var(--ink)"/><text class="md-lbl" x="24" y="14">Psiquiatra 4</text></g></g><g transform="translate(40 224)"><g class="md-doc d5"><circle cx="0" cy="0" r="7" fill="var(--ink)"/><path d="M-13 22c0-8 6-13 13-13s13 5 13 13" fill="var(--ink)"/><text class="md-lbl" x="24" y="14">Psiquiatra 5</text></g></g><g class="md-box pool"><rect x="240" y="112" width="130" height="76" rx="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><text class="md-pool" x="305" y="145" text-anchor="middle">Pool Provincial</text><text class="md-pool" x="305" y="165" text-anchor="middle">de Psiquiatras</text></g><g class="md-box dem"><rect x="420" y="62" width="140" height="36" rx="3" fill="var(--paper)" stroke="var(--accent)"/><text class="md-lbl strong" x="490" y="84" text-anchor="middle">Juicios de capacidad</text></g><g class="md-box dem"><rect x="425" y="132" width="130" height="36" rx="3" fill="var(--paper)" stroke="var(--accent)"/><text class="md-lbl strong" x="490" y="154" text-anchor="middle">Internaciones</text></g><g class="md-box dem"><rect x="425" y="202" width="130" height="36" rx="3" fill="var(--paper)" stroke="var(--accent)"/><text class="md-lbl strong" x="490" y="224" text-anchor="middle">Pericias complejas</text></g></svg>
+        </div>
+      </div>
     </div>
-    <svg class="s1-diagram reveal r4" viewBox="0 0 400 420" fill="none">
-      <circle cx="200" cy="50" r="5" fill="var(--ink)"/>
-      <line x1="200" y1="55" x2="120" y2="140" stroke="var(--line)" stroke-width="1"/>
-      <line x1="200" y1="55" x2="200" y2="140" stroke="var(--line)" stroke-width="1"/>
-      <line x1="200" y1="55" x2="280" y2="140" stroke="var(--line)" stroke-width="1"/>
-      <circle cx="120" cy="140" r="4" fill="var(--accent)"/>
-      <circle cx="200" cy="140" r="4" fill="var(--accent)"/>
-      <circle cx="280" cy="140" r="4" fill="var(--accent)"/>
-      <line x1="120" y1="144" x2="80" y2="230" stroke="var(--line)" stroke-width="1"/>
-      <line x1="120" y1="144" x2="150" y2="230" stroke="var(--line)" stroke-width="1"/>
-      <line x1="200" y1="144" x2="190" y2="230" stroke="var(--line)" stroke-width="1"/>
-      <line x1="200" y1="144" x2="230" y2="230" stroke="var(--line)" stroke-width="1"/>
-      <line x1="280" y1="144" x2="270" y2="230" stroke="var(--line)" stroke-width="1"/>
-      <line x1="280" y1="144" x2="320" y2="230" stroke="var(--line)" stroke-width="1"/>
-      <g fill="var(--ink-soft)">
-        <circle cx="80" cy="230" r="3"/><circle cx="150" cy="230" r="3"/>
-        <circle cx="190" cy="230" r="3"/><circle cx="230" cy="230" r="3"/>
-        <circle cx="270" cy="230" r="3"/><circle cx="320" cy="230" r="3"/>
-      </g>
-    </svg>
-    <div class="scroll-cue"><span>Desplazate para continuar</span><span class="line"></span></div>
   </section>
 
-  <!-- 2 — LA ESTRUCTURA QUE REPRESENTA -->
+  <!-- 06 — REGULARIZACIÓN ADMINISTRATIVA -->
   <section class="scene" data-index="5">
     <p class="scene-num">06</p>
-    <div class="scene-inner universe">
-      <div>
-        <h2 class="reveal r1">La estructura que representa</h2>
-        <p class="lead reveal r2">El sistema está pensado para el universo de oficinas bajo la órbita de una Dirección, organizadas por áreas y referentes.</p>
-        <div class="stat-row reveal r3">
-          <div class="stat"><div class="num">4</div><div class="cap">Centros Judiciales</div></div>
-          <div class="stat"><div class="num">23</div><div class="cap">Oficinas dependientes</div></div>
-        </div>
-        <p class="scope-note reveal r4">Este es el nivel de oficina para el que fue concebido el sistema. Capital cuenta con desarrollo avanzado; en el Centro Judicial Sur las áreas se encuentran en definición.</p>
-      </div>
-      <svg class="reveal r4" viewBox="0 0 420 380" fill="none">
-        <circle cx="60" cy="40" r="6" fill="var(--ink)"/>
-        <text x="76" y="45" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Dirección</text>
-        <line x1="60" y1="46" x2="60" y2="120" stroke="var(--line)"/>
-        <line x1="60" y1="120" x2="30" y2="120" stroke="var(--line)"/>
-        <line x1="60" y1="120" x2="150" y2="120" stroke="var(--line)"/>
-        <line x1="60" y1="120" x2="270" y2="120" stroke="var(--line)"/>
-        <line x1="60" y1="120" x2="380" y2="120" stroke="var(--line)"/>
-        <g fill="var(--accent)">
-          <circle cx="30" cy="120" r="4"/><circle cx="150" cy="120" r="4"/>
-          <circle cx="270" cy="120" r="4"/><circle cx="380" cy="120" r="4"/>
-        </g>
-        <g font-family="Public Sans" font-size="11" fill="var(--muted)">
-          <text x="8" y="140">Centro</text><text x="128" y="140">Centro</text>
-          <text x="248" y="140">Centro</text><text x="358" y="140">Centro</text>
-        </g>
-        <g stroke="var(--line)">
-          <line x1="30" y1="124" x2="16" y2="180"/><line x1="30" y1="124" x2="44" y2="180"/>
-          <line x1="150" y1="124" x2="136" y2="180"/><line x1="150" y1="124" x2="164" y2="180"/>
-          <line x1="270" y1="124" x2="256" y2="180"/><line x1="270" y1="124" x2="284" y2="180"/>
-          <line x1="380" y1="124" x2="366" y2="180"/><line x1="380" y1="124" x2="394" y2="180"/>
-        </g>
-        <g fill="var(--ink-soft)" opacity=".55">
-          <circle cx="16" cy="180" r="2.5"/><circle cx="44" cy="180" r="2.5"/>
-          <circle cx="136" cy="180" r="2.5"/><circle cx="164" cy="180" r="2.5"/>
-          <circle cx="256" cy="180" r="2.5"/><circle cx="284" cy="180" r="2.5"/>
-          <circle cx="366" cy="180" r="2.5"/><circle cx="394" cy="180" r="2.5"/>
-        </g>
-        <text x="210" y="230" text-anchor="middle" font-family="Fraunces" font-size="15" fill="var(--ink)">23 oficinas, organizadas por áreas</text>
-      </svg>
-    </div>
-  </section>
-
-  <!-- 3 — LA CADENA ORGANIZACIONAL -->
-  <section class="scene" data-index="6">
-    <p class="scene-num">07</p>
     <div class="scene-inner">
-      <h2 class="reveal r1">El eje del sistema</h2>
-      <p class="lead reveal r2">Cada persona adquiere sentido dentro de una cadena de relaciones: dónde está, de qué área depende y quién la referencia.</p>
-      <svg class="chain-svg reveal r3" viewBox="0 0 1000 160" fill="none">
-        <g font-family="Fraunces" font-size="16" fill="var(--ink)">
-          <text x="20" y="70">Dirección</text>
-          <text x="200" y="70">Áreas</text>
-          <text x="360" y="70">Oficinas</text>
-          <text x="560" y="70">Referentes</text>
-          <text x="780" y="70">Personas</text>
-        </g>
-        <g stroke="var(--line)">
-          <line x1="115" y1="65" x2="185" y2="65"/>
-          <line x1="255" y1="65" x2="345" y2="65"/>
-          <line x1="450" y1="65" x2="545" y2="65"/>
-          <line x1="685" y1="65" x2="765" y2="65"/>
-        </g>
-        <g fill="var(--accent)">
-          <circle cx="150" cy="65" r="3"/><circle cx="300" cy="65" r="3"/>
-          <circle cx="497" cy="65" r="3"/><circle cx="725" cy="65" r="3"/>
-        </g>
-      </svg>
-      <p class="formula reveal r4">Personas + oficinas + áreas + referentes + funciones + movimientos + historial + documentación = una representación dinámica de la organización.</p>
-    </div>
-  </section>
-
-  <!-- 4 — ÁREAS Y REFERENTES -->
-  <section class="scene" data-index="7">
-    <p class="scene-num">08</p>
-    <div class="scene-inner">
-      <h2 class="reveal r1">Áreas y referentes</h2>
-      <p class="lead reveal r2">Las áreas agrupan las oficinas dependientes de la Dirección. Cada área tiene un referente, que permite comprender su relación con las oficinas y las personas que las integran.</p>
-      <div class="areas-grid reveal r3">
-        <div class="area-col">
-          <div class="a-name">Área</div>
-          <div class="a-meta">Oficinas agrupadas<br>Referente asignado<br>Personas que la integran</div>
+      <p class="kicker reveal r1">Dirección · Nómina</p>
+      <h2 class="reveal r1 h2-full">Regularización administrativa e impacto en la interoperabilidad</h2>
+      <div class="reg-wrap">
+        <div class="reg-panel reveal r2">
+          <p class="vc-title">Hallazgo en la migración de la nómina</p>
+          <p class="vc-sub">Cada punto es un agente · población aproximada: 300</p>
+          <div class="reg-waffle" role="img" aria-label="De aproximadamente 300 agentes, más de 46 no estaban registrados bajo la dependencia de la Dirección"><i style="transition-delay:150ms"></i><i style="transition-delay:154ms"></i><i style="transition-delay:158ms"></i><i style="transition-delay:162ms"></i><i style="transition-delay:166ms"></i><i style="transition-delay:170ms"></i><i style="transition-delay:174ms"></i><i style="transition-delay:178ms"></i><i style="transition-delay:182ms"></i><i style="transition-delay:186ms"></i><i style="transition-delay:190ms"></i><i style="transition-delay:194ms"></i><i style="transition-delay:198ms"></i><i style="transition-delay:202ms"></i><i style="transition-delay:206ms"></i><i style="transition-delay:210ms"></i><i style="transition-delay:214ms"></i><i style="transition-delay:218ms"></i><i style="transition-delay:222ms"></i><i class="x" style="transition-delay:226ms"></i><i style="transition-delay:230ms"></i><i style="transition-delay:234ms"></i><i style="transition-delay:238ms"></i><i class="x" style="transition-delay:242ms"></i><i class="x" style="transition-delay:246ms"></i><i class="x" style="transition-delay:250ms"></i><i style="transition-delay:254ms"></i><i style="transition-delay:258ms"></i><i style="transition-delay:262ms"></i><i class="x" style="transition-delay:266ms"></i><i class="x" style="transition-delay:270ms"></i><i class="x" style="transition-delay:274ms"></i><i style="transition-delay:278ms"></i><i style="transition-delay:282ms"></i><i style="transition-delay:286ms"></i><i class="x" style="transition-delay:290ms"></i><i style="transition-delay:294ms"></i><i class="x" style="transition-delay:298ms"></i><i style="transition-delay:302ms"></i><i style="transition-delay:306ms"></i><i style="transition-delay:310ms"></i><i style="transition-delay:314ms"></i><i style="transition-delay:318ms"></i><i style="transition-delay:322ms"></i><i class="x" style="transition-delay:326ms"></i><i style="transition-delay:330ms"></i><i class="x" style="transition-delay:334ms"></i><i style="transition-delay:338ms"></i><i class="x" style="transition-delay:342ms"></i><i style="transition-delay:346ms"></i><i style="transition-delay:350ms"></i><i style="transition-delay:354ms"></i><i class="x" style="transition-delay:358ms"></i><i style="transition-delay:362ms"></i><i style="transition-delay:366ms"></i><i style="transition-delay:370ms"></i><i style="transition-delay:374ms"></i><i style="transition-delay:378ms"></i><i style="transition-delay:382ms"></i><i style="transition-delay:386ms"></i><i class="x" style="transition-delay:390ms"></i><i style="transition-delay:394ms"></i><i style="transition-delay:398ms"></i><i class="x" style="transition-delay:402ms"></i><i style="transition-delay:406ms"></i><i style="transition-delay:410ms"></i><i style="transition-delay:414ms"></i><i style="transition-delay:418ms"></i><i class="x" style="transition-delay:422ms"></i><i style="transition-delay:426ms"></i><i style="transition-delay:430ms"></i><i style="transition-delay:434ms"></i><i style="transition-delay:438ms"></i><i class="x" style="transition-delay:442ms"></i><i style="transition-delay:446ms"></i><i style="transition-delay:450ms"></i><i style="transition-delay:454ms"></i><i class="x" style="transition-delay:458ms"></i><i style="transition-delay:462ms"></i><i style="transition-delay:466ms"></i><i style="transition-delay:470ms"></i><i style="transition-delay:474ms"></i><i style="transition-delay:478ms"></i><i style="transition-delay:482ms"></i><i style="transition-delay:486ms"></i><i style="transition-delay:490ms"></i><i style="transition-delay:494ms"></i><i style="transition-delay:498ms"></i><i style="transition-delay:502ms"></i><i style="transition-delay:506ms"></i><i style="transition-delay:510ms"></i><i style="transition-delay:514ms"></i><i class="x" style="transition-delay:518ms"></i><i style="transition-delay:522ms"></i><i style="transition-delay:526ms"></i><i style="transition-delay:530ms"></i><i class="x" style="transition-delay:534ms"></i><i style="transition-delay:538ms"></i><i style="transition-delay:542ms"></i><i style="transition-delay:546ms"></i><i style="transition-delay:550ms"></i><i style="transition-delay:554ms"></i><i style="transition-delay:558ms"></i><i style="transition-delay:562ms"></i><i style="transition-delay:566ms"></i><i style="transition-delay:570ms"></i><i style="transition-delay:574ms"></i><i style="transition-delay:578ms"></i><i style="transition-delay:582ms"></i><i class="x" style="transition-delay:586ms"></i><i style="transition-delay:590ms"></i><i style="transition-delay:594ms"></i><i style="transition-delay:598ms"></i><i class="x" style="transition-delay:602ms"></i><i class="x" style="transition-delay:606ms"></i><i style="transition-delay:610ms"></i><i style="transition-delay:614ms"></i><i style="transition-delay:618ms"></i><i style="transition-delay:622ms"></i><i style="transition-delay:626ms"></i><i style="transition-delay:630ms"></i><i style="transition-delay:634ms"></i><i style="transition-delay:638ms"></i><i class="x" style="transition-delay:642ms"></i><i style="transition-delay:646ms"></i><i style="transition-delay:650ms"></i><i style="transition-delay:654ms"></i><i style="transition-delay:658ms"></i><i style="transition-delay:662ms"></i><i style="transition-delay:666ms"></i><i style="transition-delay:670ms"></i><i style="transition-delay:674ms"></i><i style="transition-delay:678ms"></i><i style="transition-delay:682ms"></i><i style="transition-delay:686ms"></i><i style="transition-delay:690ms"></i><i style="transition-delay:694ms"></i><i style="transition-delay:698ms"></i><i style="transition-delay:702ms"></i><i style="transition-delay:706ms"></i><i style="transition-delay:710ms"></i><i style="transition-delay:714ms"></i><i style="transition-delay:718ms"></i><i style="transition-delay:722ms"></i><i style="transition-delay:726ms"></i><i style="transition-delay:730ms"></i><i style="transition-delay:734ms"></i><i style="transition-delay:738ms"></i><i class="x" style="transition-delay:742ms"></i><i style="transition-delay:746ms"></i><i style="transition-delay:750ms"></i><i style="transition-delay:754ms"></i><i style="transition-delay:758ms"></i><i style="transition-delay:762ms"></i><i style="transition-delay:766ms"></i><i style="transition-delay:770ms"></i><i style="transition-delay:774ms"></i><i class="x" style="transition-delay:778ms"></i><i style="transition-delay:782ms"></i><i style="transition-delay:786ms"></i><i style="transition-delay:790ms"></i><i style="transition-delay:794ms"></i><i style="transition-delay:798ms"></i><i style="transition-delay:802ms"></i><i style="transition-delay:806ms"></i><i class="x" style="transition-delay:810ms"></i><i style="transition-delay:814ms"></i><i style="transition-delay:818ms"></i><i style="transition-delay:822ms"></i><i style="transition-delay:826ms"></i><i style="transition-delay:830ms"></i><i style="transition-delay:834ms"></i><i style="transition-delay:838ms"></i><i style="transition-delay:842ms"></i><i style="transition-delay:846ms"></i><i style="transition-delay:850ms"></i><i style="transition-delay:854ms"></i><i style="transition-delay:858ms"></i><i style="transition-delay:862ms"></i><i style="transition-delay:866ms"></i><i style="transition-delay:870ms"></i><i style="transition-delay:874ms"></i><i style="transition-delay:878ms"></i><i style="transition-delay:882ms"></i><i style="transition-delay:886ms"></i><i style="transition-delay:890ms"></i><i style="transition-delay:894ms"></i><i class="x" style="transition-delay:898ms"></i><i style="transition-delay:902ms"></i><i style="transition-delay:906ms"></i><i class="x" style="transition-delay:910ms"></i><i style="transition-delay:914ms"></i><i style="transition-delay:918ms"></i><i style="transition-delay:922ms"></i><i style="transition-delay:926ms"></i><i style="transition-delay:930ms"></i><i style="transition-delay:934ms"></i><i style="transition-delay:938ms"></i><i style="transition-delay:942ms"></i><i style="transition-delay:946ms"></i><i style="transition-delay:950ms"></i><i style="transition-delay:954ms"></i><i class="x" style="transition-delay:958ms"></i><i class="x" style="transition-delay:962ms"></i><i style="transition-delay:966ms"></i><i style="transition-delay:970ms"></i><i style="transition-delay:974ms"></i><i style="transition-delay:978ms"></i><i style="transition-delay:982ms"></i><i style="transition-delay:986ms"></i><i style="transition-delay:990ms"></i><i style="transition-delay:994ms"></i><i style="transition-delay:998ms"></i><i style="transition-delay:1002ms"></i><i class="x" style="transition-delay:1006ms"></i><i style="transition-delay:1010ms"></i><i style="transition-delay:1014ms"></i><i class="x" style="transition-delay:1018ms"></i><i style="transition-delay:1022ms"></i><i style="transition-delay:1026ms"></i><i style="transition-delay:1030ms"></i><i style="transition-delay:1034ms"></i><i class="x" style="transition-delay:1038ms"></i><i style="transition-delay:1042ms"></i><i style="transition-delay:1046ms"></i><i style="transition-delay:1050ms"></i><i style="transition-delay:1054ms"></i><i style="transition-delay:1058ms"></i><i style="transition-delay:1062ms"></i><i style="transition-delay:1066ms"></i><i style="transition-delay:1070ms"></i><i style="transition-delay:1074ms"></i><i style="transition-delay:1078ms"></i><i style="transition-delay:1082ms"></i><i style="transition-delay:1086ms"></i><i style="transition-delay:1090ms"></i><i style="transition-delay:1094ms"></i><i style="transition-delay:1098ms"></i><i style="transition-delay:1102ms"></i><i style="transition-delay:1106ms"></i><i style="transition-delay:1110ms"></i><i style="transition-delay:1114ms"></i><i style="transition-delay:1118ms"></i><i style="transition-delay:1122ms"></i><i style="transition-delay:1126ms"></i><i style="transition-delay:1130ms"></i><i style="transition-delay:1134ms"></i><i style="transition-delay:1138ms"></i><i style="transition-delay:1142ms"></i><i style="transition-delay:1146ms"></i><i style="transition-delay:1150ms"></i><i style="transition-delay:1154ms"></i><i style="transition-delay:1158ms"></i><i style="transition-delay:1162ms"></i><i style="transition-delay:1166ms"></i><i style="transition-delay:1170ms"></i><i style="transition-delay:1174ms"></i><i style="transition-delay:1178ms"></i><i style="transition-delay:1182ms"></i><i class="x" style="transition-delay:1186ms"></i><i style="transition-delay:1190ms"></i><i style="transition-delay:1194ms"></i><i style="transition-delay:1198ms"></i><i style="transition-delay:1202ms"></i><i style="transition-delay:1206ms"></i><i style="transition-delay:1210ms"></i><i style="transition-delay:1214ms"></i><i style="transition-delay:1218ms"></i><i style="transition-delay:1222ms"></i><i style="transition-delay:1226ms"></i><i style="transition-delay:1230ms"></i><i style="transition-delay:1234ms"></i><i style="transition-delay:1238ms"></i><i style="transition-delay:1242ms"></i><i class="x" style="transition-delay:1246ms"></i><i style="transition-delay:1250ms"></i><i class="x" style="transition-delay:1254ms"></i><i style="transition-delay:1258ms"></i><i style="transition-delay:1262ms"></i><i style="transition-delay:1266ms"></i><i style="transition-delay:1270ms"></i><i style="transition-delay:1274ms"></i><i class="x" style="transition-delay:1278ms"></i><i style="transition-delay:1282ms"></i><i style="transition-delay:1286ms"></i><i class="x" style="transition-delay:1290ms"></i><i class="x" style="transition-delay:1294ms"></i><i style="transition-delay:1298ms"></i><i style="transition-delay:1302ms"></i><i class="x" style="transition-delay:1306ms"></i><i style="transition-delay:1310ms"></i><i style="transition-delay:1314ms"></i><i class="x" style="transition-delay:1318ms"></i><i style="transition-delay:1322ms"></i><i style="transition-delay:1326ms"></i><i class="x" style="transition-delay:1330ms"></i><i style="transition-delay:1334ms"></i><i class="x" style="transition-delay:1338ms"></i><i class="x" style="transition-delay:1342ms"></i><i class="x" style="transition-delay:1346ms"></i></div>
+          <div class="reg-stats">
+            <div class="hl"><span class="num">+46</span><span class="cap">agentes <b>no registrados</b> bajo la dependencia de la Dirección</span></div>
+            <div><span class="num">~15 %</span><span class="cap">de la nómina · <b>obstaculiza</b> las gestiones administrativas</span></div>
+          </div>
         </div>
-        <div class="area-col">
-          <div class="a-name">Área</div>
-          <div class="a-meta">Oficinas agrupadas<br>Referente asignado<br>Personas que la integran</div>
-        </div>
-        <div class="area-col">
-          <div class="a-name">Área</div>
-          <div class="a-meta">Oficinas agrupadas<br>Referente asignado<br>Personas que la integran</div>
-        </div>
-      </div>
-      <p class="area-note reveal r4">Estructura conceptual del sistema — el contenido real varía por Centro Judicial.</p>
-    </div>
-  </section>
-
-  <!-- 5 — CONOCER AL PERSONAL -->
-  <section class="scene" data-index="8">
-    <p class="scene-num">09</p>
-    <div class="scene-inner">
-      <h2 class="reveal r1">Conocer al personal</h2>
-      <p class="lead reveal r2">Cada persona es parte de esta estructura: qué cargo ocupa, qué función cumple y en qué oficina y área se encuentra.</p>
-      <div class="ficha-wrap reveal r3">
-        <div class="avatar">A·B</div>
-        <div class="ficha-fields">
-          <div><div class="f-label">Cargo</div><div class="f-val">Perfil técnico</div></div>
-          <div><div class="f-label">Función</div><div class="f-val">Función asignada</div></div>
-          <div><div class="f-label">Oficina</div><div class="f-val">Oficina dependiente</div></div>
-          <div><div class="f-label">Área</div><div class="f-val">Área correspondiente</div></div>
+        <div class="reg-panel reveal r3">
+          <p class="vc-title">De la sistematización a la decisión</p>
+          <p class="vc-sub">Gestionar la operatividad y el capital humano de las 23 oficinas</p>
+          <ol class="reg-steps">
+            <li class="reg-step">
+              <span class="rs-n">1</span>
+              <div><b>Sistematización interna</b><span>Migración y consolidación de la nómina</span></div>
+            </li>
+            <li class="reg-step">
+              <span class="rs-n">2</span>
+              <div><b>Hallazgos</b><span>+46 agentes fuera de la dependencia · y otros</span></div>
+            </li>
+            <li class="reg-step is-core">
+              <span class="rs-n">3</span>
+              <div>
+                <b>Base sólida y sistematizada <em class="rs-pill">En desarrollo</em></b>
+                <div class="reg-caps">
+                  <div class="reg-cap"><svg viewBox="0 0 24 24"><path d="M4 18h4l3-9 3 6 2-3h4"/></svg><b>Trazabilidad</b></div>
+                  <div class="reg-cap"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><b>Situación actual</b></div>
+                  <div class="reg-cap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Historicidad</b></div>
+                  <div class="reg-cap"><svg viewBox="0 0 24 24"><path d="M4 8h13m0 0-3-3m3 3-3 3M20 16H7m0 0 3-3m-3 3 3 3"/></svg><b>Movimientos</b></div>
+                </div>
+                <div class="reg-gal-btn"><button class="aa-detail" id="galOpen">Ver capturas del sistema</button><button class="aa-detail" id="indOpen">Qué indicadores calcula</button></div>
+              </div>
+            </li>
+            <li class="reg-step is-end">
+              <span class="rs-n">4</span>
+              <div><b>Toma de decisiones</b><span>Herramienta de planificación interna</span></div>
+            </li>
+          </ol>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6 — EL RECORRIDO DEL PROFESIONAL -->
-  <section class="scene" data-index="9">
+  <!-- <section class="scene" data-index="9">
     <p class="scene-num">10</p>
     <div class="scene-inner">
       <h2 class="reveal r1">El recorrido del profesional</h2>
@@ -749,54 +862,10 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
-  <!-- 7 — DOCUMENTACIÓN ASOCIADA -->
-  <section class="scene" data-index="10">
-    <p class="scene-num">11</p>
-    <div class="scene-inner">
-      <h2 class="reveal r1">Documentación asociada</h2>
-      <p class="lead reveal r2">Acordadas, actuaciones y otros documentos relevantes, asociados directamente a la persona, en el mismo lugar donde se consulta su información.</p>
-      <div class="doc-diagram reveal r3">
-        <svg class="doc-svg" viewBox="0 0 780 220" fill="none">
-          <circle cx="120" cy="110" r="6" fill="var(--ink)"/>
-          <text x="70" y="150" font-family="Fraunces" font-size="15" fill="var(--ink)">Persona</text>
-          <line x1="126" y1="105" x2="330" y2="40" stroke="var(--line)"/>
-          <line x1="126" y1="110" x2="330" y2="110" stroke="var(--line)"/>
-          <line x1="126" y1="115" x2="330" y2="180" stroke="var(--line)"/>
-          <circle cx="336" cy="40" r="4" fill="var(--accent)"/>
-          <circle cx="336" cy="110" r="4" fill="var(--accent)"/>
-          <circle cx="336" cy="180" r="4" fill="var(--accent)"/>
-          <text x="352" y="45" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Acordadas</text>
-          <text x="352" y="115" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Actuaciones</text>
-          <text x="352" y="185" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Otros documentos</text>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- 8 — MOVIMIENTOS Y TRAZABILIDAD -->
-  <section class="scene" data-index="11">
+  <!-- <section class="scene" data-index="10">
     <p class="scene-num">12</p>
-    <div class="scene-inner">
-      <h2 class="reveal r1">Movimientos y trazabilidad</h2>
-      <div class="mov-wrap reveal r2">
-        <div class="mov-questions">
-          <p>¿Qué movimientos<br>se hicieron?<br>¿Cuándo?<br>¿Desde dónde?</p>
-        </div>
-        <div class="mov-log">
-          <div class="mov-row"><span class="m-period">Mar 25</span><span class="m-office">Oficina B</span><span class="m-from">antes: Oficina A</span></div>
-          <div class="mov-row"><span class="m-period">Jul 25</span><span class="m-office">Oficina D</span><span class="m-from">antes: Oficina C</span></div>
-          <div class="mov-row"><span class="m-period">Ago 25</span><span class="m-office">Oficina B</span><span class="m-from">antes: Oficina E</span></div>
-          <div class="mov-row"><span class="m-period">Dic 25</span><span class="m-office">Oficina F</span><span class="m-from">antes: Oficina B</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9 — ORGANIGRAMAS DINÁMICOS -->
-  <section class="scene" data-index="12">
-    <p class="scene-num">13</p>
     <div class="scene-inner" style="text-align:center;">
       <h2 class="reveal r1" style="max-width:none;margin:0 auto;">Organigramas dinámicos</h2>
       <p class="lead reveal r2" style="margin-left:auto;margin-right:auto;">Al conocer las áreas, oficinas, referentes y personas, el organigrama se construye a partir de la información vigente — no de un documento estático.</p>
@@ -828,11 +897,10 @@
       </svg>
       <p class="org-note reveal r4">Se actualiza automáticamente cuando cambian las personas o las oficinas.</p>
     </div>
-  </section>
+  </section> -->
 
-  <!-- 10 — INDICADORES PARA LA TOMA DE DECISIONES -->
-  <section class="scene" data-index="13">
-    <p class="scene-num">14</p>
+  <section class="scene" data-index="6">
+    <p class="scene-num">07</p>
     <div class="scene-inner">
       <h2 class="reveal r1">Indicadores para la toma de decisiones</h2>
       <p class="lead reveal r2">La misma estructura que ordena la información permite calcular indicadores de totales, distribuciones, cruces y rankings, y flujos de personal.</p>
@@ -956,22 +1024,6 @@
     </div>
   </section>
 
-  <!-- 11 — CIERRE -->
-  <section class="scene" data-index="14">
-    <p class="scene-num">15</p>
-    <div class="scene-inner">
-      <h2 class="reveal r1">Una estructura organizada, trazable y siempre actualizada.</h2>
-      <p class="chain-final reveal r2">Dirección → Áreas → Oficinas → Referentes → Personas → Historial → Movimientos → Documentación.</p>
-      <div class="concepts reveal r3">
-        <div class="concept"><div class="c-num">01</div><div class="c-name">Centralización</div></div>
-        <div class="concept"><div class="c-num">02</div><div class="c-name">Trazabilidad</div></div>
-        <div class="concept"><div class="c-num">03</div><div class="c-name">Organización</div></div>
-        <div class="concept"><div class="c-num">04</div><div class="c-name">Actualización</div></div>
-      </div>
-      <p class="closing-line reveal r4">Una herramienta para conocer mejor la organización y facilitar la toma de decisiones.</p>
-    </div>
-  </section>
-
 </div>
 
 <div id="dots"></div>
@@ -979,6 +1031,153 @@
   <button id="btnUp" aria-label="Escena anterior"><svg viewBox="0 0 12 8"><path d="M1 6 L6 1 L11 6" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <button id="btnDown" aria-label="Escena siguiente"><svg viewBox="0 0 12 8"><path d="M1 2 L6 7 L11 2" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <button id="btnFull" aria-label="Pantalla completa"><svg viewBox="0 0 14 14"><path d="M1 5 V1 H5 M9 1 H13 V5 M13 9 V13 H9 M5 13 H1 V9" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+
+<div id="indModal" role="dialog" aria-modal="true" aria-labelledby="indTitle">
+  <div class="ind-inner">
+    <div class="am-head">
+      <div>
+        <p class="am-kicker">Sistema en vías de desarrollo</p>
+        <h3 class="am-title" id="indTitle">Indicadores para la toma de decisiones</h3>
+        <p class="am-ref">Una persona = un registro: cada movimiento cargado actualiza los indicadores. Sin planillas paralelas.</p>
+      </div>
+      <button class="am-close" id="indClose" aria-label="Cerrar">Cerrar</button>
+    </div>
+    <div class="indm-tabs" role="tablist">
+      <button class="indm-tab active" data-ipanel="totales"><span class="k">01</span>Totales</button>
+      <button class="indm-tab" data-ipanel="distribuciones"><span class="k">02</span>Distribuciones</button>
+      <button class="indm-tab" data-ipanel="cruces"><span class="k">03</span>Cruces y rankings</button>
+      <button class="indm-tab" data-ipanel="flujos"><span class="k">04</span>Flujos de personal</button>
+    </div>
+    <div class="indm-panel active" id="ipanel-totales">
+      <div>
+        <h4>Totales</h4>
+        <p class="desc">Cantidad y porcentaje de agentes por profesión y tipo de función, sobre el padrón completo.</p>
+        <ul><li>Psicólogos</li><li>Trabajadores sociales</li><li>Psiquiatras</li><li>Otras profesiones</li></ul>
+        <p class="q">Responde: <b>¿cuántos somos y de qué perfil?</b></p>
+      </div>
+      <div class="vis"><svg viewBox="0 0 400 220" role="img" aria-label="296 personas: psicólogos 35 %, trabajadores sociales 23 %, psiquiatras 5 %, otras 37 %">
+<text x="0" y="34" font-family="Fraunces" font-size="40" fill="var(--ink)">296</text><text x="86" y="34" font-size="15" fill="var(--muted)">personas en el padrón</text>
+<rect x="0" y="60" width="140" height="44" fill="var(--ink)"/><rect x="142" y="60" width="90" height="44" fill="var(--accent)"/><rect x="234" y="60" width="20" height="44" fill="var(--accent-soft)"/><rect x="256" y="60" width="144" height="44" fill="var(--line)"/>
+<text x="70" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--paper)">35 %</text><text x="187" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--paper)">23 %</text><text x="328" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">37 %</text>
+<g font-size="15" fill="var(--ink-soft)"><rect x="0" y="126" width="12" height="12" fill="var(--ink)"/><text x="20" y="137">Psicólogos · 104</text><rect x="200" y="126" width="12" height="12" fill="var(--accent)"/><text x="220" y="137">Trab. sociales · 67</text><rect x="0" y="156" width="12" height="12" fill="var(--accent-soft)"/><text x="20" y="167">Psiquiatras · 16</text><rect x="200" y="156" width="12" height="12" fill="var(--line)"/><text x="220" y="167">Otras profesiones · 109</text></g>
+</svg></div>
+    </div>
+    <div class="indm-panel" id="ipanel-distribuciones">
+      <div>
+        <h4>Distribuciones</h4>
+        <p class="desc">Dotación por área, por oficina y por Centro Judicial; ranking de oficinas según cantidad de personal.</p>
+        <ul><li>Por área</li><li>Por oficina</li><li>Por Centro Judicial</li></ul>
+        <p class="q">Responde: <b>¿dónde está el personal?</b></p>
+      </div>
+      <div class="vis"><svg viewBox="0 0 400 220" role="img" aria-label="Dotación por área, cuatro barras horizontales">
+<g font-size="15" fill="var(--ink)"><text x="0" y="30">Área A</text><text x="0" y="80">Área B</text><text x="0" y="130">Área C</text><text x="0" y="180">Área D</text></g>
+<g fill="var(--accent)"><rect x="80" y="14" width="280" height="24" rx="3"/><rect x="80" y="64" width="222" height="24" rx="3"/><rect x="80" y="114" width="160" height="24" rx="3"/><rect x="80" y="164" width="110" height="24" rx="3"/></g>
+<g font-size="15" font-weight="600" fill="var(--ink)"><text x="368" y="32">68</text><text x="310" y="82">54</text><text x="248" y="132">39</text><text x="198" y="182">27</text></g>
+<text x="0" y="212" font-size="13" fill="var(--muted)">Ranking de oficinas: Central 22 · Norte 19 · Sur 16 · Este 14 · Oeste 12</text>
+</svg></div>
+    </div>
+    <div class="indm-panel" id="ipanel-cruces">
+      <div>
+        <h4>Cruces y rankings</h4>
+        <p class="desc">Matriz profesión × área y ranking de profesiones con porcentaje acumulado.</p>
+        <ul><li>Profesión × área</li><li>Ranking</li><li>% acumulado</li></ul>
+        <p class="q">Responde: <b>¿qué perfiles faltan o sobran en cada área?</b></p>
+      </div>
+      <div class="vis"><svg viewBox="0 0 400 220" role="img" aria-label="Matriz profesión por área"><text x="152" y="30" text-anchor="middle" font-size="14" fill="var(--muted)">Área A</text><text x="222" y="30" text-anchor="middle" font-size="14" fill="var(--muted)">Área B</text><text x="292" y="30" text-anchor="middle" font-size="14" fill="var(--muted)">Área C</text><text x="362" y="30" text-anchor="middle" font-size="14" fill="var(--muted)">Área D</text><text x="0" y="75" font-size="15" fill="var(--ink)">Psicólogos</text><rect x="120" y="44" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.60"/><text x="152" y="73" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">7</text><rect x="190" y="44" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.40"/><text x="222" y="73" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">4</text><rect x="260" y="44" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.25"/><text x="292" y="73" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">3</text><rect x="330" y="44" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.20"/><text x="362" y="73" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">4</text><text x="0" y="127" font-size="15" fill="var(--ink)">Trab. sociales</text><rect x="120" y="96" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.45"/><text x="152" y="125" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">5</text><rect x="190" y="96" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.35"/><text x="222" y="125" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">4</text><rect x="260" y="96" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.25"/><text x="292" y="125" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">3</text><rect x="330" y="96" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.15"/><text x="362" y="125" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">2</text><text x="0" y="179" font-size="15" fill="var(--ink)">Psiquiatras</text><rect x="120" y="148" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.30"/><text x="152" y="177" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">3</text><rect x="190" y="148" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.12"/><text x="222" y="177" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">1</text><rect x="260" y="148" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.12"/><text x="292" y="177" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">1</text><rect x="330" y="148" width="64" height="44" rx="3" fill="var(--accent)" opacity="0.12"/><text x="362" y="177" text-anchor="middle" font-size="17" font-weight="600" fill="var(--ink)">1</text></svg></div>
+    </div>
+    <div class="indm-panel" id="ipanel-flujos">
+      <div>
+        <h4>Flujos de personal</h4>
+        <p class="desc">Ingresos, traslados, cambios de cargo, tasa de rotación y de movilidad interna en un período.</p>
+        <ul><li>Rotación</li><li>Movilidad interna</li><li>Ingresos / egresos</li></ul>
+        <p class="q">Responde: <b>¿cómo se mueve el personal en el tiempo?</b></p>
+      </div>
+      <div class="vis"><svg viewBox="0 0 400 220" role="img" aria-label="Flujos: ingresos, egresos y cambios de cargo en el área">
+<rect x="120" y="70" width="160" height="70" rx="3" stroke="var(--ink)" fill="var(--paper)"/><text x="200" y="112" text-anchor="middle" font-family="Fraunces" font-size="18" fill="var(--ink)">Área</text>
+<line x1="10" y1="92" x2="116" y2="92" stroke="var(--accent)" stroke-width="2"/><path d="M108 84l8 8-8 8" stroke="var(--accent)" stroke-width="2" fill="none"/><text x="10" y="76" font-size="15" font-weight="600" fill="var(--ink)">+9 ingresos</text>
+<line x1="284" y1="118" x2="390" y2="118" stroke="var(--muted)" stroke-width="2"/><path d="M382 110l8 8-8 8" stroke="var(--muted)" stroke-width="2" fill="none"/><text x="284" y="146" font-size="15" font-weight="600" fill="var(--ink)">−5 traslados</text>
+<path d="M200 140 C 150 195, 250 195, 200 142" stroke="var(--line)" stroke-width="2" fill="none"/><text x="200" y="212" text-anchor="middle" font-size="15" fill="var(--ink-soft)">7 cambios de cargo</text>
+<text x="10" y="30" font-size="15" fill="var(--ink-soft)">Rotación <tspan font-weight="600" fill="var(--ink)">4,8 %</tspan> · Movilidad interna <tspan font-weight="600" fill="var(--ink)">2,8 %</tspan></text>
+</svg></div>
+    </div>
+    <div class="indm-foot">
+      <!-- <p>Se ven en detalle en la diapositiva final: "Indicadores para la toma de decisiones".</p> -->
+      <small>Valores ilustrativos · el sistema los calcula sobre datos reales y actualizados</small>
+    </div>
+  </div>
+</div>
+
+<div id="galModal" role="dialog" aria-modal="true" aria-labelledby="galTitle">
+  <div class="gal-inner">
+    <div class="gal-head">
+      <div>
+        <p class="am-kicker">Sistema en vías de desarrollo</p>
+        <h3 class="am-title" id="galTitle">Capturas de pantalla</h3>
+      </div>
+      <button class="am-close" id="galClose" aria-label="Cerrar">Cerrar</button>
+    </div>
+    <div class="gal-frame"><img id="galImg" alt=""></div>
+    <div class="gal-foot">
+      <p class="gal-cap" id="galCap"></p>
+      <div class="gal-nav">
+        <button id="galPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <span class="gal-count" id="galCount"></span>
+        <div class="gal-dots" id="galDots"></div>
+        <button id="galNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="evModal" role="dialog" aria-modal="true" aria-labelledby="evTitle">
+  <div class="ev-inner">
+    <div class="am-head">
+      <div>
+        <p class="am-kicker">Evidencia empírica</p>
+        <h3 class="am-title" id="evTitle">Guardias nocturnas, fines de semana y feriados</h3>
+        <p class="am-ref">Muestreo del 1 de mayo al 1 de agosto de 2026 · sistema OVD Nación · nivel provincial</p>
+      </div>
+      <button class="am-close" id="evClose" aria-label="Cerrar">Cerrar</button>
+    </div>
+
+    <div class="ev-stats">
+      <div class="ev-stat"><span class="num">554</span><span class="cap">legajos confeccionados en el período</span></div>
+      <div class="ev-stat"><span class="num">26<small>4,7 %</small></span><span class="cap">legajos en guardias nocturnas, fines de semana y feriados</span></div>
+      <div class="ev-stat hl"><span class="num">0</span><span class="cap">legajos confeccionados entre las 23:00 y las 07:00 hs.</span></div>
+    </div>
+
+    <div class="ev-sec">
+      <h4>Cómo se componen los 26 legajos de guardia</h4>
+      <div class="ev-bar" role="img" aria-label="26 legajos: 10 oficios OGAS, 10 atenciones presenciales espontáneas, 6 atenciones telefónicas espontáneas">
+        <span class="c1" style="--w:38.46%" title="OGAS · 10">OGAS · 10</span><span class="c2" style="--w:38.46%" title="Presenciales · 10">Presenciales · 10</span><span class="c3" style="--w:23.08%" title="Telefónicas · 6">Telefónicas · 6</span>
+      </div>
+      <div class="ev-legend">
+        <div><i style="background:var(--ink)"></i>Oficios derivados de OGAS <b>10</b></div>
+        <div><i style="background:var(--accent)"></i>Atenciones espontáneas presenciales <b>10</b></div>
+        <div><i style="background:var(--muted)"></i>Atenciones espontáneas telefónicas <b>6</b></div>
+      </div>
+      <div class="ev-split">
+        <div>
+          <p><b>10 atenciones presenciales espontáneas</b> · distribución horaria real</p>
+          <div class="ev-bar" role="img" aria-label="7 en franja diurna o vespertina, 3 pasadas las 21:00"><span class="c2" style="--w:70%" title="Diurna/vespertina · 7">Diurna/vespertina · 7</span><span class="c1" style="--w:30%" title="Después de 21:00 · 3">Después de 21:00 · 3</span></div>
+          <p style="margin-top:.6rem">7 en franja diurna/vespertina · solo <b>3 pasadas las 21:00 hs.</b></p>
+        </div>
+        <div>
+          <p><b>6 atenciones telefónicas</b> · distribución horaria real</p>
+          <div class="ev-bar" role="img" aria-label="6 en horario matutino o vespertino, 0 nocturnas"><span class="c3" style="--w:100%" title="Matutino/vespertino · 6">Matutino/vespertino · 6</span></div>
+          <p style="margin-top:.6rem">Todas en horario matutino/vespertino · <b>ninguna nocturna</b></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-foot">
+      <div class="concl">
+        <span class="tag">Conclusión</span>
+        <p>Ningún legajo confeccionado en la franja de 23:00 a 07:00 hs.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="areaModal" role="dialog" aria-modal="true" aria-labelledby="amTitle">
@@ -993,8 +1192,8 @@
     </div>
     <div class="am-total"><span class="num" id="amTotal"></span><span class="cap">personas integran el área</span></div>
     <div class="am-view">
-      <button class="active" data-view="bars">Barras</button>
-      <button data-view="pie">Gráfico Circular</button>
+      <button data-view="bars">Barras</button>
+      <button class="active" data-view="pie">Gráfico Circular</button>
     </div>
     <div class="am-rows" id="amRows"></div>
     <div class="am-pie" id="amPie"></div>
@@ -1058,6 +1257,26 @@
       if (e.key === 'Escape') { closeLightbox(); }
       return;
     }
+    if (indModal.classList.contains('open')) {
+      if (e.key === 'Escape') { closeIndModal(); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const i = indmTabs.findIndex(t => t.classList.contains('active'));
+        const n = (i + (e.key === 'ArrowRight' ? 1 : indmTabs.length - 1)) % indmTabs.length;
+        setIndPanel(indmTabs[n].dataset.ipanel);
+      }
+      return;
+    }
+    if (galModal.classList.contains('open')) {
+      if (e.key === 'Escape') { closeGalModal(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); galShow(galIdx + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); galShow(galIdx - 1); }
+      return;
+    }
+    if (evModal.classList.contains('open')) {
+      if (e.key === 'Escape') { closeEvModal(); }
+      return;
+    }
     if (areaModal.classList.contains('open')) {
       if (e.key === 'Escape') { closeAreaModal(); }
       return;
@@ -1073,6 +1292,18 @@
   dots[0].classList.add('active');
 
   // áreas: acordeón
+
+  // áreas: tabs (escena 02)
+  const areaTabs = Array.from(document.querySelectorAll('.area-tab'));
+  function setAreaPanel(name){
+    areaTabs.forEach(t => t.classList.toggle('active', t.dataset.apanel === name));
+    document.querySelectorAll('.area-panel').forEach(p => {
+      const on = p.id === 'apanel-' + name;
+      p.classList.toggle('active', on);
+      if (on) { p.querySelectorAll('.ap-info,.ap-offices').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; }); }
+    });
+  }
+  areaTabs.forEach(t => t.addEventListener('click', () => setAreaPanel(t.dataset.apanel)));
   document.querySelectorAll('.area-acc-head').forEach(head => {
     head.addEventListener('click', () => {
       head.closest('.area-acc-item').classList.toggle('open');
@@ -1118,7 +1349,7 @@
         '<span class="h-val">' + n + ' · ' + pct + '%</span></div>';
     }).join('');
     amPie.innerHTML = buildPie(d);
-    setAreaView('bars');
+    setAreaView('pie'); // vista por defecto: gráfico circular
     areaModal.classList.add('open');
   }
 
@@ -1163,6 +1394,68 @@
   });
   document.getElementById('amClose').addEventListener('click', closeAreaModal);
   areaModal.addEventListener('click', (e) => { if (e.target === areaModal) closeAreaModal(); });
+  // evidencia empírica OVD: modal
+  const evModal = document.getElementById('evModal');
+  function closeEvModal(){ evModal.classList.remove('open'); }
+  document.getElementById('evOpen').addEventListener('click', (e) => { e.stopPropagation(); evModal.classList.add('open'); });
+  document.getElementById('evClose').addEventListener('click', closeEvModal);
+  evModal.addEventListener('click', (e) => { if (e.target === evModal) closeEvModal(); });
+  // galería de capturas del sistema
+  const GAL_SHOTS = [
+    { src: 'images/foto-1.png', title: 'Ficha de personal', cap: 'Datos personales, cargo, función, oficina y profesiones de cada agente.' },
+    { src: 'images/foto-2.png', title: 'Trayectoria', cap: 'Destino y estado actual, línea de tiempo con traslados y situaciones anteriores.' }
+  ];
+  const galModal = document.getElementById('galModal');
+  const galImg = document.getElementById('galImg');
+  const galCap = document.getElementById('galCap');
+  const galCount = document.getElementById('galCount');
+  const galDots = document.getElementById('galDots');
+  const galPrev = document.getElementById('galPrev');
+  const galNext = document.getElementById('galNext');
+  let galIdx = 0;
+  galDots.innerHTML = GAL_SHOTS.map((_, i) => '<i data-i="' + i + '"></i>').join('');
+  GAL_SHOTS.forEach(sh => { const im = new Image(); im.src = sh.src; });
+  function galShow(i){
+    galIdx = Math.max(0, Math.min(GAL_SHOTS.length - 1, i));
+    const sh = GAL_SHOTS[galIdx];
+    galImg.classList.remove('ready');
+    galImg.onload = () => galImg.classList.add('ready');
+    galImg.src = sh.src;
+    galImg.alt = sh.title;
+    if (galImg.complete) galImg.classList.add('ready');
+    galCap.innerHTML = '<b>' + sh.title + '</b> · ' + sh.cap;
+    galCount.textContent = (galIdx + 1) + ' / ' + GAL_SHOTS.length;
+    galPrev.disabled = galIdx === 0;
+    galNext.disabled = galIdx === GAL_SHOTS.length - 1;
+    Array.from(galDots.children).forEach((d, k) => d.classList.toggle('on', k === galIdx));
+    galModal.querySelector('.gal-frame').scrollTop = 0;
+  }
+  function closeGalModal(){ galModal.classList.remove('open'); }
+  document.getElementById('galOpen').addEventListener('click', (e) => { e.stopPropagation(); galShow(0); galModal.classList.add('open'); });
+  document.getElementById('galClose').addEventListener('click', closeGalModal);
+  galPrev.addEventListener('click', () => galShow(galIdx - 1));
+  galNext.addEventListener('click', () => galShow(galIdx + 1));
+  galDots.addEventListener('click', (e) => { if (e.target.dataset.i !== undefined) galShow(Number(e.target.dataset.i)); });
+  galModal.addEventListener('click', (e) => { if (e.target === galModal) closeGalModal(); });
+  // indicadores: modal informativo
+  const indModal = document.getElementById('indModal');
+  function closeIndModal(){ indModal.classList.remove('open'); }
+  const indmTabs = Array.from(indModal.querySelectorAll('.indm-tab'));
+  function setIndPanel(name){
+    indmTabs.forEach(t => t.classList.toggle('active', t.dataset.ipanel === name));
+    indModal.querySelectorAll('.indm-panel').forEach(p => {
+      const on = p.id === 'ipanel-' + name;
+      p.classList.toggle('active', on);
+      if (on) { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; }
+    });
+  }
+  indmTabs.forEach(t => t.addEventListener('click', () => setIndPanel(t.dataset.ipanel)));
+  document.getElementById('indOpen').addEventListener('click', (e) => { e.stopPropagation(); setIndPanel('totales'); indModal.classList.add('open'); });
+  document.getElementById('indClose').addEventListener('click', closeIndModal);
+  indModal.addEventListener('click', (e) => { if (e.target === indModal) closeIndModal(); });
+
+
+
 
   // previews: lightbox
   const lightbox = document.getElementById('lightbox');
