@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de la estructura organizacional — Dirección</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,560&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root, html[data-theme="light"]{
+    --paper:#F5F1E7;
+    --paper-2:#ECE6D6;
+    --ink:#191C22;
+    --ink-soft:#454B57;
+    --muted:#767C87;
+    --accent:#8A6A33;
+    --accent-soft:#C6A96A;
+    --line:#D9D1BC;
+    --control-bg:#F5F1E7;
+  }
+  html[data-theme="dark"]{
+    --paper:#14161C;
+    --paper-2:#1C1F27;
+    --ink:#EEE9D9;
+    --ink-soft:#C6C1B0;
+    --muted:#888D99;
+    --accent:#CBAE71;
+    --accent-soft:#8A6A33;
+    --line:#31353F;
+    --control-bg:#1C1F27;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Public Sans',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    overflow:hidden;
+    height:100vh;
+    height:100svh;
+    transition:background .4s ease, color .4s ease;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Fraunces',serif;
+    font-weight:440;
+    letter-spacing:-0.01em;
+  }
+  #deck{
+    height:100vh;
+    height:100svh;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+  }
+  .scene{
+    height:100vh;
+    height:100svh;
+    width:100%;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:8vh 7vw;
+    overflow:hidden;
+  }
+  .scene-inner{max-width:1180px;width:100%;margin:0 auto;}
+  .kicker{font-size:0.95rem;color:var(--accent);font-weight:600;margin-bottom:1.1rem;}
+  .scene h2{font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.08;max-width:16ch;}
+  .lead{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink-soft);max-width:50ch;margin-top:1.3rem;line-height:1.55;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .scene.in-view .reveal{opacity:1;transform:translateY(0);}
+  .reveal.r1{transition-delay:.05s;}
+  .reveal.r2{transition-delay:.18s;}
+  .reveal.r3{transition-delay:.3s;}
+  .reveal.r4{transition-delay:.42s;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  #dots{position:fixed;right:2.4vw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:40;}
+  #dots button{width:8px;height:8px;border-radius:50%;border:1px solid var(--ink-soft);background:transparent;opacity:.45;cursor:pointer;transition:opacity .3s, background .3s, transform .3s;padding:0;}
+  #dots button.active{opacity:1;background:var(--accent);border-color:var(--accent);transform:scale(1.3);}
+
+  #arrows{position:fixed;right:2.4vw;bottom:4vh;display:flex;flex-direction:column;gap:10px;z-index:40;}
+  #arrows button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--control-bg);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .25s, transform .15s, background .4s;}
+  #arrows button:hover{border-color:var(--accent);transform:translateY(-1px);}
+  #arrows svg{width:14px;height:14px;}
+  #arrows path{stroke:var(--ink);}
+
+  #topbar{position:fixed;top:3vh;right:2.4vw;z-index:40;display:flex;align-items:center;gap:10px;}
+  .theme-toggle{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);cursor:pointer;user-select:none;}
+  .switch{width:34px;height:18px;border-radius:10px;border:1px solid var(--line);background:var(--control-bg);position:relative;transition:background .3s;}
+  .switch::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--accent);transition:left .25s ease;}
+  html[data-theme="dark"] .switch::after{left:18px;}
+
+  #progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:41;transition:width .35s ease;}
+
+  .scene-num{position:absolute;top:6vh;left:7vw;font-family:'Fraunces',serif;font-size:0.85rem;color:var(--muted);letter-spacing:.02em;}
+
+  /* ---- start gate ---- */
+  #startGate{
+    position:fixed;inset:0;z-index:100;
+    background:var(--paper);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    transition:opacity .6s ease, visibility .6s;
+  }
+  #startGate.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+  #startGate h1{font-size:clamp(1.8rem,3.6vw,2.6rem);max-width:18ch;line-height:1.15;color:var(--ink);}
+  #startGate p{color:var(--muted);margin-top:1rem;font-size:.95rem;max-width:34ch;}
+  #startGate button{
+    margin-top:2.4rem;
+    padding:.85rem 1.9rem;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    border-radius:2px;
+    font-family:'Public Sans',sans-serif;
+    font-size:.95rem;
+    cursor:pointer;
+    transition:opacity .2s;
+  }
+  #startGate button:hover{opacity:.85;}
+
+  /* ---- scene: dispersión ---- */
+  .scatter-stat{display:flex;align-items:baseline;gap:.7rem;margin-top:1.8rem;}
+  .scatter-stat .num{font-family:'Fraunces',serif;font-size:clamp(2.4rem,4vw,3.2rem);color:var(--ink);}
+  .scatter-stat .cap{font-size:.85rem;color:var(--muted);}
+  .scatter-box{position:relative;border:1px dashed var(--line);border-radius:4px;padding:2.6rem 1.6rem 1.6rem;margin-top:1.6rem;}
+  .scatter-label{position:absolute;top:-11px;left:1.4rem;background:var(--paper);padding:0 .6rem;font-size:1.75rem;color:var(--muted);letter-spacing:.02em;}
+  .chip-cloud{display:flex;flex-wrap:wrap;gap:.6rem .7rem;}
+  .chip{font-size:.72rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:20px;padding:.45rem .9rem;background:var(--paper-2);transition:transform .2s ease, border-color .2s, color .2s;}
+  .chip:nth-child(6n+1){transform:rotate(-2deg);}
+  .chip:nth-child(6n+2){transform:rotate(1.5deg) translateY(-3px);}
+  .chip:nth-child(6n+3){transform:rotate(-1deg) translateY(3px);}
+  .chip:nth-child(6n+4){transform:rotate(2deg);}
+  .chip:nth-child(6n+5){transform:rotate(-1.5deg) translateY(2px);}
+  .chip:nth-child(6n){transform:rotate(1deg) translateY(-2px);}
+  .chip:hover{transform:translateY(-3px) rotate(0deg);border-color:var(--accent);color:var(--ink);}
+
+  /* ---- scene: áreas acordeón ---- */
+  .area-hub{width:100%;max-width:560px;display:block;margin:2rem auto 0;}
+  .area-acc{margin-top:1.4rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;align-items:start;}
+  .area-acc-item{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);transition:border-color .2s;}
+  .area-acc-item.open{border-color:var(--accent);}
+  .area-acc-head{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;padding:1.2rem 1.1rem 1rem;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:'Public Sans',sans-serif;position:relative;}
+  .area-acc-head .aa-left{display:flex;flex-direction:column;gap:.35rem;padding-right:1.6rem;}
+  .area-acc-head .aa-name{font-family:'Fraunces',serif;font-size:1.25rem;line-height:1.15;color:var(--ink);}
+  .area-acc-head .aa-ref{font-size:.8rem;color:var(--muted);line-height:1.4;}
+  .area-acc-head .aa-right{display:flex;align-items:center;gap:.9rem;margin-top:.3rem;}
+  .area-acc-head .aa-count{font-size:.75rem;color:var(--accent);border:1px solid var(--line);border-radius:20px;padding:.2rem .7rem;}
+  .area-acc-head .aa-toggle{position:absolute;top:1.1rem;right:1.1rem;font-size:1.1rem;color:var(--muted);transition:transform .3s;display:inline-block;}
+  .area-acc-item.open .aa-toggle{transform:rotate(45deg);}
+  .area-acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .area-acc-item.open .area-acc-body{max-height:420px;}
+  .aa-offices{display:flex;flex-direction:column;gap:.4rem;padding:.2rem 1.1rem 1rem;border-top:1px solid var(--line);padding-top:1rem;}
+  .aa-offices span{font-size:.78rem;color:var(--ink-soft);padding:.2rem 0 .2rem .9rem;position:relative;}
+  .aa-offices span::before{content:'';position:absolute;left:0;top:.75em;width:4px;height:4px;border-radius:50%;background:var(--accent);}
+  .aa-actions{padding:0 1.1rem 1.2rem;}
+  .aa-detail{background:none;border:1px solid var(--accent);border-radius:20px;padding:.45rem 1.1rem;font-size:.8rem;color:var(--accent);cursor:pointer;font-family:'Public Sans',sans-serif;transition:background .2s,color .2s;}
+  .aa-detail:hover{background:var(--accent);color:var(--paper);}
+
+  /* ---- modal dotación por área ---- */
+  #areaModal{position:fixed;inset:0;z-index:95;background:rgba(10,10,12,.75);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
+  #areaModal.open{opacity:1;visibility:visible;}
+  .am-inner{background:var(--paper);border-radius:4px;width:min(640px,90vw);padding:2rem 2.2rem;max-height:90vh;overflow:auto;}
+  .am-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+  .am-kicker{font-size:.8rem;color:var(--accent);font-weight:600;margin-bottom:.4rem;}
+  .am-title{font-family:'Fraunces',serif;font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.1;}
+  .am-ref{font-size:.9rem;color:var(--muted);margin-top:.4rem;}
+  .am-close{background:none;border:1px solid var(--line);border-radius:20px;padding:.4rem 1rem;font-size:.78rem;color:var(--muted);cursor:pointer;font-family:'Public Sans',sans-serif;flex-shrink:0;}
+  .am-close:hover{border-color:var(--accent);color:var(--ink);}
+  .am-total{display:flex;align-items:baseline;gap:.8rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line);}
+  .am-total .num{font-family:'Fraunces',serif;font-size:clamp(2.4rem,4vw,3.2rem);line-height:1;color:var(--ink);}
+  .am-total .cap{font-size:.85rem;color:var(--muted);}
+  .am-view{display:flex;gap:.5rem;margin-top:1.4rem;}
+  .am-view button{background:none;border:1px solid var(--line);border-radius:20px;padding:.35rem .95rem;font-size:.78rem;color:var(--muted);cursor:pointer;font-family:'Public Sans',sans-serif;transition:border-color .2s,color .2s,background .2s;}
+  .am-view button.active{border-color:var(--accent);color:var(--paper);background:var(--accent);}
+  .am-rows{margin-top:1.2rem;}
+  .am-rows .hbar-row{grid-template-columns:170px 1fr 5.4rem;margin-bottom:.8rem;}
+  .am-rows .h-label{font-size:.95rem;}
+  .am-rows .h-val{white-space:nowrap;font-size:1rem;color:var(--ink);}
+  .am-pie{display:none;margin-top:1.2rem;grid-template-columns:200px 1fr;gap:2rem;align-items:center;}
+  .am-pie.active{display:grid;}
+  .am-pie svg{width:100%;height:auto;display:block;}
+  .am-pie .pie-legend div{display:flex;align-items:center;gap:.6rem;font-size:.95rem;color:var(--ink-soft);padding:.35rem 0;}
+  .am-pie .pie-legend i{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+  .am-pie .pie-legend b{font-weight:600;color:var(--ink);margin-left:auto;white-space:nowrap;font-size:1rem;}
+  .am-rows.hidden{display:none;}
+
+  /* ---- previews + lightbox ---- */
+  
+    /* ---- previews + lightbox ---- */
+  #lightbox{position:fixed;inset:0;z-index:90;background:rgba(10,10,12,.75);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
+  #lightbox.open{opacity:1;visibility:visible;}
+  .lightbox-inner{background:var(--paper);border-radius:4px;width:min(720px,90vw);padding:1.6rem;}
+  .lightbox-toolbar{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap;}
+  .lightbox-toolbar .spacer{flex:1;}
+  .lightbox-toolbar button, .lightbox-ext{background:none;border:1px solid var(--line);border-radius:20px;padding:.4rem 1.05rem;font-size:.78rem;color:var(--muted);cursor:pointer;text-decoration:none;transition:border-color .2s, color .2s;font-family:'Public Sans',sans-serif;}
+  .lightbox-toolbar button:hover, .lightbox-ext:hover{border-color:var(--accent);color:var(--ink);}
+  .lightbox-stage{overflow:auto;max-height:66vh;border:1px solid var(--line);border-radius:2px;background:var(--paper-2);}
+  .lightbox-visual{width:100%;transition:transform .25s ease;transform-origin:center top;cursor:zoom-in;}
+  .lightbox-visual.zoomed{cursor:zoom-out;}
+  .lightbox-visual svg{width:100%;height:auto;display:block;}
+  .lightbox-visual img{width:100%;height:auto;display:block;}
+  .lightbox-cap{margin-top:1rem;font-size:.88rem;color:var(--ink-soft);text-align:center;}
+
+  .preview-grid{display:flex;gap:1.6rem;margin-top:2.2rem;flex-wrap:wrap;}
+  .thumb-btn{border:1px solid var(--line);background:var(--paper-2);border-radius:4px;padding:0;cursor:pointer;width:200px;text-align:left;overflow:hidden;transition:border-color .2s, transform .2s;}
+  .thumb-btn:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .thumb-visual{display:block;width:100%;aspect-ratio:4/3;}
+  .thumb-visual svg{width:100%;height:100%;display:block;}
+  .thumb-cap{display:block;font-size:.76rem;color:var(--ink-soft);padding:.65rem .85rem;border-top:1px solid var(--line);}
+  #lightbox{position:fixed;inset:0;z-index:90;background:rgba(10,10,12,.75);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
+  #lightbox.open{opacity:1;visibility:visible;}
+  .lightbox-inner{background:var(--paper);border-radius:4px;width:min(640px,86vw);padding:1.8rem;}
+  .lightbox-visual{width:100%;aspect-ratio:4/3;}
+  .lightbox-visual svg{width:100%;height:100%;display:block;}
+  .lightbox-cap{margin-top:1rem;font-size:.88rem;color:var(--ink-soft);text-align:center;}
+  .lightbox-close{margin:1.2rem auto 0;display:block;background:none;border:1px solid var(--line);border-radius:20px;padding:.5rem 1.3rem;font-size:.78rem;color:var(--muted);cursor:pointer;}
+  .lightbox-close:hover{border-color:var(--accent);color:var(--ink);}
+
+  /* ---- scene 5 (portada) ---- */
+  .s1-title{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.06;max-width:17ch;}
+  .s1-diagram{position:absolute;right:6vw;top:50%;transform:translateY(-50%);width:min(38vw,420px);opacity:.9;}
+  .scroll-cue{position:absolute;bottom:5vh;left:7vw;display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);}
+  .scroll-cue .line{width:26px;height:1px;background:var(--muted);position:relative;overflow:hidden;}
+  .scroll-cue .line::after{content:'';position:absolute;left:-26px;top:0;width:26px;height:1px;background:var(--accent);animation:cue 2.2s ease-in-out infinite;}
+  @keyframes cue{ to{ left:26px; } }
+
+  /* ---- scene 2: scope ---- */
+  .universe{display:grid;grid-template-columns:1.05fr 1fr;gap:4vw;align-items:center;}
+  .stat-row{display:flex;gap:3.2rem;margin-top:2.2rem;}
+  .stat .num{font-family:'Fraunces',serif;font-size:clamp(2.4rem,4vw,3.4rem);line-height:1;color:var(--ink);}
+  .stat .cap{font-size:.85rem;color:var(--muted);margin-top:.4rem;}
+  .scope-note{font-size:.85rem;color:var(--muted);margin-top:1.6rem;max-width:46ch;line-height:1.6;border-left:2px solid var(--line);padding-left:1rem;}
+
+  /* ---- scene 3: chain + formula ---- */
+  .chain-svg{width:100%;max-width:1000px;display:block;margin-top:2.6rem;}
+  .formula{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.05rem,1.7vw,1.4rem);color:var(--ink-soft);margin-top:2.4rem;line-height:1.6;max-width:56ch;}
+
+  /* ---- scene 4: areas+referentes ---- */
+  .areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:2.6rem;border-top:1px solid var(--line);}
+  .area-col{padding:1.6rem 1.6rem 1.6rem 0;border-right:1px solid var(--line);}
+  .area-col:last-child{border-right:none;}
+  .area-col .a-name{font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.6rem;}
+  .area-col .a-meta{font-size:.85rem;color:var(--muted);line-height:1.6;}
+  .area-note{font-size:.82rem;color:var(--muted);margin-top:1.4rem;font-style:italic;}
+
+  /* ---- scene 5: ficha ---- */
+  .ficha-wrap{display:grid;grid-template-columns:auto 1fr;gap:3.4vw;align-items:center;margin-top:2rem;max-width:720px;}
+  .avatar{width:92px;height:92px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.6rem;flex-shrink:0;transition:background .4s,color .4s;}
+  .ficha-fields{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem 2.4rem;}
+  .ficha-fields div{border-top:1px solid var(--line);padding-top:.6rem;}
+  .ficha-fields .f-label{font-size:.78rem;color:var(--muted);}
+  .ficha-fields .f-val{font-size:1.02rem;margin-top:.25rem;}
+
+  /* ---- scene 6: timeline ---- */
+  .timeline{position:relative;margin-top:3.4rem;padding-top:1.5rem;}
+  .timeline-line{position:absolute;top:1.5rem;left:0;right:0;height:1px;background:var(--line);}
+  .timeline-points{display:flex;justify-content:space-between;position:relative;}
+  .tp{width:19%;position:relative;}
+  .tp .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);position:absolute;top:-4.5px;left:0;}
+  .tp .period{font-size:.78rem;color:var(--muted);margin-top:1.2rem;}
+  .tp .office{font-family:'Fraunces',serif;font-size:1.05rem;margin-top:.3rem;}
+  .tp .role{font-size:.85rem;color:var(--ink-soft);margin-top:.2rem;}
+
+  /* ---- scene 7: docs ---- */
+  .doc-diagram{display:flex;align-items:center;justify-content:center;margin-top:2.6rem;}
+  .doc-svg{width:100%;max-width:780px;}
+
+  /* ---- scene 8: movements ---- */
+  .mov-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4vw;margin-top:2.2rem;align-items:start;}
+  .mov-questions p{font-family:'Fraunces',serif;font-size:1.5rem;line-height:1.5;color:var(--ink);}
+  .mov-log{border-top:1px solid var(--line);}
+  .mov-row{display:grid;grid-template-columns:5rem 1fr 1fr;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--line);font-size:.88rem;}
+  .mov-row .m-period{color:var(--muted);}
+  .mov-row .m-office{font-weight:600;}
+  .mov-row .m-from{color:var(--ink-soft);}
+
+  /* ---- scene 9: org chart ---- */
+  .org-svg{width:100%;max-width:900px;display:block;margin:2.4rem auto 0;}
+  .org-note{text-align:center;font-size:.85rem;color:var(--muted);margin-top:1.2rem;}
+
+  /* ---- scene 10: indicadores ---- */
+  .ind-tabs{display:flex;gap:2.2rem;border-bottom:1px solid var(--line);margin-top:2rem;flex-wrap:wrap;}
+  .ind-tab{font-family:'Public Sans',sans-serif;font-size:.85rem;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:0 0 .7rem 0;cursor:pointer;transition:color .2s,border-color .2s;}
+  .ind-tab:hover{color:var(--ink-soft);}
+  .ind-tab.active{color:var(--ink);border-bottom-color:var(--accent);}
+  .ind-panel{display:none;margin-top:1.7rem;}
+  .ind-panel.active{display:block;}
+  .ind-note{font-size:.78rem;color:var(--muted);font-style:italic;margin-top:1.5rem;}
+
+  .ind-stats-row{display:flex;gap:2.6rem;flex-wrap:wrap;}
+  .ind-stat .num{font-family:'Fraunces',serif;font-size:clamp(1.7rem,2.6vw,2.3rem);line-height:1;color:var(--ink);}
+  .ind-stat .cap{font-size:.78rem;color:var(--muted);margin-top:.35rem;}
+  .ind-stat .pct{font-size:.78rem;color:var(--accent);margin-top:.15rem;}
+
+  .seg-title{font-size:.82rem;color:var(--ink-soft);margin-top:1.8rem;margin-bottom:.6rem;}
+  .seg-bar{display:flex;height:26px;border-radius:2px;overflow:hidden;}
+  .seg-bar span{height:100%;}
+  .seg-legend{display:flex;gap:1.6rem;margin-top:.7rem;flex-wrap:wrap;}
+  .seg-legend div{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted);}
+  .seg-legend i{width:9px;height:9px;display:inline-block;border-radius:1px;}
+
+  .ind-two-col{display:grid;grid-template-columns:1fr 1fr;gap:4vw;}
+  .hbar-row{display:grid;grid-template-columns:92px 1fr 2.4rem;align-items:center;gap:.7rem;margin-bottom:.65rem;}
+  .hbar-row .h-label{font-size:.98rem;color:var(--ink-soft);}
+  .hbar-track{height:7px;background:var(--paper-2);border-radius:2px;overflow:hidden;}
+  .hbar-fill{height:100%;background:var(--accent);}
+  .hbar-row .h-val{font-size:.78rem;color:var(--muted);text-align:right;}
+  .col-title{font-size:.82rem;color:var(--ink-soft);margin-bottom:1rem;}
+
+  .rank-row{display:grid;grid-template-columns:1.6rem 1fr auto auto;gap:.8rem;padding:.45rem 0;border-bottom:1px solid var(--line);font-size:.8rem;align-items:center;}
+  .rank-row .r-n{color:var(--muted);}
+  .rank-row .r-name{color:var(--ink);}
+  .rank-row .r-val{color:var(--ink-soft);}
+  .rank-row .r-pct{color:var(--accent);}
+
+  .matrix{display:grid;grid-template-columns:110px repeat(4,1fr);gap:3px;margin-top:.6rem;}
+  .matrix .mh{font-size:.72rem;color:var(--muted);text-align:center;padding:.3rem;}
+  .matrix .mlabel{font-size:.76rem;color:var(--ink-soft);display:flex;align-items:center;}
+  .matrix .cell{font-size:.75rem;color:var(--ink);display:flex;align-items:center;justify-content:center;padding:.5rem 0;border-radius:2px;}
+
+  .kpi-row{display:flex;gap:3rem;flex-wrap:wrap;}
+  .kpi .num{font-family:'Fraunces',serif;font-size:clamp(2rem,3vw,2.6rem);line-height:1;color:var(--ink);}
+  .kpi .cap{font-size:.78rem;color:var(--muted);margin-top:.35rem;}
+  .flow-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:center;margin-top:2rem;}
+  .flow-svg{width:100%;max-width:420px;}
+
+  /* ---- scene 11: closing ---- */
+  .chain-final{font-family:'Fraunces',serif;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink-soft);margin-top:1.6rem;line-height:1.6;max-width:60ch;}
+  .concepts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:3rem;border-top:1px solid var(--line);}
+  .concept{padding:1.6rem 1.2rem 0 0;}
+  .concept .c-num{font-family:'Fraunces',serif;font-size:.85rem;color:var(--accent);}
+  .concept .c-name{font-family:'Fraunces',serif;font-size:1.35rem;margin-top:.6rem;}
+  .closing-line{font-family:'Fraunces',serif;font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1.4;max-width:24ch;margin-top:3.4rem;}
+
+  @media (max-width:860px){
+    .scene{padding:11vh 6vw 8vh;}
+    .universe{grid-template-columns:1fr;gap:2.4rem;}
+    .s1-diagram{display:none;}
+    .areas-grid{grid-template-columns:1fr;}
+    .area-col{border-right:none;border-bottom:1px solid var(--line);padding:1.2rem 0;}
+    .ficha-wrap{grid-template-columns:1fr;}
+    .ficha-fields{grid-template-columns:1fr 1fr;}
+    .timeline-points{flex-wrap:wrap;gap:1.6rem 0;}
+    .tp{width:45%;}
+    .mov-wrap{grid-template-columns:1fr;gap:2rem;}
+    .concepts{grid-template-columns:1fr 1fr;}
+    #dots{right:3vw;}
+    #arrows{right:3vw;bottom:2.5vh;}
+    #topbar{top:2.2vh;right:3vw;}
+    .area-acc{grid-template-columns:1fr;gap:.7rem;}
+    .area-hub{display:none;}
+    .thumb-btn{width:100%;}
+    .preview-grid{gap:1rem;}
+    .am-inner{padding:1.4rem;}
+    .am-rows .hbar-row{grid-template-columns:110px 1fr 5rem;}
+    .am-pie{grid-template-columns:1fr;gap:1rem;}
+    .am-pie svg{max-width:180px;margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+
+<div id="startGate">
+  <p class="kicker">Dirección · Estructura organizacional</p>
+  <h1>Abordajes Técnicos Especializados - Gestión de la estructura de oficinas, áreas y personal</h1>
+  <!-- <p>La presentación se abre en pantalla completa. Podés salir en cualquier momento con Esc.</p> -->
+  <button id="btnStart">Iniciar presentación</button>
+</div>
+
+<div id="progress"></div>
+
+<div id="topbar">
+  <div class="theme-toggle" id="themeToggle">
+    <span id="themeLabel">Modo oscuro</span>
+    <span class="switch"></span>
+  </div>
+</div>
+
+<div id="deck">
+
+  <!-- 01 — DISPERSIÓN -->
+  <section class="scene" data-index="0">
+    <p class="scene-num">01</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Partíamos de una estructura dispersa</h2>
+      <!-- <p class="lead reveal r2">23 oficinas distintas, sin agrupamiento común, dentro de un mismo Poder Judicial.</p> -->
+      <div class="scatter-stat reveal r3"><span class="num">23</span><span class="cap" style="font-size:20px">oficinas sin una estructura que las ordene</span></div>
+      <div class="scatter-box reveal r4">
+        <span class="scatter-label">Poder Judicial</span>
+        <div class="chip-cloud">
+          <span class="chip">RUPAT</span>
+          <span class="chip">OVD Capital</span>
+          <span class="chip">OVD Concepción</span>
+          <span class="chip">OVD Este</span>
+          <span class="chip">OVD Trancas</span>
+          <span class="chip">OVD Monteros</span>
+          <span class="chip">Cuerpo de Peritos Médicos Capital</span>
+          <span class="chip">Cuerpo de Peritos Médicos Monteros</span>
+          <span class="chip">Cuerpo de Peritos Médicos Concepción</span>
+          <span class="chip">Gabinete Psicosocial Flia y Suc.</span>
+          <span class="chip">Gabinete Psicosocial Multifuero</span>
+          <span class="chip">Ofic. Ejecución de Condena Efectiva</span>
+          <span class="chip">Gabinete Psicosocial Multifuero Capital</span>
+          <span class="chip">Gabinete Psicosocial Multifuero Concepción</span>
+          <span class="chip">OAVD</span>
+          <span class="chip">OAVD Monteros</span>
+          <span class="chip">OAVD Concepción</span>
+          <span class="chip">Gabinete Psicosocial Este</span>
+          <span class="chip">Ofic. Probation y Condenas Condicionales</span>
+          <span class="chip">GENNYA</span>
+          <span class="chip">Revinculación</span>
+          <span class="chip">Oficina de la Mujer - AGR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — DE DISPERSO A CENTRALIZADO -->
+  <section class="scene" data-index="1">
+    <p class="scene-num">02</p>
+    <div class="scene-inner">
+      <!-- <h2 class="reveal r1" style="font-size:45px">De una estructura descentralizada a una estructura centralizada, organizada en 4 áreas</h2> -->
+      <br>
+      <h2 class="reveal r1" style="font-size:35px">A una estructura centralizada, organizada en 4 áreas</h2>
+      <svg class="area-hub reveal r2" viewBox="0 0 560 110" fill="none">
+        <circle cx="280" cy="16" r="4" fill="var(--ink)"/>
+        <line x1="280" y1="20" x2="70" y2="70" stroke="var(--line)"/>
+        <line x1="280" y1="20" x2="230" y2="70" stroke="var(--line)"/>
+        <line x1="280" y1="20" x2="340" y2="70" stroke="var(--line)"/>
+        <line x1="280" y1="20" x2="500" y2="70" stroke="var(--line)"/>
+        <g fill="var(--accent)"><circle cx="70" cy="70" r="3"/><circle cx="230" cy="70" r="3"/><circle cx="340" cy="70" r="3"/><circle cx="500" cy="70" r="3"/></g>
+      </svg>
+      <div class="area-acc reveal r3">
+        <div class="area-acc-item open">
+          <button class="area-acc-head">
+            <span class="aa-left"><span class="aa-name">Área de Flia</span><span class="aa-ref" style="font-size:18px">Referente: Psic. Elina Criado</span></span>
+            <span class="aa-right"><span class="aa-count" style="font-size:18px">4 oficinas</span><span class="aa-toggle">+</span></span>
+          </button>
+          <div class="area-acc-body">
+            <div class="aa-offices">
+              <span>RUPAT</span><span>Gabinete Flia y Suc.</span><span>Servicio de Revinculación</span><span>Gabinete Psicosocial Monteros</span>
+            </div>
+            <div class="aa-actions"><button class="aa-detail" data-area="flia">Ver dotación</button></div>
+          </div>
+        </div>
+        <div class="area-acc-item open">
+          <button class="area-acc-head">
+            <span class="aa-left"><span class="aa-name">Área de Violencia</span><span class="aa-ref" style="font-size:18px">Referente: Abog. Natalia Spedaletti</span></span>
+            <span class="aa-right"><span class="aa-count" style="font-size:18px">6 oficinas</span><span class="aa-toggle">+</span></span>
+          </button>
+          <div class="area-acc-body">
+            <div class="aa-offices">
+              <span>OVD Capital</span><span>OVD Monteros</span><span>OVD Concepción</span><span>OVD Este</span><span>OVD Trancas</span><span>OM - GR</span>
+            </div>
+            <div class="aa-actions"><button class="aa-detail" data-area="violencia">Ver dotación</button></div>
+          </div>
+        </div>
+        <div class="area-acc-item open">
+          <button class="area-acc-head">
+            <span class="aa-left"><span class="aa-name">Área Multifuero</span><span class="aa-ref" style="font-size:18px">Referente: Dra. María José Gandur</span></span>
+            <span class="aa-right"><span class="aa-count" style="font-size:18px">9 oficinas</span><span class="aa-toggle">+</span></span>
+          </button>
+          <div class="area-acc-body">
+            <div class="aa-offices">
+              <span>CPM Capital</span>
+              <span>CPM Concepción</span>
+              <span>CPM Monteros</span>
+              <span>Gabinete Multifuero Capital</span>
+              <span>Gabinete Multifuero Concepción</span>
+              <span>Gabinete Multifuero Monteros</span>
+              <span>Gabinete Tecnico - Probation y Condenas Condicionales</span>              
+              <span>Gabinete Tecnico - Condenas Efectiva</span>              
+              <span>Gabinete Tecnico Ejecución Penal - Concepción</span>              
+            </div>
+            <div class="aa-actions"><button class="aa-detail" data-area="multifuero">Ver dotación</button></div>
+          </div>
+        </div>
+        <div class="area-acc-item open">
+          <button class="area-acc-head">
+            <span class="aa-left"><span class="aa-name">Área Penal</span><span class="aa-ref" style="font-size:18px">Referente: Ts. Adriana Barroso</span></span>
+            <span class="aa-right"><span class="aa-count" style="font-size:18px">5 oficinas</span><span class="aa-toggle">+</span></span>
+          </button>
+          <div class="area-acc-body">
+            <div class="aa-offices">
+              <span>OAVD Capital</span><span>OAVD Concepción</span><span>OAVD Monteros</span><span>GENNYA</span><span>Gabinete Penal Concepción</span>
+            </div>
+            <div class="aa-actions"><button class="aa-detail" data-area="penal">Ver dotación</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 — LA HERRAMIENTA -->
+  <section class="scene" data-index="2">
+    <p class="scene-num">03</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Una herramienta para conocer a cada persona</h2>
+      <p class="lead reveal r2">Para centralizar el personal de estas 23 oficinas nace una herramienta que funciona bajo la órbita de la OATE y organiza áreas, referentes, oficinas y personas. Conocer el cargo, la función, el área y el referente de cada persona es la base para decidir movimientos y rotaciones.</p>
+      <div class="preview-grid reveal r3">
+        <button class="thumb-btn" data-title="Ficha de personal" data-src="images/foto 1.png">
+          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
+            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
+            <circle cx="40" cy="45" r="18" fill="none" stroke="var(--ink-soft)"/>
+            <line x1="70" y1="38" x2="160" y2="38" stroke="var(--ink-soft)" stroke-width="2"/>
+            <line x1="70" y1="52" x2="130" y2="52" stroke="var(--line)" stroke-width="2"/>
+            <line x1="20" y1="90" x2="120" y2="90" stroke="var(--line)"/><line x1="20" y1="110" x2="140" y2="110" stroke="var(--line)"/>
+            <line x1="160" y1="90" x2="260" y2="90" stroke="var(--line)"/><line x1="160" y1="110" x2="240" y2="110" stroke="var(--line)"/>
+            <line x1="20" y1="140" x2="120" y2="140" stroke="var(--line)"/><line x1="20" y1="160" x2="140" y2="160" stroke="var(--line)"/>
+            <line x1="160" y1="140" x2="260" y2="140" stroke="var(--line)"/><line x1="160" y1="160" x2="240" y2="160" stroke="var(--line)"/>
+            <rect x="20" y="190" width="70" height="18" rx="2" fill="none" stroke="var(--accent)"/>
+          </svg></span>
+          <span class="thumb-cap">Ficha de personal</span>
+        </button>
+        <button class="thumb-btn" data-title="Organigrama dinámico">
+          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
+            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
+            <circle cx="150" cy="30" r="4" fill="var(--ink)"/>
+            <line x1="150" y1="34" x2="150" y2="70" stroke="var(--line)"/>
+            <line x1="150" y1="70" x2="80" y2="70" stroke="var(--line)"/><line x1="150" y1="70" x2="220" y2="70" stroke="var(--line)"/>
+            <circle cx="80" cy="70" r="3" fill="var(--accent)"/><circle cx="220" cy="70" r="3" fill="var(--accent)"/>
+            <line x1="80" y1="73" x2="55" y2="120" stroke="var(--line)"/><line x1="80" y1="73" x2="105" y2="120" stroke="var(--line)"/>
+            <line x1="220" y1="73" x2="195" y2="120" stroke="var(--line)"/><line x1="220" y1="73" x2="245" y2="120" stroke="var(--line)"/>
+            <g fill="var(--ink-soft)"><circle cx="55" cy="120" r="2.5"/><circle cx="105" cy="120" r="2.5"/><circle cx="195" cy="120" r="2.5"/><circle cx="245" cy="120" r="2.5"/></g>
+            <line x1="60" y1="170" x2="240" y2="170" stroke="var(--line)" stroke-dasharray="2 3"/>
+          </svg></span>
+          <span class="thumb-cap">Organigrama dinámico</span>
+        </button>
+        <button class="thumb-btn" data-title="Panel de áreas y referentes">
+          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
+            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
+            <line x1="20" y1="30" x2="120" y2="30" stroke="var(--ink-soft)" stroke-width="2"/>
+            <rect x="20" y="55" width="260" height="34" rx="2" fill="none" stroke="var(--line)"/>
+            <rect x="20" y="99" width="260" height="34" rx="2" fill="none" stroke="var(--line)"/>
+            <rect x="20" y="143" width="260" height="34" rx="2" fill="none" stroke="var(--line)"/>
+            <circle cx="35" cy="72" r="4" fill="var(--accent)"/><circle cx="35" cy="116" r="4" fill="var(--accent)"/><circle cx="35" cy="160" r="4" fill="var(--accent)"/>
+            <line x1="50" y1="68" x2="140" y2="68" stroke="var(--ink-soft)"/><line x1="50" y1="112" x2="150" y2="112" stroke="var(--ink-soft)"/><line x1="50" y1="156" x2="130" y2="156" stroke="var(--ink-soft)"/>
+          </svg></span>
+          <span class="thumb-cap">Panel de áreas y referentes</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 — EL RECORRIDO -->
+  <section class="scene" data-index="3">
+    <p class="scene-num">04</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Conservar el recorrido de cada persona</h2>
+      <p class="lead reveal r2">Otro objetivo es registrar el recorrido de cada persona dentro de la estructura, para reconstruir cómo fue cambiando la composición de oficinas y áreas.</p>
+      <div class="preview-grid reveal r3">
+        <button class="thumb-btn" data-title="Línea de tiempo de recorrido">
+          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
+            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
+            <line x1="30" y1="110" x2="270" y2="110" stroke="var(--line)"/>
+            <circle cx="60" cy="110" r="4" fill="var(--accent)"/><circle cx="120" cy="110" r="4" fill="var(--accent)"/>
+            <circle cx="180" cy="110" r="4" fill="var(--accent)"/><circle cx="240" cy="110" r="4" fill="var(--accent)"/>
+            <line x1="50" y1="140" x2="70" y2="140" stroke="var(--line)"/><line x1="110" y1="140" x2="130" y2="140" stroke="var(--line)"/>
+            <line x1="170" y1="140" x2="190" y2="140" stroke="var(--line)"/><line x1="230" y1="140" x2="250" y2="140" stroke="var(--line)"/>
+            <line x1="45" y1="85" x2="75" y2="85" stroke="var(--ink-soft)"/><line x1="105" y1="85" x2="135" y2="85" stroke="var(--ink-soft)"/>
+            <line x1="165" y1="85" x2="195" y2="85" stroke="var(--ink-soft)"/><line x1="225" y1="85" x2="255" y2="85" stroke="var(--ink-soft)"/>
+          </svg></span>
+          <span class="thumb-cap">Línea de tiempo de recorrido</span>
+        </button>
+        <button class="thumb-btn" data-title="Registro de movimientos">
+          <span class="thumb-visual"><svg viewBox="0 0 300 225" fill="none">
+            <rect x="0.5" y="0.5" width="299" height="224" fill="var(--paper)" stroke="var(--line)"/>
+            <line x1="20" y1="40" x2="280" y2="40" stroke="var(--ink-soft)" stroke-width="1.5"/>
+            <line x1="20" y1="75" x2="280" y2="75" stroke="var(--line)"/><line x1="20" y1="105" x2="280" y2="105" stroke="var(--line)"/>
+            <line x1="20" y1="135" x2="280" y2="135" stroke="var(--line)"/><line x1="20" y1="165" x2="280" y2="165" stroke="var(--line)"/>
+            <circle cx="30" cy="60" r="2.5" fill="var(--accent)"/><circle cx="30" cy="90" r="2.5" fill="var(--accent)"/>
+            <circle cx="30" cy="120" r="2.5" fill="var(--accent)"/><circle cx="30" cy="150" r="2.5" fill="var(--accent)"/>
+          </svg></span>
+          <span class="thumb-cap">Registro de movimientos</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — PORTADA -->
+  <section class="scene s1" data-index="4">
+    <div class="scene-inner">
+      <p class="kicker reveal r1">Dirección · Estructura organizacional</p>
+      <h1 class="s1-title reveal r2">Conocer y gestionar<br>la estructura de<br>oficinas de la Dirección.</h1>
+      <p class="lead reveal r3">Una representación dinámica y trazable de las áreas, oficinas, referentes y personas que la integran.</p>
+    </div>
+    <svg class="s1-diagram reveal r4" viewBox="0 0 400 420" fill="none">
+      <circle cx="200" cy="50" r="5" fill="var(--ink)"/>
+      <line x1="200" y1="55" x2="120" y2="140" stroke="var(--line)" stroke-width="1"/>
+      <line x1="200" y1="55" x2="200" y2="140" stroke="var(--line)" stroke-width="1"/>
+      <line x1="200" y1="55" x2="280" y2="140" stroke="var(--line)" stroke-width="1"/>
+      <circle cx="120" cy="140" r="4" fill="var(--accent)"/>
+      <circle cx="200" cy="140" r="4" fill="var(--accent)"/>
+      <circle cx="280" cy="140" r="4" fill="var(--accent)"/>
+      <line x1="120" y1="144" x2="80" y2="230" stroke="var(--line)" stroke-width="1"/>
+      <line x1="120" y1="144" x2="150" y2="230" stroke="var(--line)" stroke-width="1"/>
+      <line x1="200" y1="144" x2="190" y2="230" stroke="var(--line)" stroke-width="1"/>
+      <line x1="200" y1="144" x2="230" y2="230" stroke="var(--line)" stroke-width="1"/>
+      <line x1="280" y1="144" x2="270" y2="230" stroke="var(--line)" stroke-width="1"/>
+      <line x1="280" y1="144" x2="320" y2="230" stroke="var(--line)" stroke-width="1"/>
+      <g fill="var(--ink-soft)">
+        <circle cx="80" cy="230" r="3"/><circle cx="150" cy="230" r="3"/>
+        <circle cx="190" cy="230" r="3"/><circle cx="230" cy="230" r="3"/>
+        <circle cx="270" cy="230" r="3"/><circle cx="320" cy="230" r="3"/>
+      </g>
+    </svg>
+    <div class="scroll-cue"><span>Desplazate para continuar</span><span class="line"></span></div>
+  </section>
+
+  <!-- 2 — LA ESTRUCTURA QUE REPRESENTA -->
+  <section class="scene" data-index="5">
+    <p class="scene-num">06</p>
+    <div class="scene-inner universe">
+      <div>
+        <h2 class="reveal r1">La estructura que representa</h2>
+        <p class="lead reveal r2">El sistema está pensado para el universo de oficinas bajo la órbita de una Dirección, organizadas por áreas y referentes.</p>
+        <div class="stat-row reveal r3">
+          <div class="stat"><div class="num">4</div><div class="cap">Centros Judiciales</div></div>
+          <div class="stat"><div class="num">23</div><div class="cap">Oficinas dependientes</div></div>
+        </div>
+        <p class="scope-note reveal r4">Este es el nivel de oficina para el que fue concebido el sistema. Capital cuenta con desarrollo avanzado; en el Centro Judicial Sur las áreas se encuentran en definición.</p>
+      </div>
+      <svg class="reveal r4" viewBox="0 0 420 380" fill="none">
+        <circle cx="60" cy="40" r="6" fill="var(--ink)"/>
+        <text x="76" y="45" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Dirección</text>
+        <line x1="60" y1="46" x2="60" y2="120" stroke="var(--line)"/>
+        <line x1="60" y1="120" x2="30" y2="120" stroke="var(--line)"/>
+        <line x1="60" y1="120" x2="150" y2="120" stroke="var(--line)"/>
+        <line x1="60" y1="120" x2="270" y2="120" stroke="var(--line)"/>
+        <line x1="60" y1="120" x2="380" y2="120" stroke="var(--line)"/>
+        <g fill="var(--accent)">
+          <circle cx="30" cy="120" r="4"/><circle cx="150" cy="120" r="4"/>
+          <circle cx="270" cy="120" r="4"/><circle cx="380" cy="120" r="4"/>
+        </g>
+        <g font-family="Public Sans" font-size="11" fill="var(--muted)">
+          <text x="8" y="140">Centro</text><text x="128" y="140">Centro</text>
+          <text x="248" y="140">Centro</text><text x="358" y="140">Centro</text>
+        </g>
+        <g stroke="var(--line)">
+          <line x1="30" y1="124" x2="16" y2="180"/><line x1="30" y1="124" x2="44" y2="180"/>
+          <line x1="150" y1="124" x2="136" y2="180"/><line x1="150" y1="124" x2="164" y2="180"/>
+          <line x1="270" y1="124" x2="256" y2="180"/><line x1="270" y1="124" x2="284" y2="180"/>
+          <line x1="380" y1="124" x2="366" y2="180"/><line x1="380" y1="124" x2="394" y2="180"/>
+        </g>
+        <g fill="var(--ink-soft)" opacity=".55">
+          <circle cx="16" cy="180" r="2.5"/><circle cx="44" cy="180" r="2.5"/>
+          <circle cx="136" cy="180" r="2.5"/><circle cx="164" cy="180" r="2.5"/>
+          <circle cx="256" cy="180" r="2.5"/><circle cx="284" cy="180" r="2.5"/>
+          <circle cx="366" cy="180" r="2.5"/><circle cx="394" cy="180" r="2.5"/>
+        </g>
+        <text x="210" y="230" text-anchor="middle" font-family="Fraunces" font-size="15" fill="var(--ink)">23 oficinas, organizadas por áreas</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 3 — LA CADENA ORGANIZACIONAL -->
+  <section class="scene" data-index="6">
+    <p class="scene-num">07</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">El eje del sistema</h2>
+      <p class="lead reveal r2">Cada persona adquiere sentido dentro de una cadena de relaciones: dónde está, de qué área depende y quién la referencia.</p>
+      <svg class="chain-svg reveal r3" viewBox="0 0 1000 160" fill="none">
+        <g font-family="Fraunces" font-size="16" fill="var(--ink)">
+          <text x="20" y="70">Dirección</text>
+          <text x="200" y="70">Áreas</text>
+          <text x="360" y="70">Oficinas</text>
+          <text x="560" y="70">Referentes</text>
+          <text x="780" y="70">Personas</text>
+        </g>
+        <g stroke="var(--line)">
+          <line x1="115" y1="65" x2="185" y2="65"/>
+          <line x1="255" y1="65" x2="345" y2="65"/>
+          <line x1="450" y1="65" x2="545" y2="65"/>
+          <line x1="685" y1="65" x2="765" y2="65"/>
+        </g>
+        <g fill="var(--accent)">
+          <circle cx="150" cy="65" r="3"/><circle cx="300" cy="65" r="3"/>
+          <circle cx="497" cy="65" r="3"/><circle cx="725" cy="65" r="3"/>
+        </g>
+      </svg>
+      <p class="formula reveal r4">Personas + oficinas + áreas + referentes + funciones + movimientos + historial + documentación = una representación dinámica de la organización.</p>
+    </div>
+  </section>
+
+  <!-- 4 — ÁREAS Y REFERENTES -->
+  <section class="scene" data-index="7">
+    <p class="scene-num">08</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Áreas y referentes</h2>
+      <p class="lead reveal r2">Las áreas agrupan las oficinas dependientes de la Dirección. Cada área tiene un referente, que permite comprender su relación con las oficinas y las personas que las integran.</p>
+      <div class="areas-grid reveal r3">
+        <div class="area-col">
+          <div class="a-name">Área</div>
+          <div class="a-meta">Oficinas agrupadas<br>Referente asignado<br>Personas que la integran</div>
+        </div>
+        <div class="area-col">
+          <div class="a-name">Área</div>
+          <div class="a-meta">Oficinas agrupadas<br>Referente asignado<br>Personas que la integran</div>
+        </div>
+        <div class="area-col">
+          <div class="a-name">Área</div>
+          <div class="a-meta">Oficinas agrupadas<br>Referente asignado<br>Personas que la integran</div>
+        </div>
+      </div>
+      <p class="area-note reveal r4">Estructura conceptual del sistema — el contenido real varía por Centro Judicial.</p>
+    </div>
+  </section>
+
+  <!-- 5 — CONOCER AL PERSONAL -->
+  <section class="scene" data-index="8">
+    <p class="scene-num">09</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Conocer al personal</h2>
+      <p class="lead reveal r2">Cada persona es parte de esta estructura: qué cargo ocupa, qué función cumple y en qué oficina y área se encuentra.</p>
+      <div class="ficha-wrap reveal r3">
+        <div class="avatar">A·B</div>
+        <div class="ficha-fields">
+          <div><div class="f-label">Cargo</div><div class="f-val">Perfil técnico</div></div>
+          <div><div class="f-label">Función</div><div class="f-val">Función asignada</div></div>
+          <div><div class="f-label">Oficina</div><div class="f-val">Oficina dependiente</div></div>
+          <div><div class="f-label">Área</div><div class="f-val">Área correspondiente</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 — EL RECORRIDO DEL PROFESIONAL -->
+  <section class="scene" data-index="9">
+    <p class="scene-num">10</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">El recorrido del profesional</h2>
+      <p class="lead reveal r2">El sistema conserva el recorrido de cada persona dentro de la estructura y permite reconstruir cómo fue cambiando la composición de oficinas y áreas.</p>
+      <div class="timeline reveal r3">
+        <div class="timeline-line"></div>
+        <div class="timeline-points">
+          <div class="tp"><div class="dot"></div><div class="period">2021</div><div class="office">Oficina A</div><div class="role">Función inicial</div></div>
+          <div class="tp"><div class="dot"></div><div class="period">2022</div><div class="office">Oficina B</div><div class="role">Cambio de área</div></div>
+          <div class="tp"><div class="dot"></div><div class="period">2023</div><div class="office">Oficina B</div><div class="role">Ascenso funcional</div></div>
+          <div class="tp"><div class="dot"></div><div class="period">2025</div><div class="office">Oficina C</div><div class="role">Nueva asignación</div></div>
+          <div class="tp"><div class="dot"></div><div class="period">Hoy</div><div class="office">Oficina C</div><div class="role">Situación actual</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 — DOCUMENTACIÓN ASOCIADA -->
+  <section class="scene" data-index="10">
+    <p class="scene-num">11</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Documentación asociada</h2>
+      <p class="lead reveal r2">Acordadas, actuaciones y otros documentos relevantes, asociados directamente a la persona, en el mismo lugar donde se consulta su información.</p>
+      <div class="doc-diagram reveal r3">
+        <svg class="doc-svg" viewBox="0 0 780 220" fill="none">
+          <circle cx="120" cy="110" r="6" fill="var(--ink)"/>
+          <text x="70" y="150" font-family="Fraunces" font-size="15" fill="var(--ink)">Persona</text>
+          <line x1="126" y1="105" x2="330" y2="40" stroke="var(--line)"/>
+          <line x1="126" y1="110" x2="330" y2="110" stroke="var(--line)"/>
+          <line x1="126" y1="115" x2="330" y2="180" stroke="var(--line)"/>
+          <circle cx="336" cy="40" r="4" fill="var(--accent)"/>
+          <circle cx="336" cy="110" r="4" fill="var(--accent)"/>
+          <circle cx="336" cy="180" r="4" fill="var(--accent)"/>
+          <text x="352" y="45" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Acordadas</text>
+          <text x="352" y="115" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Actuaciones</text>
+          <text x="352" y="185" font-family="Public Sans" font-size="13" fill="var(--ink-soft)">Otros documentos</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 — MOVIMIENTOS Y TRAZABILIDAD -->
+  <section class="scene" data-index="11">
+    <p class="scene-num">12</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Movimientos y trazabilidad</h2>
+      <div class="mov-wrap reveal r2">
+        <div class="mov-questions">
+          <p>¿Qué movimientos<br>se hicieron?<br>¿Cuándo?<br>¿Desde dónde?</p>
+        </div>
+        <div class="mov-log">
+          <div class="mov-row"><span class="m-period">Mar 25</span><span class="m-office">Oficina B</span><span class="m-from">antes: Oficina A</span></div>
+          <div class="mov-row"><span class="m-period">Jul 25</span><span class="m-office">Oficina D</span><span class="m-from">antes: Oficina C</span></div>
+          <div class="mov-row"><span class="m-period">Ago 25</span><span class="m-office">Oficina B</span><span class="m-from">antes: Oficina E</span></div>
+          <div class="mov-row"><span class="m-period">Dic 25</span><span class="m-office">Oficina F</span><span class="m-from">antes: Oficina B</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 — ORGANIGRAMAS DINÁMICOS -->
+  <section class="scene" data-index="12">
+    <p class="scene-num">13</p>
+    <div class="scene-inner" style="text-align:center;">
+      <h2 class="reveal r1" style="max-width:none;margin:0 auto;">Organigramas dinámicos</h2>
+      <p class="lead reveal r2" style="margin-left:auto;margin-right:auto;">Al conocer las áreas, oficinas, referentes y personas, el organigrama se construye a partir de la información vigente — no de un documento estático.</p>
+      <svg class="org-svg reveal r3" viewBox="0 0 900 260" fill="none">
+        <circle cx="450" cy="30" r="5" fill="var(--ink)"/>
+        <text x="450" y="15" text-anchor="middle" font-family="Public Sans" font-size="12" fill="var(--muted)">Dirección</text>
+        <line x1="450" y1="35" x2="200" y2="100" stroke="var(--line)"/>
+        <line x1="450" y1="35" x2="450" y2="100" stroke="var(--line)"/>
+        <line x1="450" y1="35" x2="700" y2="100" stroke="var(--line)"/>
+        <g fill="var(--accent)"><circle cx="200" cy="100" r="4"/><circle cx="450" cy="100" r="4"/><circle cx="700" cy="100" r="4"/></g>
+        <g font-family="Public Sans" font-size="11" fill="var(--muted)">
+          <text x="170" y="122">Área</text><text x="420" y="122">Área</text><text x="670" y="122">Área</text>
+        </g>
+        <g stroke="var(--line)">
+          <line x1="200" y1="104" x2="140" y2="170"/><line x1="200" y1="104" x2="200" y2="170"/><line x1="200" y1="104" x2="260" y2="170"/>
+          <line x1="450" y1="104" x2="400" y2="170"/><line x1="450" y1="104" x2="500" y2="170"/>
+          <line x1="700" y1="104" x2="650" y2="170"/><line x1="700" y1="104" x2="700" y2="170"/><line x1="700" y1="104" x2="760" y2="170"/>
+        </g>
+        <g fill="var(--ink-soft)" opacity=".8">
+          <circle cx="140" cy="170" r="2.5"/><circle cx="200" cy="170" r="2.5"/><circle cx="260" cy="170" r="2.5"/>
+          <circle cx="400" cy="170" r="2.5"/><circle cx="500" cy="170" r="2.5"/>
+          <circle cx="650" cy="170" r="2.5"/><circle cx="700" cy="170" r="2.5"/><circle cx="760" cy="170" r="2.5"/>
+        </g>
+        <g font-family="Public Sans" font-size="10" fill="var(--muted)">
+          <text x="118" y="188">Oficina</text><text x="178" y="188">Oficina</text><text x="238" y="188">Oficina</text>
+          <text x="378" y="188">Oficina</text><text x="478" y="188">Oficina</text>
+          <text x="628" y="188">Oficina</text><text x="678" y="188">Oficina</text><text x="738" y="188">Oficina</text>
+        </g>
+      </svg>
+      <p class="org-note reveal r4">Se actualiza automáticamente cuando cambian las personas o las oficinas.</p>
+    </div>
+  </section>
+
+  <!-- 10 — INDICADORES PARA LA TOMA DE DECISIONES -->
+  <section class="scene" data-index="13">
+    <p class="scene-num">14</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Indicadores para la toma de decisiones</h2>
+      <p class="lead reveal r2">La misma estructura que ordena la información permite calcular indicadores de totales, distribuciones, cruces y rankings, y flujos de personal.</p>
+
+      <div class="ind-tabs reveal r3">
+        <button class="ind-tab active" data-panel="totales">Totales</button>
+        <button class="ind-tab" data-panel="distribuciones">Distribuciones</button>
+        <button class="ind-tab" data-panel="cruces">Cruces y rankings</button>
+        <button class="ind-tab" data-panel="flujos">Flujos de personal</button>
+      </div>
+
+      <div class="reveal r4">
+        <!-- TOTALES -->
+        <div class="ind-panel active" id="panel-totales">
+          <div class="ind-stats-row">
+            <div class="ind-stat"><div class="num">104</div><div class="cap">Psicólogos</div><div class="pct">35,1% del padrón</div></div>
+            <div class="ind-stat"><div class="num">67</div><div class="cap">Trabajadores sociales</div><div class="pct">22,6% del padrón</div></div>
+            <div class="ind-stat"><div class="num">16</div><div class="cap">Psiquiatras</div><div class="pct">5,4% del padrón</div></div>
+            <div class="ind-stat"><div class="num">109</div><div class="cap">Otras profesiones</div><div class="pct">36,8% del padrón</div></div>
+          </div>
+          <p class="seg-title">Cantidad y porcentaje por tipo de función — padrón: 296 personas</p>
+          <div class="seg-bar">
+            <span style="width:35.1%;background:var(--ink);"></span>
+            <span style="width:22.6%;background:var(--accent);"></span>
+            <span style="width:5.4%;background:var(--accent-soft);"></span>
+            <span style="width:36.8%;background:var(--line);"></span>
+          </div>
+          <div class="seg-legend">
+            <div><i style="background:var(--ink);"></i>Psicólogos — 104 · 35,1%</div>
+            <div><i style="background:var(--accent);"></i>Trabajadores sociales — 67 · 22,6%</div>
+            <div><i style="background:var(--accent-soft);"></i>Psiquiatras — 16 · 5,4%</div>
+            <div><i style="background:var(--line);"></i>Otras profesiones — 109 · 36,8%</div>
+          </div>
+        </div>
+
+        <!-- DISTRIBUCIONES -->
+        <div class="ind-panel" id="panel-distribuciones">
+          <div class="ind-two-col">
+            <div>
+              <p class="col-title">Dotación por área</p>
+              <div class="hbar-row"><span class="h-label">Área A</span><div class="hbar-track"><div class="hbar-fill" style="width:92%;"></div></div><span class="h-val">68</span></div>
+              <div class="hbar-row"><span class="h-label">Área B</span><div class="hbar-track"><div class="hbar-fill" style="width:73%;"></div></div><span class="h-val">54</span></div>
+              <div class="hbar-row"><span class="h-label">Área C</span><div class="hbar-track"><div class="hbar-fill" style="width:53%;"></div></div><span class="h-val">39</span></div>
+              <div class="hbar-row"><span class="h-label">Área D</span><div class="hbar-track"><div class="hbar-fill" style="width:36%;"></div></div><span class="h-val">27</span></div>
+            </div>
+            <div>
+              <p class="col-title">Top de oficinas por dotación</p>
+              <div class="rank-row"><span class="r-n">1</span><span class="r-name">Oficina Central</span><span class="r-val">22</span><span class="r-pct">8,9%</span></div>
+              <div class="rank-row"><span class="r-n">2</span><span class="r-name">Oficina Norte</span><span class="r-val">19</span><span class="r-pct">7,7%</span></div>
+              <div class="rank-row"><span class="r-n">3</span><span class="r-name">Oficina Sur</span><span class="r-val">16</span><span class="r-pct">6,5%</span></div>
+              <div class="rank-row"><span class="r-n">4</span><span class="r-name">Oficina Este</span><span class="r-val">14</span><span class="r-pct">5,6%</span></div>
+              <div class="rank-row"><span class="r-n">5</span><span class="r-name">Oficina Oeste</span><span class="r-val">12</span><span class="r-pct">4,8%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRUCES Y RANKINGS -->
+        <div class="ind-panel" id="panel-cruces">
+          <div class="ind-two-col">
+            <div>
+              <p class="col-title">Cantidad por profesión × área</p>
+              <div class="matrix">
+                <div class="mh"></div><div class="mh">Área A</div><div class="mh">Área B</div><div class="mh">Área C</div><div class="mh">Área D</div>
+                <div class="mlabel">Psicólogos</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 55%, transparent);">7</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 35%, transparent);">4</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 20%, transparent);">3</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 15%, transparent);">4</div>
+                <div class="mlabel">Trab. sociales</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 40%, transparent);">5</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 30%, transparent);">4</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 20%, transparent);">3</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 15%, transparent);">2</div>
+                <div class="mlabel">Psiquiatras</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 25%, transparent);">3</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 15%, transparent);">1</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 10%, transparent);">1</div>
+                <div class="cell" style="background:color-mix(in srgb, var(--accent) 10%, transparent);">1</div>
+              </div>
+            </div>
+            <div>
+              <p class="col-title">Ranking de profesiones</p>
+              <div class="rank-row"><span class="r-n">1</span><span class="r-name">Otras profesiones</span><span class="r-val">210</span><span class="r-pct">84,7%</span></div>
+              <div class="rank-row"><span class="r-n">2</span><span class="r-name">Psicólogos</span><span class="r-val">18</span><span class="r-pct">92,0% ac.</span></div>
+              <div class="rank-row"><span class="r-n">3</span><span class="r-name">Trabajadores sociales</span><span class="r-val">14</span><span class="r-pct">97,6% ac.</span></div>
+              <div class="rank-row"><span class="r-n">4</span><span class="r-name">Psiquiatras</span><span class="r-val">6</span><span class="r-pct">100% ac.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLUJOS DE PERSONAL -->
+        <div class="ind-panel" id="panel-flujos">
+          <div class="flow-wrap">
+            <div>
+              <div class="kpi-row">
+                <div class="kpi"><div class="num">4,8%</div><div class="cap">Tasa de rotación</div></div>
+                <div class="kpi"><div class="num">2,8%</div><div class="cap">Tasa de movilidad interna</div></div>
+              </div>
+              <div class="kpi-row" style="margin-top:1.8rem;">
+                <div class="kpi"><div class="num">9</div><div class="cap">Ingresos al área</div></div>
+                <div class="kpi"><div class="num">5</div><div class="cap">Traslados fuera</div></div>
+                <div class="kpi"><div class="num">7</div><div class="cap">Cambios de cargo</div></div>
+              </div>
+            </div>
+            <svg class="flow-svg" viewBox="0 0 380 200" fill="none">
+              <rect x="120" y="70" width="140" height="60" rx="2" stroke="var(--line)" fill="none"/>
+              <text x="190" y="105" text-anchor="middle" font-family="Fraunces" font-size="13" fill="var(--ink)">Área Dirección</text>
+              <line x1="20" y1="85" x2="118" y2="85" stroke="var(--accent)"/>
+              <path d="M112 80 L118 85 L112 90" stroke="var(--accent)" fill="none"/>
+              <text x="20" y="75" font-family="Public Sans" font-size="11" fill="var(--muted)">+9 ingresos</text>
+              <line x1="262" y1="115" x2="360" y2="115" stroke="var(--muted)"/>
+              <path d="M354 110 L360 115 L354 120" stroke="var(--muted)" fill="none"/>
+              <text x="262" y="140" font-family="Public Sans" font-size="11" fill="var(--muted)">−5 traslados</text>
+              <path d="M190 130 C 150 165, 230 165, 190 132" stroke="var(--line)" fill="none"/>
+              <text x="190" y="185" text-anchor="middle" font-family="Public Sans" font-size="11" fill="var(--muted)">7 cambios de cargo</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- <p class="ind-note reveal r4">Valores ilustrativos — el sistema calcula estos indicadores sobre datos reales y actualizados.</p> -->
+    </div>
+  </section>
+
+  <!-- 11 — CIERRE -->
+  <section class="scene" data-index="14">
+    <p class="scene-num">15</p>
+    <div class="scene-inner">
+      <h2 class="reveal r1">Una estructura organizada, trazable y siempre actualizada.</h2>
+      <p class="chain-final reveal r2">Dirección → Áreas → Oficinas → Referentes → Personas → Historial → Movimientos → Documentación.</p>
+      <div class="concepts reveal r3">
+        <div class="concept"><div class="c-num">01</div><div class="c-name">Centralización</div></div>
+        <div class="concept"><div class="c-num">02</div><div class="c-name">Trazabilidad</div></div>
+        <div class="concept"><div class="c-num">03</div><div class="c-name">Organización</div></div>
+        <div class="concept"><div class="c-num">04</div><div class="c-name">Actualización</div></div>
+      </div>
+      <p class="closing-line reveal r4">Una herramienta para conocer mejor la organización y facilitar la toma de decisiones.</p>
+    </div>
+  </section>
+
+</div>
+
+<div id="dots"></div>
+<div id="arrows">
+  <button id="btnUp" aria-label="Escena anterior"><svg viewBox="0 0 12 8"><path d="M1 6 L6 1 L11 6" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button id="btnDown" aria-label="Escena siguiente"><svg viewBox="0 0 12 8"><path d="M1 2 L6 7 L11 2" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button id="btnFull" aria-label="Pantalla completa"><svg viewBox="0 0 14 14"><path d="M1 5 V1 H5 M9 1 H13 V5 M13 9 V13 H9 M5 13 H1 V9" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+
+<div id="areaModal" role="dialog" aria-modal="true" aria-labelledby="amTitle">
+  <div class="am-inner">
+    <div class="am-head">
+      <div>
+        <p class="am-kicker">Dotación por área</p>
+        <h3 class="am-title" id="amTitle"></h3>
+        <p class="am-ref" id="amRef"></p>
+      </div>
+      <button class="am-close" id="amClose" aria-label="Cerrar">Cerrar</button>
+    </div>
+    <div class="am-total"><span class="num" id="amTotal"></span><span class="cap">personas integran el área</span></div>
+    <div class="am-view">
+      <button class="active" data-view="bars">Barras</button>
+      <button data-view="pie">Gráfico Circular</button>
+    </div>
+    <div class="am-rows" id="amRows"></div>
+    <div class="am-pie" id="amPie"></div>
+  </div>
+</div>
+
+<div id="lightbox">
+  <div class="lightbox-inner">
+    <div class="lightbox-toolbar">
+      <button id="zoomOut" aria-label="Alejar">−</button>
+      <button id="zoomIn" aria-label="Acercar">+</button>
+      <span class="spacer"></span>
+      <a id="lightboxExternal" class="lightbox-ext" href="#" target="_blank" rel="noopener">Abrir en ventana nueva</a>
+      <button id="lightboxClose" aria-label="Cerrar">Cerrar</button>
+    </div>
+    <div class="lightbox-stage" id="lightboxStage">
+      <div class="lightbox-visual" id="lightboxVisual"></div>
+    </div>
+    <p class="lightbox-cap" id="lightboxCap"></p>
+  </div>
+</div>
+
+<script>
+  const deck = document.getElementById('deck');
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+  const dotsWrap = document.getElementById('dots');
+  const progress = document.getElementById('progress');
+  const html = document.documentElement;
+
+  scenes.forEach((s) => {
+    const b = document.createElement('button');
+    b.addEventListener('click', () => s.scrollIntoView({behavior:'smooth'}));
+    dotsWrap.appendChild(b);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  let currentIndex = 0;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = Number(entry.target.dataset.index);
+      if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
+        entry.target.classList.add('in-view');
+        currentIndex = idx;
+        dots.forEach((d,i) => d.classList.toggle('active', i === idx));
+        progress.style.width = ((idx+1)/scenes.length*100) + '%';
+      }
+    });
+  }, {threshold:[0,0.55,1], root:deck});
+  scenes.forEach(s => io.observe(s));
+
+  function goTo(i){
+    i = Math.max(0, Math.min(scenes.length-1, i));
+    scenes[i].scrollIntoView({behavior:'smooth'});
+  }
+  document.getElementById('btnUp').addEventListener('click', () => goTo(currentIndex-1));
+  document.getElementById('btnDown').addEventListener('click', () => goTo(currentIndex+1));
+
+  window.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('open')) {
+      if (e.key === 'Escape') { closeLightbox(); }
+      return;
+    }
+    if (areaModal.classList.contains('open')) {
+      if (e.key === 'Escape') { closeAreaModal(); }
+      return;
+    }
+    if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); goTo(currentIndex+1); }
+    if (['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); goTo(currentIndex-1); }
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    if (e.key === 'End') { e.preventDefault(); goTo(scenes.length-1); }
+    if (e.key === 'f' || e.key === 'F') { toggleFullscreen(); }
+  });
+
+  scenes[0].classList.add('in-view');
+  dots[0].classList.add('active');
+
+  // áreas: acordeón
+  document.querySelectorAll('.area-acc-head').forEach(head => {
+    head.addEventListener('click', () => {
+      head.closest('.area-acc-item').classList.toggle('open');
+    });
+  });
+
+  // áreas: modal de dotación
+  const AREA_DATA = {
+    flia: {
+      name: 'Área de Flia', ref: 'Referente: Psic. Elina Criado', total: 78,
+      rows: [['Psicólogos', 31], ['Trabajadores sociales', 27], ['Otros', 20]]
+    },
+    violencia: {
+      name: 'Área de Violencia', ref: 'Referente: Abog. Natalia Spedaletti', total: 81,
+      rows: [['Psicólogos', 19], ['Trabajadores sociales', 17], ['Abogados', 22], ['Otros', 23]]
+    },
+    multifuero: {
+      name: 'Área Multifuero', ref: 'Referente: Dra. María José Gandur', total: 65,
+      rows: [['Psicólogos', 10], ['Trabajadores sociales', 5], ['Psiquiatras', 16], ['Médicos', 17], ['Otros', 17]]
+    },
+    penal: {
+      name: 'Área Penal', ref: 'Referente: Ts. Adriana Barroso', total: 66,
+      rows: [['Psicólogos', 39], ['Trabajadores sociales', 16], ['Abogados', 4], ['Otros', 7]]
+    }
+  };
+  const areaModal = document.getElementById('areaModal');
+  const amTitle = document.getElementById('amTitle');
+  const amRef = document.getElementById('amRef');
+  const amTotal = document.getElementById('amTotal');
+  const amRows = document.getElementById('amRows');
+  function closeAreaModal(){ areaModal.classList.remove('open'); }
+  function openAreaModal(key){
+    const d = AREA_DATA[key];
+    if (!d) return;
+    amTitle.textContent = d.name;
+    amRef.textContent = d.ref;
+    amTotal.textContent = d.total;
+    const max = Math.max(...d.rows.map(r => r[1]));
+    amRows.innerHTML = d.rows.map(([label, n]) => {
+      const pct = (n / d.total * 100).toFixed(1).replace('.', ',');
+      return '<div class="hbar-row"><span class="h-label">' + label + '</span>' +
+        '<div class="hbar-track"><div class="hbar-fill" style="width:' + (n / max * 100) + '%;"></div></div>' +
+        '<span class="h-val">' + n + ' · ' + pct + '%</span></div>';
+    }).join('');
+    amPie.innerHTML = buildPie(d);
+    setAreaView('bars');
+    areaModal.classList.add('open');
+  }
+
+  const PIE_COLORS = ['var(--ink)', 'var(--accent)', 'var(--accent-soft)', 'var(--muted)', 'var(--line)'];
+  function buildPie(d){
+    const sum = d.rows.reduce((a, r) => a + r[1], 0);
+    const cx = 100, cy = 100, r = 88;
+    let angle = -Math.PI / 2;
+    const slices = d.rows.map(([label, n], i) => {
+      const frac = n / sum;
+      const a0 = angle, a1 = angle + frac * Math.PI * 2;
+      angle = a1;
+      const x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0);
+      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      const large = frac > 0.5 ? 1 : 0;
+      const path = frac >= 0.999
+        ? 'M' + cx + ' ' + (cy - r) + ' A' + r + ' ' + r + ' 0 1 1 ' + (cx - 0.01) + ' ' + (cy - r) + ' Z'
+        : 'M' + cx + ' ' + cy + ' L' + x0 + ' ' + y0 + ' A' + r + ' ' + r + ' 0 ' + large + ' 1 ' + x1 + ' ' + y1 + ' Z';
+      const mid = (a0 + a1) / 2, lr = r * 0.62;
+      const pct = (frac * 100).toFixed(1).replace('.', ',');
+      const labelEl = frac > 0.07
+        ? '<text x="' + (cx + lr * Math.cos(mid)) + '" y="' + (cy + lr * Math.sin(mid)) + '" text-anchor="middle" dominant-baseline="middle" font-family="Public Sans" font-size="11" font-weight="600" fill="var(--paper)">' + pct + '%</text>'
+        : '';
+      return '<path d="' + path + '" fill="' + PIE_COLORS[i % PIE_COLORS.length] + '" stroke="var(--paper)" stroke-width="2"/>' + labelEl;
+    }).join('');
+    const legend = d.rows.map(([label, n], i) => {
+      const pct = (n / sum * 100).toFixed(1).replace('.', ',');
+      return '<div><i style="background:' + PIE_COLORS[i % PIE_COLORS.length] + ';"></i>' + label + '<b>' + n + ' · ' + pct + '%</b></div>';
+    }).join('');
+    return '<svg viewBox="0 0 200 200" role="img" aria-label="Distribución por profesión">' + slices + '</svg><div class="pie-legend">' + legend + '</div>';
+  }
+  const amPie = document.getElementById('amPie');
+  const amViewBtns = Array.from(document.querySelectorAll('.am-view button'));
+  function setAreaView(v){
+    amViewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === v));
+    amRows.classList.toggle('hidden', v !== 'bars');
+    amPie.classList.toggle('active', v === 'pie');
+  }
+  amViewBtns.forEach(b => b.addEventListener('click', () => setAreaView(b.dataset.view)));
+  document.querySelectorAll('.aa-detail').forEach(btn => {
+    btn.addEventListener('click', (e) => { e.stopPropagation(); openAreaModal(btn.dataset.area); });
+  });
+  document.getElementById('amClose').addEventListener('click', closeAreaModal);
+  areaModal.addEventListener('click', (e) => { if (e.target === areaModal) closeAreaModal(); });
+
+  // previews: lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxVisual = document.getElementById('lightboxVisual');
+  const lightboxCap = document.getElementById('lightboxCap');
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  document.querySelectorAll('.thumb-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      lightboxVisual.innerHTML = btn.querySelector('.thumb-visual').innerHTML;
+      lightboxCap.textContent = btn.dataset.title;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+  // indicators tabs
+  document.querySelectorAll('.ind-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const group = tab.closest('.scene-inner');
+      group.querySelectorAll('.ind-tab').forEach(t => t.classList.remove('active'));
+      group.querySelectorAll('.ind-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      group.querySelector('#panel-' + tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  // theme toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  function setTheme(t){
+    html.setAttribute('data-theme', t);
+    themeLabel.textContent = t === 'dark' ? 'Modo claro' : 'Modo oscuro';
+  }
+  themeToggle.addEventListener('click', () => {
+    setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setTheme('dark');
+  }
+
+  // fullscreen
+  function requestFS(){
+    const el = document.documentElement;
+    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (req) { req.call(el).catch(()=>{}); }
+  }
+  function exitFS(){
+    const ex = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (ex) { ex.call(document).catch(()=>{}); }
+  }
+  function toggleFullscreen(){
+    if (document.fullscreenElement || document.webkitFullscreenElement) { exitFS(); }
+    else { requestFS(); }
+  }
+  document.getElementById('btnFull').addEventListener('click', toggleFullscreen);
+
+  // start gate
+  const gate = document.getElementById('startGate');
+  document.getElementById('btnStart').addEventListener('click', () => {
+    requestFS();
+    gate.classList.add('hidden');
+  });
+</script>
+
+</body>
+</html>
