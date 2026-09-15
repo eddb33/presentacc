@@ -162,6 +162,15 @@
   .reveal.r5{transition-delay:.54s;}
   .reveal.r6{transition-delay:.66s;}
 
+  /* escena 03 (Familia): +4px en todo salvo el título */
+  .fam-big .kicker{font-size:calc(.95rem + 4px);}
+  .fam-big .lead{font-size:calc(clamp(1.05rem,1.5vw,1.3rem) + 4px);}
+  .fam-big .fam-office{font-size:calc(1.2rem + 4px);}
+  .fam-big .fam-tag{font-size:calc(.7rem + 4px);}
+  .fam-big .fam-text{font-size:calc(.98rem + 4px);}
+  .fam-big .fam-next p{font-size:calc(.92rem + 4px);}
+  .fam-big .fam-next p b{font-size:calc(.7rem + 4px);}
+
   /* ---- scene: área violencia — hitos + gráfico ---- */
   .vio-wrap{margin-top:1.6rem;display:grid;grid-template-columns:1.05fr 1fr;gap:1.1rem;align-items:stretch;}
   .vio-cards{display:flex;flex-direction:column;gap:.9rem;}
@@ -185,6 +194,23 @@
   .vio-chart .vc-zero text{font-size:12px;font-weight:600;fill:var(--accent);}
   .vio-chart .vc-note{font-size:.8rem;color:var(--ink-soft);margin:.8rem 0 0;line-height:1.45;}
   .vio-chart .vc-note b{color:var(--accent);font-weight:600;}
+
+  /* escena 04 (Violencia): tipografía para proyector */
+  .vio-big .kicker{font-size:1.2rem;}
+  .vio-big .vio-wrap{margin-top:1.4rem;gap:1.4rem;}
+  .vio-big .fam-office{font-size:1.5rem;}
+  .vio-big .fam-tag{font-size:.85rem;padding:.22rem .8rem;}
+  .vio-big .vio-cards .fam-text,.vio-big .vio-cards .fam-next p{font-size:1.15rem;line-height:1.45;}
+  .vio-big .fam-next p b{font-size:.85rem;}
+  .vio-big .fam-hl{font-size:1.15rem;}
+  .vio-big .vio-chart .vc-title{font-size:1.5rem;}
+  .vio-big .vio-chart .vc-sub{font-size:1rem;}
+  .vio-big .vio-chart .vc-axis{font-size:14px;}
+  .vio-big .vio-chart .vc-cat{font-size:15px;font-weight:600;}
+  .vio-big .vio-chart .vc-val{font-size:18px;}
+  .vio-big .vio-chart .vc-zero text{font-size:15px;}
+  .vio-big .vio-chart .vc-note{font-size:1.2rem;}
+  .vio-big .vc-actions .aa-detail{font-size:1rem;padding:.6rem 1.4rem;}
 
   /* ---- scene: área multifuero — pool de psiquiatras ---- */
   .mf-wrap{margin-top:1.8rem;display:grid;grid-template-columns:1fr 1.15fr;gap:1.4rem;align-items:stretch;}
@@ -620,7 +646,7 @@
   <section class="scene" data-index="0">
     <p class="scene-num">01</p>
     <div class="scene-inner">
-      <h2 class="reveal r1">Partíamos de una estructura dispersa</h2>
+      <h2 class="reveal r1">Partimos de una estructura dispersa</h2>
       <!-- <p class="lead reveal r2">23 oficinas distintas, sin agrupamiento común, dentro de un mismo Poder Judicial.</p> -->
       <div class="scatter-stat reveal r3"><span class="num">23</span><span class="cap" style="font-size:20px">oficinas sin una estructura que las ordene</span></div>
       <div class="scatter-box reveal r4">
@@ -658,8 +684,7 @@
     <p class="scene-num">02</p>
     <div class="scene-inner">
       <!-- <h2 class="reveal r1" style="font-size:45px">De una estructura descentralizada a una estructura centralizada, organizada en 4 áreas</h2> -->
-      <br>
-      <h2 class="reveal r1 h2-full" style="font-size:47px; margin-top:15px">A una estructura centralizada, organizada en 4 áreas</h2>
+      <h2 class="reveal r1 h2-full" style="font-size:47px;">A una estructura centralizada y organizada en 4 áreas</h2>
       <div class="area-tabs reveal r2" role="tablist">
         <button class="area-tab active" data-apanel="flia"><span class="k">01</span>Familia</button>
         <button class="area-tab" data-apanel="violencia"><span class="k">02</span>Violencia</button>
@@ -706,12 +731,12 @@
   </section>
 
   <!-- 03 — ÁREA DE FAMILIA: HITOS Y HALLAZGOS -->
-  <section class="scene" data-index="2">
+  <section class="scene fam-big" data-index="2">
     <p class="scene-num">03</p>
     <div class="scene-inner">
       <p class="kicker reveal r1">Área de Familia · Ref.: Ps. Elina Criado</p>
       <h2 class="reveal r1 h2-full">Hitos y hallazgos en el Área de Familia</h2>
-      <p class="lead reveal r2">Un recorrido por las unidades del área: qué encontramos y cuál es el próximo paso en cada caso.</p>
+      <!-- <p class="lead reveal r2">Un recorrido por las unidades del área: qué encontramos y cuál es el próximo paso en cada caso.</p> -->
       <div class="fam-grid">
         <article class="fam-card reveal r3">
           <div class="fam-top"><span class="fam-office">RUPAT</span><span class="fam-tag">Hallazgo</span></div>
@@ -736,7 +761,7 @@
   </section>
 
   <!-- 04 — ÁREA DE VIOLENCIA: HITOS Y HALLAZGOS -->
-  <section class="scene" data-index="3">
+  <section class="scene vio-big" data-index="3">
     <p class="scene-num">04</p>
     <div class="scene-inner">
       <p class="kicker reveal r1">Área de Violencia · Ref.: Abog. Natalia Spedaletti</p>
@@ -760,8 +785,8 @@
         <div class="vio-chart reveal r4">
           <p class="vc-title">Distribución horaria de legajos</p>
           <p class="vc-sub">Muestra del sistema OVD Nación · 1 de mayo al 1 de agosto de 2026 · nivel provincial · 16 legajos</p>
-          <svg viewBox="0 0 520 270" role="img" aria-label="Distribución horaria de legajos: 13 entre 08:40 y 18:23, 2 entre 21:02 y 21:21, 1 a las 22:16, 0 entre 23:00 y 07:00"><line class="vc-grid" x1="44" x2="500" y1="230.0" y2="230.0"/><text class="vc-axis" x="36" y="234.0" text-anchor="end">0</text><line class="vc-grid" x1="44" x2="500" y1="201.4" y2="201.4"/><text class="vc-axis" x="36" y="205.4" text-anchor="end">2</text><line class="vc-grid" x1="44" x2="500" y1="172.9" y2="172.9"/><text class="vc-axis" x="36" y="176.9" text-anchor="end">4</text><line class="vc-grid" x1="44" x2="500" y1="144.3" y2="144.3"/><text class="vc-axis" x="36" y="148.3" text-anchor="end">6</text><line class="vc-grid" x1="44" x2="500" y1="115.7" y2="115.7"/><text class="vc-axis" x="36" y="119.7" text-anchor="end">8</text><line class="vc-grid" x1="44" x2="500" y1="87.1" y2="87.1"/><text class="vc-axis" x="36" y="91.1" text-anchor="end">10</text><line class="vc-grid" x1="44" x2="500" y1="58.6" y2="58.6"/><text class="vc-axis" x="36" y="62.6" text-anchor="end">12</text><line class="vc-grid" x1="44" x2="500" y1="30.0" y2="30.0"/><text class="vc-axis" x="36" y="34.0" text-anchor="end">14</text><rect class="vc-bar b0" x="66.0" y="44.3" width="70" height="185.7" rx="3"><title>08:40 – 18:23 hs.: 13 legajos</title></rect><text class="vc-val" x="101.0" y="37.3" text-anchor="middle">13</text><text class="vc-cat" x="101.0" y="252" text-anchor="middle">08:40 – 18:23 hs.</text><rect class="vc-bar b1" x="180.0" y="201.4" width="70" height="28.6" rx="3"><title>21:02 – 21:21 hs.: 2 legajos</title></rect><text class="vc-val" x="215.0" y="194.4" text-anchor="middle">2</text><text class="vc-cat" x="215.0" y="252" text-anchor="middle">21:02 – 21:21 hs.</text><rect class="vc-bar b2" x="294.0" y="215.7" width="70" height="14.3" rx="3"><title>22:16 hs.: 1 legajos</title></rect><text class="vc-val" x="329.0" y="208.7" text-anchor="middle">1</text><text class="vc-cat" x="329.0" y="252" text-anchor="middle">22:16 hs.</text><text class="vc-val" x="443.0" y="222.0" text-anchor="middle">0</text><text class="vc-cat" x="443.0" y="252" text-anchor="middle">23:00 – 07:00 hs.</text><g class="vc-zero"><rect x="392.0" y="38" width="102.0" height="192" rx="3"/><text x="443.0" y="58" text-anchor="middle">Sin legajos</text></g><line x1="44" x2="500" y1="230" y2="230" stroke="var(--ink-soft)" stroke-width="1"/><text class="vc-axis" x="14" y="130" text-anchor="middle" transform="rotate(-90 14 130)">Legajos</text></svg>
-          <p class="vc-note" style="font-size: 20px;">Entre las <b>23:00 y las 07:00 hs.</b> no se confeccionó ningún legajo en toda la provincia.</p>
+          <svg viewBox="0 0 520 280" role="img" aria-label="Distribución horaria de legajos: 13 entre 08:40 y 18:23, 2 entre 21:02 y 21:21, 1 a las 22:16, 0 entre 23:00 y 07:00"><line class="vc-grid" x1="44" x2="500" y1="230.0" y2="230.0"/><text class="vc-axis" x="36" y="234.0" text-anchor="end">0</text><line class="vc-grid" x1="44" x2="500" y1="201.4" y2="201.4"/><text class="vc-axis" x="36" y="205.4" text-anchor="end">2</text><line class="vc-grid" x1="44" x2="500" y1="172.9" y2="172.9"/><text class="vc-axis" x="36" y="176.9" text-anchor="end">4</text><line class="vc-grid" x1="44" x2="500" y1="144.3" y2="144.3"/><text class="vc-axis" x="36" y="148.3" text-anchor="end">6</text><line class="vc-grid" x1="44" x2="500" y1="115.7" y2="115.7"/><text class="vc-axis" x="36" y="119.7" text-anchor="end">8</text><line class="vc-grid" x1="44" x2="500" y1="87.1" y2="87.1"/><text class="vc-axis" x="36" y="91.1" text-anchor="end">10</text><line class="vc-grid" x1="44" x2="500" y1="58.6" y2="58.6"/><text class="vc-axis" x="36" y="62.6" text-anchor="end">12</text><line class="vc-grid" x1="44" x2="500" y1="30.0" y2="30.0"/><text class="vc-axis" x="36" y="34.0" text-anchor="end">14</text><rect class="vc-bar b0" x="66.0" y="44.3" width="70" height="185.7" rx="3"><title>08:40 – 18:23 hs.: 13 legajos</title></rect><text class="vc-val" x="101.0" y="37.3" text-anchor="middle">13</text><text class="vc-cat" x="101.0" y="250" text-anchor="middle"><tspan x="101.0">08:40 – 18:23</tspan><tspan x="101.0" dy="15">hs.</tspan></text><rect class="vc-bar b1" x="180.0" y="201.4" width="70" height="28.6" rx="3"><title>21:02 – 21:21 hs.: 2 legajos</title></rect><text class="vc-val" x="215.0" y="194.4" text-anchor="middle">2</text><text class="vc-cat" x="215.0" y="250" text-anchor="middle"><tspan x="215.0">21:02 – 21:21</tspan><tspan x="215.0" dy="15">hs.</tspan></text><rect class="vc-bar b2" x="294.0" y="215.7" width="70" height="14.3" rx="3"><title>22:16 hs.: 1 legajos</title></rect><text class="vc-val" x="329.0" y="208.7" text-anchor="middle">1</text><text class="vc-cat" x="329.0" y="250" text-anchor="middle"><tspan x="329.0">22:16</tspan><tspan x="329.0" dy="15">hs.</tspan></text><text class="vc-val" x="443.0" y="222.0" text-anchor="middle">0</text><text class="vc-cat" x="443.0" y="250" text-anchor="middle"><tspan x="443.0">23:00 – 07:00</tspan><tspan x="443.0" dy="15">hs.</tspan></text><g class="vc-zero"><rect x="392.0" y="38" width="102.0" height="192" rx="3"/><text x="443.0" y="58" text-anchor="middle">Sin legajos</text></g><line x1="44" x2="500" y1="230" y2="230" stroke="var(--ink-soft)" stroke-width="1"/><text class="vc-axis" x="14" y="130" text-anchor="middle" transform="rotate(-90 14 130)">Legajos</text></svg>
+          <p class="vc-note">Entre las <b>23:00 y las 07:00 hs.</b> no se confeccionó ningún legajo en toda la provincia.</p>
           <div class="vc-actions"><button class="aa-detail" id="evOpen">Ver evidencia empírica</button></div>
         </div>
       </div>
@@ -800,7 +825,7 @@
     <p class="scene-num">06</p>
     <div class="scene-inner">
       <p class="kicker reveal r1">Dirección · Nómina</p>
-      <h2 class="reveal r1 h2-full">Regularización administrativa e impacto en la interoperabilidad</h2>
+      <h2 class="reveal r1 h2-full">Hitos de Regularización administrativa e impacto en la interoperabilidad</h2>
       <div class="reg-wrap">
         <div class="reg-panel reveal r2">
           <p class="vc-title">Hallazgo en la migración de la nómina</p>
@@ -899,7 +924,7 @@
     </div>
   </section> -->
 
-  <section class="scene" data-index="6">
+  <!-- <section class="scene" data-index="6">
     <p class="scene-num">07</p>
     <div class="scene-inner">
       <h2 class="reveal r1">Indicadores para la toma de decisiones</h2>
@@ -913,7 +938,6 @@
       </div>
 
       <div class="reveal r4">
-        <!-- TOTALES -->
         <div class="ind-panel active" id="panel-totales">
           <div class="ind-stats-row">
             <div class="ind-stat"><div class="num">104</div><div class="cap">Psicólogos</div><div class="pct">35,1% del padrón</div></div>
@@ -936,7 +960,6 @@
           </div>
         </div>
 
-        <!-- DISTRIBUCIONES -->
         <div class="ind-panel" id="panel-distribuciones">
           <div class="ind-two-col">
             <div>
@@ -957,7 +980,6 @@
           </div>
         </div>
 
-        <!-- CRUCES Y RANKINGS -->
         <div class="ind-panel" id="panel-cruces">
           <div class="ind-two-col">
             <div>
@@ -991,7 +1013,6 @@
           </div>
         </div>
 
-        <!-- FLUJOS DE PERSONAL -->
         <div class="ind-panel" id="panel-flujos">
           <div class="flow-wrap">
             <div>
@@ -1020,9 +1041,9 @@
           </div>
         </div>
       </div>
-      <!-- <p class="ind-note reveal r4">Valores ilustrativos — el sistema calcula estos indicadores sobre datos reales y actualizados.</p> -->
     </div>
-  </section>
+  </section> -->
+  <!-- <p class="ind-note reveal r4">Valores ilustrativos — el sistema calcula estos indicadores sobre datos reales y actualizados.</p> -->
 
 </div>
 
