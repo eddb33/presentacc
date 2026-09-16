@@ -143,6 +143,17 @@
   .chip:nth-child(6n){transform:rotate(1deg) translateY(-2px);}
   .chip:hover{transform:translateY(-3px) rotate(0deg);border-color:var(--accent);color:var(--ink);}
 
+  /* ---- scene 01: objetivos ---- */
+  .obj-grid{margin-top:2.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;}
+  .obj-card{position:relative;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:2rem 2rem 1.9rem 2rem;min-height:210px;display:grid;grid-template-columns:48px 1fr;grid-template-rows:auto auto;column-gap:1.3rem;align-items:start;align-content:center;transition:border-color .25s;}
+  .obj-card:hover{border-color:var(--accent);}
+  .obj-card::before{content:'';position:absolute;left:0;top:2rem;bottom:1.9rem;width:2px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .6s ease .5s;}
+  .scene.in-view .obj-card::before{transform:scaleY(1);}
+  .obj-n{position:absolute;top:1.1rem;right:1.3rem;font-family:'Fraunces',serif;font-size:1rem;color:var(--accent);}
+  .obj-card svg{grid-row:1 / span 2;width:48px;height:48px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-top:.15rem;}
+  .obj-card h3{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(1.5rem,2.3vw,2rem);line-height:1.15;color:var(--ink);margin:0;padding-right:2.6rem;}
+  .obj-card p{margin:.55rem 0 0;font-size:clamp(1.1rem,1.6vw,1.35rem);color:var(--ink-soft);line-height:1.45;}
+
   /* ---- scene: área familia — hitos ---- */
   .fam-grid{margin-top:2rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;}
   .fam-card{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.3rem 1.4rem 1.2rem;display:flex;flex-direction:column;gap:.75rem;position:relative;transition:border-color .25s;}
@@ -499,7 +510,7 @@
   .am-pie svg{width:100%;height:auto;display:block;}
   .am-pie .pie-legend div{display:flex;align-items:center;gap:.8rem;font-size:1.3rem;color:var(--ink-soft);padding:.5rem 0;}
   .am-pie .pie-legend i{width:16px;height:16px;border-radius:2px;flex-shrink:0;}
-  .am-pie .pie-legend b{font-weight:600;color:var(--ink);margin-left:auto;white-space:nowrap;font-size:1.35rem;}
+  .am-pie .pie-legend b{font-weight:600;color:var(--ink);white-space:nowrap;font-size:1.35rem;min-width:2.2ch;text-align:right;margin-right:.2rem;}
   .am-rows.hidden{display:none;}
 
   /* ---- previews + lightbox ---- */
@@ -673,6 +684,7 @@
     .ap-offices{grid-template-columns:1fr;}
     .area-hub{display:none;}
     .fam-grid{grid-template-columns:1fr;gap:.8rem;}
+    .obj-grid{grid-template-columns:1fr;gap:.8rem;}
     .vio-wrap{grid-template-columns:1fr;}
     .mf-wrap{grid-template-columns:1fr;}
     .reg-wrap{grid-template-columns:1fr;}
@@ -717,9 +729,44 @@
 
 <div id="deck">
 
-  <!-- 01 — SIÓN -->
+  <!-- 01 — OBJETIVOS -->
   <section class="scene top-align" data-index="0">
     <p class="scene-num">01</p>
+    <div class="scene-inner">
+      <p class="kicker reveal r1">Dirección de Abordajes Técnicos Especializados</p>
+      <h2 class="reveal r1 h2-full">Objetivos principales</h2>
+      <div class="obj-grid">
+        <article class="obj-card reveal r2">
+          <span class="obj-n">01</span>
+          <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="3" y="15" width="6" height="4" rx="1"/><rect x="15" y="15" width="6" height="4" rx="1"/><path d="M12 7v4M6 15v-2h12v2"/></svg>
+          <h3>Ordenar y coordinar</h3>
+          <p>las 23 oficinas en una Dirección General.</p>
+        </article>
+        <article class="obj-card reveal r3">
+          <span class="obj-n">02</span>
+          <svg viewBox="0 0 24 24"><path d="M4 19h16M6 16V10M11 16V6M16 16v-4M21 16V8"/></svg>
+          <h3>Definir indicadores de confianza</h3>
+          <p>sobre la productividad de los distintos abordajes técnicos.</p>
+        </article>
+        <article class="obj-card reveal r4">
+          <span class="obj-n">03</span>
+          <svg viewBox="0 0 24 24"><path d="M12 3v18M4 7h16M6 7l-3 7h6l-3-7zM18 7l-3 7h6l-3-7z"/><path d="M8 21h8"/></svg>
+          <h3>Equilibrar las cargas</h3>
+          <p>a partir de los requerimientos del servicio.</p>
+        </article>
+        <article class="obj-card reveal r5">
+          <span class="obj-n">04</span>
+          <svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.8-4.3 4.1 1 5.8L12 16.3 6.8 19l1-5.8L3.5 9.1l5.9-.8z"/></svg>
+          <h3>Potenciar la calidad</h3>
+          <p>de las intervenciones.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — DISPERSIÓN -->
+  <section class="scene top-align" data-index="1">
+    <p class="scene-num">02</p>
     <div class="scene-inner">
       <h2 class="reveal r1 h2-full">Partimos de 24 Oficinas aisladas entre si</h2><br><br>
       <!-- <p class="lead reveal r2">23 oficinas distintas, sin agrupamiento común, dentro de un mismo Poder Judicial.</p> -->
@@ -756,8 +803,8 @@
   </section>
 
   <!-- 02 — DE DISPERSO A CENTRALIZADO -->
-  <section class="scene top-align" data-index="1">
-    <p class="scene-num">02</p>
+  <section class="scene top-align" data-index="2">
+    <p class="scene-num">03</p>
     <div class="scene-inner">
       <!-- <h2 class="reveal r1" style="font-size:45px">De una estructura descentralizada a una estructura centralizada, organizada en 4 áreas</h2> -->
       <h2 class="reveal r1 h2-full">A una estructura centralizada y organizada en 4 áreas temáticas</h2>
@@ -773,24 +820,24 @@
         <div class="org-v org-v2"></div>
         <div class="org-branch">
           <button class="org-leaf" data-area="flia" style="--i:0">
-            <span class="org-leaf-name">Área Familia</span>
+            <span class="org-leaf-name" style="font-size: 30px;">Área Familia</span>
             <span class="org-leaf-ref">Ps. Elina Criado</span>
-            <span class="org-leaf-meta"><b>3</b> oficinas · ver dotación</span>
+            <span class="org-leaf-meta" style="font-size: 17px;"><b>3</b> oficinas · ver dotación</span>
           </button>
           <button class="org-leaf" data-area="violencia" style="--i:1">
-            <span class="org-leaf-name">Área Violencia</span>
+            <span class="org-leaf-name" style="font-size: 30px;">Área Violencia</span>
             <span class="org-leaf-ref">Abog. Natalia Spedaletti</span>
-            <span class="org-leaf-meta"><b>6</b> oficinas · ver dotación</span>
+            <span class="org-leaf-meta" style="font-size: 17px;"><b>6</b> oficinas · ver dotación</span>
           </button>
           <button class="org-leaf" data-area="penal" style="--i:2">
-            <span class="org-leaf-name">Área Penal</span>
+            <span class="org-leaf-name" style="font-size: 30px;">Área Penal</span>
             <span class="org-leaf-ref">Ts. Adriana Barroso</span>
-            <span class="org-leaf-meta"><b>8</b> oficinas · ver dotación</span>
+            <span class="org-leaf-meta" style="font-size: 17px;"><b>8</b> oficinas · ver dotación</span>
           </button>
           <button class="org-leaf" data-area="multifuero" style="--i:3">
-            <span class="org-leaf-name">Área Multifuero</span>
+            <span class="org-leaf-name" style="font-size: 30px;">Área Multifuero</span>
             <span class="org-leaf-ref">Dra. María José Gandur</span>
-            <span class="org-leaf-meta"><b>5</b> oficinas · ver dotación</span>
+            <span class="org-leaf-meta" style="font-size: 17px;"><b>5</b> oficinas · ver dotación</span>
           </button>
         </div>
       </div>
@@ -798,8 +845,8 @@
   </section>
 
   <!-- 03 — ÁREA DE FAMILIA: HITOS Y HALLAZGOS -->
-  <section class="scene fam-big" data-index="2">
-    <p class="scene-num">03</p>
+  <section class="scene fam-big" data-index="3">
+    <p class="scene-num">04</p>
     <div class="scene-inner">
       <p class="kicker reveal r1">Área de Familia · Ref.: Ps. Elina Criado</p>
       <h2 class="reveal r1 h2-full">Hitos y hallazgos en el Área de Familia</h2>
@@ -807,29 +854,29 @@
       <div class="fam-grid">
         <article class="fam-card reveal r3">
           <div class="fam-top"><span class="fam-office">RUPAT</span><span class="fam-tag">Hallazgo</span></div>
-          <p class="fam-text">Tiene un SAE, pero no está integrado al área y no posee indicadores de medición.</p>
-          <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Generar la lectura de los mapeos que se están trabajando en las unidades, para luego integrar y definir indicadores de medición.</p></div>
+          <p class="fam-text" style="font-size: 25px;">Tiene un SAE, pero no está integrado al área y no posee indicadores de medición.</p>
+          <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Generar y definir indicadores de medición.</p></div>
         </article>
         <article class="fam-card reveal r4">
           <div class="fam-top"><span class="fam-office">Gabinete Psicosocial Monteros</span><span class="fam-tag">Hallazgo</span></div>
-          <p class="fam-text">Tiene SAE, pero todavía no se implementó.</p>
+          <p class="fam-text" style="font-size: 25px;">Tiene SAE, pero todavía no se implementó.</p>
           <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Capacitar al personal para iniciar con las cargas.</p></div>
         </article>
         <article class="fam-card reveal r5">
           <div class="fam-top"><span class="fam-office">Cámara de Familia</span><span class="fam-tag">Solicitud</span></div>
-          <p class="fam-text">Solicitud de potenciar los informes psicosociales, para que los jueces puedan apoyarse en ellos al tomar una decisión.</p>
+          <p class="fam-text" style="font-size: 25px;">Solicitud de potenciar los informes psicosociales, para que los jueces puedan apoyarse en ellos al tomar una decisión.</p>
         </article>
         <article class="fam-card reveal r6">
           <div class="fam-top"><span class="fam-office">Gabinete Psicosocial · Centro Judicial Monteros</span><span class="fam-tag">Hito</span></div>
-          <p class="fam-text">Se solicitó la regularización administrativa de la totalidad del equipo que integra el Gabinete.</p>
+          <p class="fam-text" style="font-size: 25px;">Se solicitó la regularización administrativa de la totalidad del equipo que integra el Gabinete.</p>
         </article>
       </div>
     </div>
   </section>
 
   <!-- 04 — ÁREA DE VIOLENCIA: HITOS Y HALLAZGOS -->
-  <section class="scene vio-big" data-index="3">
-    <p class="scene-num">04</p>
+  <section class="scene vio-big" data-index="4">
+    <p class="scene-num">05</p>
     <div class="scene-inner">
       <p class="kicker reveal r1">Área de Violencia · Ref.: Abog. Natalia Spedaletti</p>
       <h2 class="reveal r1 h2-full">Hitos y hallazgos en el Área de Violencia</h2>
@@ -837,16 +884,16 @@
         <div class="vio-cards">
           <article class="fam-card reveal r3">
             <div class="fam-top"><span class="fam-office">SAE OVD</span><span class="fam-tag">Hito</span></div>
-            <p class="fam-text" style="font-size:17px">Implementado el 1 de septiembre. Una vez consolidadas las cargas y estable el sistema, se extiende al resto de las dependencias.</p>
-            <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Capacitar e implementar en las demás dependencias.</p></div>
+            <p class="fam-text" style="font-size:23px">Implementado el 1 de septiembre. Posteriormente se extiende al resto de las dependencias.</p>
+            <!-- <div class="fam-next"><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7h22m-5-5 5 5-5 5"/></svg><p><b>Próximo paso</b>Capacitar e implementar en las demás dependencias.</p></div> -->
           </article>
           <article class="fam-card reveal r2">
             <div class="fam-top"><span class="fam-office">OVD · Informes de riesgo</span><span class="fam-tag">Hito</span></div>
-            <p class="fam-text" style="font-size:17px">Con el propósito de jerarquizar los legajos de OVD, iniciamos un ciclo de intercambio técnico con el Psic. Tony Buttler. El espacio busca optimizar las herramientas metodológicas de entrevista y redacción de informes, a fines de potenciar el rigor de las intervenciones interdisciplinarias.</p>
+            <p class="fam-text" style="font-size:23px">Para jerarquizar los legajos de OVD, se inició un ciclo de intercambio técnico con el Psic. Tony Buttler. a fin de optimizar las herramientas metodológicas</p>
           </article>
           <article class="fam-card reveal r4">
             <div class="fam-top"><span class="fam-office">OVD · Turnos y atención</span><span class="fam-tag">Solicitud</span></div>
-            <p class="fam-text" style="font-size:17px">En el marco de la puesta en funcionamiento de una OVD provincial -tendiente a unificar el funcionamiento-, se impulsó la readecuación del régimen de horarios nocturnos, fines de semana y feriados. En tal sentido,  se propone implementar una <mark class="fam-hl">guardia provincial rotativa</mark> remota en la que participe todo el personal durante los turnos señalados, haciendo hincapié en la demanda efectivamente registrada.</p>
+            <p class="fam-text" style="font-size:23px">En el marco de la puesta en funcionamiento de una OVD provincial, se impulsa la readecuación del régimen de horarios nocturnos, fines de semana y feriados. Se propone implementar una <mark class="fam-hl" style="font-size:23px">guardia provincial rotativa remota </mark> en la que participe todo el personal durante los turnos señalados.</p>
           </article>
         </div>
         <div class="vio-chart reveal r4">
@@ -861,8 +908,8 @@
   </section>
 
   <!-- 05 — ÁREA MULTIFUERO: HITOS -->
-  <section class="scene" data-index="4">
-    <p class="scene-num">05</p>
+  <section class="scene" data-index="5">
+    <p class="scene-num">06</p>
     <div class="scene-inner">
       <p class="kicker reveal r1" style="font-size: 18px;">Área Multifuero · Ref.: Dra. María José Gandur</p>
       <h2 class="reveal r1 h2-full">Hitos en el Área Multifuero</h2>
@@ -888,15 +935,15 @@
   </section>
 
   <!-- 06 — REGULARIZACIÓN ADMINISTRATIVA -->
-  <section class="scene reg-fit" data-index="5">
-    <p class="scene-num">06</p>
+  <section class="scene reg-fit" data-index="6">
+    <p class="scene-num">07</p>
     <div class="scene-inner">
       <!-- <p class="kicker reveal r1">Dirección · Nómina</p> -->
       <h2 class="reveal r1 h2-full">Hitos de Regularización administrativa</h2>
       <!-- <h2 class="reveal r1 h2-full">Hitos de Regularización administrativa e impacto en la interoperabilidad</h2> -->
       <div class="reg-wrap">
         <div class="reg-panel reveal r2">
-          <p class="vc-title" style="font-size:20px">Hallazgo en la migración de la nómina</p>
+          <p class="vc-title" style="font-size:25px">Hallazgo en la migración de la nómina</p>
           <p class="vc-sub" style="font-size:18px">Cada punto es una persona · población aproximada: 300</p>
           <div class="reg-waffle" style="font-size:18px" role="img" aria-label="De aproximadamente 300 agentes, más de 46 no estaban registrados bajo la dependencia de la Dirección"><i style="transition-delay:150ms"></i><i style="transition-delay:154ms"></i><i style="transition-delay:158ms"></i><i style="transition-delay:162ms"></i><i style="transition-delay:166ms"></i><i style="transition-delay:170ms"></i><i style="transition-delay:174ms"></i><i style="transition-delay:178ms"></i><i style="transition-delay:182ms"></i><i style="transition-delay:186ms"></i><i style="transition-delay:190ms"></i><i style="transition-delay:194ms"></i><i style="transition-delay:198ms"></i><i style="transition-delay:202ms"></i><i style="transition-delay:206ms"></i><i style="transition-delay:210ms"></i><i style="transition-delay:214ms"></i><i style="transition-delay:218ms"></i><i style="transition-delay:222ms"></i><i class="x" style="transition-delay:226ms"></i><i style="transition-delay:230ms"></i><i style="transition-delay:234ms"></i><i style="transition-delay:238ms"></i><i class="x" style="transition-delay:242ms"></i><i class="x" style="transition-delay:246ms"></i><i class="x" style="transition-delay:250ms"></i><i style="transition-delay:254ms"></i><i style="transition-delay:258ms"></i><i style="transition-delay:262ms"></i><i class="x" style="transition-delay:266ms"></i><i class="x" style="transition-delay:270ms"></i><i class="x" style="transition-delay:274ms"></i><i style="transition-delay:278ms"></i><i style="transition-delay:282ms"></i><i style="transition-delay:286ms"></i><i class="x" style="transition-delay:290ms"></i><i style="transition-delay:294ms"></i><i class="x" style="transition-delay:298ms"></i><i style="transition-delay:302ms"></i><i style="transition-delay:306ms"></i><i style="transition-delay:310ms"></i><i style="transition-delay:314ms"></i><i style="transition-delay:318ms"></i><i style="transition-delay:322ms"></i><i class="x" style="transition-delay:326ms"></i><i style="transition-delay:330ms"></i><i class="x" style="transition-delay:334ms"></i><i style="transition-delay:338ms"></i><i class="x" style="transition-delay:342ms"></i><i style="transition-delay:346ms"></i><i style="transition-delay:350ms"></i><i style="transition-delay:354ms"></i><i class="x" style="transition-delay:358ms"></i><i style="transition-delay:362ms"></i><i style="transition-delay:366ms"></i><i style="transition-delay:370ms"></i><i style="transition-delay:374ms"></i><i style="transition-delay:378ms"></i><i style="transition-delay:382ms"></i><i style="transition-delay:386ms"></i><i class="x" style="transition-delay:390ms"></i><i style="transition-delay:394ms"></i><i style="transition-delay:398ms"></i><i class="x" style="transition-delay:402ms"></i><i style="transition-delay:406ms"></i><i style="transition-delay:410ms"></i><i style="transition-delay:414ms"></i><i style="transition-delay:418ms"></i><i class="x" style="transition-delay:422ms"></i><i style="transition-delay:426ms"></i><i style="transition-delay:430ms"></i><i style="transition-delay:434ms"></i><i style="transition-delay:438ms"></i><i class="x" style="transition-delay:442ms"></i><i style="transition-delay:446ms"></i><i style="transition-delay:450ms"></i><i style="transition-delay:454ms"></i><i class="x" style="transition-delay:458ms"></i><i style="transition-delay:462ms"></i><i style="transition-delay:466ms"></i><i style="transition-delay:470ms"></i><i style="transition-delay:474ms"></i><i style="transition-delay:478ms"></i><i style="transition-delay:482ms"></i><i style="transition-delay:486ms"></i><i style="transition-delay:490ms"></i><i style="transition-delay:494ms"></i><i style="transition-delay:498ms"></i><i style="transition-delay:502ms"></i><i style="transition-delay:506ms"></i><i style="transition-delay:510ms"></i><i style="transition-delay:514ms"></i><i class="x" style="transition-delay:518ms"></i><i style="transition-delay:522ms"></i><i style="transition-delay:526ms"></i><i style="transition-delay:530ms"></i><i class="x" style="transition-delay:534ms"></i><i style="transition-delay:538ms"></i><i style="transition-delay:542ms"></i><i style="transition-delay:546ms"></i><i style="transition-delay:550ms"></i><i style="transition-delay:554ms"></i><i style="transition-delay:558ms"></i><i style="transition-delay:562ms"></i><i style="transition-delay:566ms"></i><i style="transition-delay:570ms"></i><i style="transition-delay:574ms"></i><i style="transition-delay:578ms"></i><i style="transition-delay:582ms"></i><i class="x" style="transition-delay:586ms"></i><i style="transition-delay:590ms"></i><i style="transition-delay:594ms"></i><i style="transition-delay:598ms"></i><i class="x" style="transition-delay:602ms"></i><i class="x" style="transition-delay:606ms"></i><i style="transition-delay:610ms"></i><i style="transition-delay:614ms"></i><i style="transition-delay:618ms"></i><i style="transition-delay:622ms"></i><i style="transition-delay:626ms"></i><i style="transition-delay:630ms"></i><i style="transition-delay:634ms"></i><i style="transition-delay:638ms"></i><i class="x" style="transition-delay:642ms"></i><i style="transition-delay:646ms"></i><i style="transition-delay:650ms"></i><i style="transition-delay:654ms"></i><i style="transition-delay:658ms"></i><i style="transition-delay:662ms"></i><i style="transition-delay:666ms"></i><i style="transition-delay:670ms"></i><i style="transition-delay:674ms"></i><i style="transition-delay:678ms"></i><i style="transition-delay:682ms"></i><i style="transition-delay:686ms"></i><i style="transition-delay:690ms"></i><i style="transition-delay:694ms"></i><i style="transition-delay:698ms"></i><i style="transition-delay:702ms"></i><i style="transition-delay:706ms"></i><i style="transition-delay:710ms"></i><i style="transition-delay:714ms"></i><i style="transition-delay:718ms"></i><i style="transition-delay:722ms"></i><i style="transition-delay:726ms"></i><i style="transition-delay:730ms"></i><i style="transition-delay:734ms"></i><i style="transition-delay:738ms"></i><i class="x" style="transition-delay:742ms"></i><i style="transition-delay:746ms"></i><i style="transition-delay:750ms"></i><i style="transition-delay:754ms"></i><i style="transition-delay:758ms"></i><i style="transition-delay:762ms"></i><i style="transition-delay:766ms"></i><i style="transition-delay:770ms"></i><i style="transition-delay:774ms"></i><i class="x" style="transition-delay:778ms"></i><i style="transition-delay:782ms"></i><i style="transition-delay:786ms"></i><i style="transition-delay:790ms"></i><i style="transition-delay:794ms"></i><i style="transition-delay:798ms"></i><i style="transition-delay:802ms"></i><i style="transition-delay:806ms"></i><i class="x" style="transition-delay:810ms"></i><i style="transition-delay:814ms"></i><i style="transition-delay:818ms"></i><i style="transition-delay:822ms"></i><i style="transition-delay:826ms"></i><i style="transition-delay:830ms"></i><i style="transition-delay:834ms"></i><i style="transition-delay:838ms"></i><i style="transition-delay:842ms"></i><i style="transition-delay:846ms"></i><i style="transition-delay:850ms"></i><i style="transition-delay:854ms"></i><i style="transition-delay:858ms"></i><i style="transition-delay:862ms"></i><i style="transition-delay:866ms"></i><i style="transition-delay:870ms"></i><i style="transition-delay:874ms"></i><i style="transition-delay:878ms"></i><i style="transition-delay:882ms"></i><i style="transition-delay:886ms"></i><i style="transition-delay:890ms"></i><i style="transition-delay:894ms"></i><i class="x" style="transition-delay:898ms"></i><i style="transition-delay:902ms"></i><i style="transition-delay:906ms"></i><i class="x" style="transition-delay:910ms"></i><i style="transition-delay:914ms"></i><i style="transition-delay:918ms"></i><i style="transition-delay:922ms"></i><i style="transition-delay:926ms"></i><i style="transition-delay:930ms"></i><i style="transition-delay:934ms"></i><i style="transition-delay:938ms"></i><i style="transition-delay:942ms"></i><i style="transition-delay:946ms"></i><i style="transition-delay:950ms"></i><i style="transition-delay:954ms"></i><i class="x" style="transition-delay:958ms"></i><i class="x" style="transition-delay:962ms"></i><i style="transition-delay:966ms"></i><i style="transition-delay:970ms"></i><i style="transition-delay:974ms"></i><i style="transition-delay:978ms"></i><i style="transition-delay:982ms"></i><i style="transition-delay:986ms"></i><i style="transition-delay:990ms"></i><i style="transition-delay:994ms"></i><i style="transition-delay:998ms"></i><i style="transition-delay:1002ms"></i><i class="x" style="transition-delay:1006ms"></i><i style="transition-delay:1010ms"></i><i style="transition-delay:1014ms"></i><i class="x" style="transition-delay:1018ms"></i><i style="transition-delay:1022ms"></i><i style="transition-delay:1026ms"></i><i style="transition-delay:1030ms"></i><i style="transition-delay:1034ms"></i><i class="x" style="transition-delay:1038ms"></i><i style="transition-delay:1042ms"></i><i style="transition-delay:1046ms"></i><i style="transition-delay:1050ms"></i><i style="transition-delay:1054ms"></i><i style="transition-delay:1058ms"></i><i style="transition-delay:1062ms"></i><i style="transition-delay:1066ms"></i><i style="transition-delay:1070ms"></i><i style="transition-delay:1074ms"></i><i style="transition-delay:1078ms"></i><i style="transition-delay:1082ms"></i><i style="transition-delay:1086ms"></i><i style="transition-delay:1090ms"></i><i style="transition-delay:1094ms"></i><i style="transition-delay:1098ms"></i><i style="transition-delay:1102ms"></i><i style="transition-delay:1106ms"></i><i style="transition-delay:1110ms"></i><i style="transition-delay:1114ms"></i><i style="transition-delay:1118ms"></i><i style="transition-delay:1122ms"></i><i style="transition-delay:1126ms"></i><i style="transition-delay:1130ms"></i><i style="transition-delay:1134ms"></i><i style="transition-delay:1138ms"></i><i style="transition-delay:1142ms"></i><i style="transition-delay:1146ms"></i><i style="transition-delay:1150ms"></i><i style="transition-delay:1154ms"></i><i style="transition-delay:1158ms"></i><i style="transition-delay:1162ms"></i><i style="transition-delay:1166ms"></i><i style="transition-delay:1170ms"></i><i style="transition-delay:1174ms"></i><i style="transition-delay:1178ms"></i><i style="transition-delay:1182ms"></i><i class="x" style="transition-delay:1186ms"></i><i style="transition-delay:1190ms"></i><i style="transition-delay:1194ms"></i><i style="transition-delay:1198ms"></i><i style="transition-delay:1202ms"></i><i style="transition-delay:1206ms"></i><i style="transition-delay:1210ms"></i><i style="transition-delay:1214ms"></i><i style="transition-delay:1218ms"></i><i style="transition-delay:1222ms"></i><i style="transition-delay:1226ms"></i><i style="transition-delay:1230ms"></i><i style="transition-delay:1234ms"></i><i style="transition-delay:1238ms"></i><i style="transition-delay:1242ms"></i><i class="x" style="transition-delay:1246ms"></i><i style="transition-delay:1250ms"></i><i class="x" style="transition-delay:1254ms"></i><i style="transition-delay:1258ms"></i><i style="transition-delay:1262ms"></i><i style="transition-delay:1266ms"></i><i style="transition-delay:1270ms"></i><i style="transition-delay:1274ms"></i><i class="x" style="transition-delay:1278ms"></i><i style="transition-delay:1282ms"></i><i style="transition-delay:1286ms"></i><i class="x" style="transition-delay:1290ms"></i><i class="x" style="transition-delay:1294ms"></i><i style="transition-delay:1298ms"></i><i style="transition-delay:1302ms"></i><i class="x" style="transition-delay:1306ms"></i><i style="transition-delay:1310ms"></i><i style="transition-delay:1314ms"></i><i class="x" style="transition-delay:1318ms"></i><i style="transition-delay:1322ms"></i><i style="transition-delay:1326ms"></i><i class="x" style="transition-delay:1330ms"></i><i style="transition-delay:1334ms"></i><i class="x" style="transition-delay:1338ms"></i><i class="x" style="transition-delay:1342ms"></i><i class="x" style="transition-delay:1346ms"></i></div>
           <div class="reg-stats">
@@ -912,7 +959,7 @@
               <span class="rs-n">1</span>
               <div>
                 <!-- <b>Sistematización interna <em class="rs-pill done">Finalizado</em></b><span>Migración y consolidación de la nómina</span> -->
-                <b>Sistematización interna <em class="rs-pill done">Finalizado</em></b>
+                <b style="font-size:25px">Sistematización interna <em class="rs-pill done">Finalizado</em></b>
                 <div class="reg-caps reg-caps-2">
                   <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg><b>Revisión normativa</b><span class="hint">Lectura de acordadas para determinar legalidad de la ubicación de cada persona</span></div>
                   <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6l1.5 1.5L12 5" /></svg><b>Control de nóminas</b><span class="hint">Verificación cruzada de las nóminas de las 23 oficinas</span></div>
@@ -922,7 +969,7 @@
             <li class="reg-step is-done">
               <span class="rs-n">2</span>
               <div>
-                <b>Hallazgos <em class="rs-pill done">Finalizado</em></b>
+                <b style="font-size:25px">Hallazgos <em class="rs-pill done">Finalizado</em></b>
                 <div class="reg-caps reg-caps-2">
                   <div class="reg-cap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-5.5 6-5.5s6 2 6 5.5"/><path d="M18 8v6M15 11h6"/></svg><b>+46 agentes fuera de la dependencia</b></div>
                 </div>
@@ -931,7 +978,7 @@
             <li class="reg-step is-core">
               <span class="rs-n">3</span>
               <div>
-                <b>Ficha sistematizada por persona <em class="rs-pill">En Proceso</em></b>
+                <b style="font-size:25px">Ficha sistematizada por persona <em class="rs-pill">En Proceso</em></b>
                 <div class="reg-caps">
                   <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 18h4l3-9 3 6 2-3h4"/></svg><b>Trazabilidad</b><span class="hint">Seguimiento del recorrido de cada agente dentro de la Dirección</span></div>
                   <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><b>Situación actual</b><span class="hint">Oficina, cargo, funciones, y ficha de la persona en general</span></div>
@@ -946,7 +993,7 @@
             <li class="reg-step is-end">
               <span class="rs-n">4</span>
               <div>
-                <b>Toma de decisiones</b><span>Herramienta de planificación interna</span>
+                <b style="font-size:25px">Toma de decisiones</b><span>Herramienta de planificación interna</span>
                 <div class="reg-gal-btn">
                   <button class="aa-detail" id="indOpen">Indicadores propuestos</button>
                 </div>
@@ -1244,29 +1291,28 @@
       <div>
         <!-- <p class="am-kicker">Evidencia empírica</p> -->
         <h3 class="am-title" id="evTitle">Guardias nocturnas, fines de semana y feriados</h3>
-        <p class="am-ref">Muestreo del 1 de mayo al 1 de agosto de 2026</p>
+        <!-- <p class="am-ref">Muestreo del 1 de mayo al 1 de agosto de 2026</p> -->
       </div>
       <button class="am-close" id="evClose" aria-label="Cerrar">Cerrar</button>
     </div>
 
     <div class="ev-stats">
-      <div class="ev-stat"><span class="num">554</span><span class="cap">legajos confeccionados en el período</span></div>
-      <div class="ev-stat"><span class="num">26<small>4,7 %</small></span><span class="cap">legajos en guardias nocturnas, fines de semana y feriados</span></div>
-      <div class="ev-stat hl"><span class="num">0</span><span class="cap">legajos confeccionados entre las 23:00 y las 07:00 hs.</span></div>
+      <div class="ev-stat"><span class="num">554</span><span class="cap" style="font-size: 18px;">Legajos confeccionados en el período</span></div>
+      <div class="ev-stat"><span class="num">26<small>4,7 %</small></span><span class="cap" style="font-size: 18px;">Legajos en guardias nocturnas, fines de semana y feriados</span></div>
+      <div class="ev-stat hl"><span class="num">0</span><span class="cap" style="font-size: 18px;">Legajos confeccionados entre las 23:00 y las 07:00 hs.</span></div>
     </div>
 
     <div class="ev-sec">
       <h4>Cómo se componen los 26 legajos de guardia</h4>
-      <div class="ev-bar" role="img" aria-label="26 legajos: 10 oficios OGAS, 10 atenciones presenciales espontáneas, 6 atenciones telefónicas espontáneas">
-        <span class="c1" style="--w:38.46%" title="OGAS · 10">OGAS · 10</span><span class="c2" style="--w:38.46%" title="Presenciales · 10">Presenciales · 10</span><span class="c3" style="--w:23.08%" title="Telefónicas · 6">Telefónicas · 6</span>
+      <div class="ev-bar" role="img" aria-label="26 legajos: 10 oficios OGAS, 16 atenciones espontáneas">
+        <span class="c1" style="--w:38.46%" title="OGAS · 10">Oficios derivados de OGAS · 10</span><span class="c2" style="--w:61.54%" title="Espontáneos · 16">Atenciones Espontáneos · 16</span>
       </div>
       <div class="ev-legend">
         <div><i style="background:var(--ink)"></i>Oficios derivados de OGAS <b>10</b></div>
-        <div><i style="background:var(--accent)"></i>Atenciones espontáneas presenciales <b>10</b></div>
-        <div><i style="background:var(--muted)"></i>Atenciones espontáneas telefónicas <b>6</b></div>
+        <div><i style="background:var(--accent)"></i>Atenciones espontáneas <b>16</b> <small style="color:var(--muted)">(10 presenciales · 6 telefónicas)</small></div>
       </div>
       <div class="ev-split">
-        <div>
+        <!-- <div>
           <p><b>10 atenciones presenciales espontáneas</b> · distribución horaria real</p>
           <div class="ev-bar" role="img" aria-label="7 en franja diurna o vespertina, 3 pasadas las 21:00"><span class="c2" style="--w:70%" title="Diurna/vespertina · 7">Diurna/vespertina · 7</span><span class="c1" style="--w:30%" title="Después de 21:00 · 3">Después de 21:00 · 3</span></div>
           <p style="margin-top:.6rem">7 en franja diurna/vespertina · solo <b>3 pasadas las 21:00 hs.</b></p>
@@ -1275,7 +1321,7 @@
           <p><b>6 atenciones telefónicas</b> · distribución horaria real</p>
           <div class="ev-bar" role="img" aria-label="6 en horario matutino o vespertino, 0 nocturnas"><span class="c3" style="--w:100%" title="Matutino/vespertino · 6">Matutino/vespertino · 6</span></div>
           <p style="margin-top:.6rem">Todas en horario matutino/vespertino · <b>ninguna nocturna</b></p>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -1423,17 +1469,17 @@
   // áreas: modal de dotación
   const AREA_DATA = {
     flia: {
-      name: 'Área de Flia', ref: 'Referente: Psic. Elina Criado', total: 78,
+      name: 'Área Vínculos, Familias e Infancias', ref: 'Referente: Psic. Elina Criado', total: 78,
       offices: ['RUPAT', 'Gabinete Flia y Suc.', 'Servicio de Revinculación'],
       rows: [['Psicólogos', 31], ['Trabajadores sociales', 27], ['Otros', 20]]
     },
     violencia: {
-      name: 'Área de Violencia', ref: 'Referente: Abog. Natalia Spedaletti', total: 81,
+      name: 'Área de Violencia y Gestión del Riesgo', ref: 'Referente: Abog. Natalia Spedaletti', total: 81,
       offices: ['OVD Capital', 'OVD Monteros', 'OVD Concepción', 'OVD Este', 'OVD Trancas', 'OM - AGR'],
       rows: [['Psicólogos', 19], ['Trabajadores sociales', 17], ['Abogados', 22], ['Otros', 23]]
     },
     multifuero: {
-      name: 'Área Multifuero', ref: 'Referente: Dra. María José Gandur', total: 65,
+      name: 'Área Multifuero Interdisciplinario', ref: 'Referente: Dra. María José Gandur', total: 65,
       offices: ['CPM Capital', 'CPM Concepción', 'CPM Monteros', 'Gabinete Multifuero Capital', 'Gabinete Multifuero Concepción'],
       rows: [['Psicólogos', 10], ['Trabajadores sociales', 5], ['Psiquiatras', 16], ['Médicos', 17], ['Otros', 17]]
     },
@@ -1503,7 +1549,7 @@
     }).join('');
     const legend = d.rows.map(([label, n], i) => {
       const pct = (n / sum * 100).toFixed(1).replace('.', ',');
-      return '<div><i style="background:' + PIE_COLORS[i % PIE_COLORS.length] + ';"></i>' + label + '<b>' + n + ' · ' + pct + '%</b></div>';
+      return '<div><i style="background:' + PIE_COLORS[i % PIE_COLORS.length] + ';"></i><b>' + n + '</b>' + label + '</div>';
     }).join('');
     return '<svg viewBox="0 0 240 240" role="img" aria-label="Distribución por profesión">' + slices + '</svg><div class="pie-legend">' + legend + '</div>';
   }
