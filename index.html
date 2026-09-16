@@ -131,9 +131,9 @@
   .scatter-stat{display:flex;align-items:baseline;gap:.7rem;margin-top:1.8rem;}
   .scatter-stat .num{font-family:'Fraunces',serif;font-size:clamp(2.4rem,4vw,3.2rem);color:var(--ink);}
   .scatter-stat .cap{font-size:.85rem;color:var(--muted);}
-  .scatter-box{position:relative;border:1px dashed var(--line);border-radius:4px;padding:2.6rem 1.6rem 1.6rem;margin-top:1.6rem;}
-  .scatter-label{position:absolute;top:-11px;left:1.4rem;background:var(--paper);padding:0 .6rem;font-size:1.95rem;color:var(--muted);letter-spacing:.02em;}
-  .chip-cloud{display:flex;flex-wrap:wrap;gap:.6rem .7rem;}
+  .scatter-box{position:relative;border:1px dashed var(--line);border-radius:4px;padding:3.2rem 2.4rem 2.4rem;margin-top:1.6rem;min-height:52vh;display:flex;align-items:center;}
+  .scatter-label{position:absolute;top:-.7em;left:50%;transform:translateX(-50%);background:var(--paper);padding:0 .8rem;font-size:1.95rem;color:var(--muted);letter-spacing:.02em;white-space:nowrap;}
+  .chip-cloud{display:flex;flex-wrap:wrap;justify-content:space-evenly;align-content:space-evenly;gap:1.4rem 1.6rem;width:100%;}
   .chip{font-size:1.20rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:20px;padding:.45rem .9rem;background:var(--paper-2);transition:transform .2s ease, border-color .2s, color .2s;}
   .chip:nth-child(6n+1){transform:rotate(-2deg);}
   .chip:nth-child(6n+2){transform:rotate(1.5deg) translateY(-3px);}
@@ -301,6 +301,36 @@
   .eco-dir .area-tabs{margin-top:0;}
   .eco-dir .area-panel{margin-top:1.1rem;}
 
+  /* escena 02: organigrama Corte → Dirección → 4 áreas */
+  .org{margin-top:2.2rem;display:flex;flex-direction:column;align-items:center;}
+  .org-node{border:1px solid var(--ink);border-radius:4px;background:var(--paper);padding:1rem 2.2rem;text-align:center;opacity:0;transform:translateY(-8px);transition:opacity .5s ease,transform .5s ease;}
+  .org-node-title{display:block;font-family:'Fraunces',serif;font-size:clamp(1.4rem,2.2vw,1.9rem);color:var(--ink);line-height:1.15;}
+  .org-node-sub{display:block;font-size:.95rem;color:var(--muted);margin-top:.3rem;}
+  .org-dir{border-color:var(--accent);border-width:1.5px;}
+  .org-v{width:1.5px;height:44px;background:var(--ink);transform:scaleY(0);transform-origin:top;transition:transform .45s ease;}
+  .org-branch{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;width:100%;padding-top:44px;}
+  .org-branch::before{content:'';position:absolute;top:0;left:12.5%;right:12.5%;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:center;transition:transform .5s ease;}
+  .org-leaf{position:relative;align-self:stretch;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.2rem 1rem 1rem;text-align:center;cursor:pointer;font-family:'Public Sans',sans-serif;display:flex;flex-direction:column;gap:.35rem;align-items:center;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease,border-color .2s,background .2s;}
+  .org-leaf::before{content:'';position:absolute;left:50%;bottom:100%;width:1.5px;height:44px;background:var(--ink);transform:scaleY(0);transform-origin:top;transition:transform .35s ease;}
+  .org-leaf:hover,.org-leaf:focus-visible{border-color:var(--accent);background:var(--paper);outline:none;}
+  .org-leaf:hover .org-leaf-meta{color:var(--accent);}
+  .org-leaf-name{font-family:'Fraunces',serif;font-size:clamp(1.15rem,1.7vw,1.5rem);color:var(--ink);line-height:1.15;}
+  .org-leaf-ref{font-size:.95rem;color:var(--ink-soft);}
+  .org-leaf-meta{font-size:.82rem;color:var(--muted);margin-top:.25rem;border-top:1px solid var(--line);padding-top:.5rem;width:100%;transition:color .2s;}
+  .org-leaf-meta b{color:var(--ink);font-weight:600;}
+  /* secuencia de animación al entrar */
+  .scene.in-view .org-root{opacity:1;transform:none;transition-delay:.2s;}
+  .scene.in-view .org-v1{transform:scaleY(1);transition-delay:.6s;}
+  .scene.in-view .org-dir{opacity:1;transform:none;transition-delay:.9s;}
+  .scene.in-view .org-v2{transform:scaleY(1);transition-delay:1.3s;}
+  .scene.in-view .org-branch::before{transform:scaleX(1);transition-delay:1.6s;}
+  .scene.in-view .org-leaf::before{transform:scaleY(1);transition-delay:calc(2s + var(--i) * .12s);}
+  .scene.in-view .org-leaf{opacity:1;transform:none;transition-delay:calc(2.2s + var(--i) * .12s);}
+  @media (prefers-reduced-motion: reduce){.org-node,.org-leaf,.org-v,.org-branch::before,.org-leaf::before{opacity:1;transform:none;transition:none;}}
+  /* oficinas dentro del modal de dotación */
+  .am-offices{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem;}
+  .am-offices span{font-size:.95rem;color:var(--ink-soft);border:1px solid var(--line);border-radius:20px;padding:.3rem .8rem;background:var(--paper-2);}
+
   /* ---- scene 02: áreas en tabs (proyector) ---- */
   .area-tabs{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem;}
   .area-tab{font-family:'Public Sans',sans-serif;font-size:1.1rem;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line);border-radius:20px;padding:.6rem 1.4rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;display:inline-flex;align-items:center;gap:.6rem;}
@@ -446,17 +476,17 @@
   /* ---- modal dotación por área ---- */
   #areaModal{position:fixed;inset:0;z-index:95;background:rgba(10,10,12,.75);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s, visibility .3s;}
   #areaModal.open{opacity:1;visibility:visible;}
-  .am-inner{background:var(--paper);border-radius:4px;width:min(960px,94vw);padding:2.4rem 2.8rem;max-height:92vh;overflow:auto;}
+  .am-inner{background:var(--paper);border-radius:4px;width:min(960px,94vw);padding:1.8rem 2.6rem;max-height:94vh;overflow:auto;}
   .am-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
   .am-kicker{font-size:1rem;color:var(--accent);font-weight:600;margin-bottom:.4rem;}
   .am-title{font-family:'Fraunces',serif;font-size:clamp(2rem,3.2vw,2.8rem);line-height:1.1;}
   .am-ref{font-size:1.2rem;color:var(--muted);margin-top:.4rem;}
   .am-close{background:none;border:1px solid var(--line);border-radius:20px;padding:.5rem 1.2rem;font-size:.95rem;color:var(--muted);cursor:pointer;font-family:'Public Sans',sans-serif;flex-shrink:0;}
   .am-close:hover{border-color:var(--accent);color:var(--ink);}
-  .am-total{display:flex;align-items:baseline;gap:.8rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line);}
+  .am-total{display:flex;align-items:baseline;gap:.8rem;margin-top:1.1rem;padding-top:.9rem;border-top:1px solid var(--line);}
   .am-total .num{font-family:'Fraunces',serif;font-size:clamp(3rem,5vw,4.2rem);line-height:1;color:var(--ink);}
   .am-total .cap{font-size:1.2rem;color:var(--muted);}
-  .am-view{display:flex;gap:.5rem;margin-top:1.4rem;}
+  .am-view{display:flex;gap:.5rem;margin-top:1rem;}
   .am-view button{background:none;border:1px solid var(--line);border-radius:20px;padding:.55rem 1.3rem;font-size:1.05rem;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Public Sans',sans-serif;transition:border-color .2s,color .2s,background .2s;}
   .am-view button.active{border-color:var(--accent);color:var(--paper);background:var(--accent);}
   .am-rows{margin-top:1.2rem;}
@@ -464,7 +494,7 @@
   .am-rows .hbar-track{height:12px;}
   .am-rows .h-label{font-size:1.25rem;}
   .am-rows .h-val{white-space:nowrap;font-size:1.25rem;color:var(--ink);}
-  .am-pie{display:none;margin-top:1.4rem;grid-template-columns:320px 1fr;gap:2.6rem;align-items:center;}
+  .am-pie{display:none;margin-top:1rem;grid-template-columns:260px 1fr;gap:2.4rem;align-items:center;}
   .am-pie.active{display:grid;}
   .am-pie svg{width:100%;height:auto;display:block;}
   .am-pie .pie-legend div{display:flex;align-items:center;gap:.8rem;font-size:1.3rem;color:var(--ink-soft);padding:.5rem 0;}
@@ -637,6 +667,8 @@
     #topbar{top:2.2vh;right:3vw;}
     .area-acc{grid-template-columns:1fr;gap:.7rem;}
     .area-panel{grid-template-columns:1fr;gap:1.2rem;}
+    .org-branch{grid-template-columns:1fr 1fr;padding-top:0;gap:.8rem;}
+    .org-branch::before,.org-leaf::before{display:none;}
     .eco-pj,.eco-dir{padding:1.8rem .9rem 1rem;}
     .ap-offices{grid-template-columns:1fr;}
     .area-hub{display:none;}
@@ -707,6 +739,7 @@
           <span class="chip">Cuerpo de Peritos Médicos Monteros</span>
           <span class="chip">Cuerpo de Peritos Médicos Concepción</span>
           <span class="chip">Gabinete Psicosocial Flia y Suc.</span>
+          <span class="chip">Gabinete Psicosocial Monteros.</span>
           <span class="chip">Gabinete Psicosocial Multifuero</span>
           <span class="chip">Ofic. Ejecución de Condena Efectiva</span>
           <span class="chip">Gabinete Psicosocial Multifuero Capital</span>
@@ -727,53 +760,38 @@
     <p class="scene-num">02</p>
     <div class="scene-inner">
       <!-- <h2 class="reveal r1" style="font-size:45px">De una estructura descentralizada a una estructura centralizada, organizada en 4 áreas</h2> -->
-      <h2 class="reveal r1 h2-full" style="font-size:47px;">A una estructura centralizada y organizada en 4 áreas</h2>
-      <div class="eco-box eco-pj reveal r2">
-        <span class="eco-label">Poder Judicial de Tucumán</span>
-        <div class="eco-box eco-dir">
-          <span class="eco-label">Abodajes Técnicos Especializados (OATE)</span>
-      <div class="area-tabs reveal r2" role="tablist">
-        <button class="area-tab active" data-apanel="flia"><span class="k">01</span>Vínculos, Familia e Infancias</button>
-        <button class="area-tab" data-apanel="violencia"><span class="k">02</span>Violencia y Gestión del Riesgo</button>
-        <button class="area-tab" data-apanel="multifuero"><span class="k">03</span>Multifuero Intedisciplinario</button>
-        <button class="area-tab" data-apanel="penal"><span class="k">04</span>Penal</button>
-      </div>
-      <div class="area-panel active" id="apanel-flia">
-        <div class="ap-info">
-          <h3>Área de Familia</h3>
-          <p class="ap-ref"><span>Referente</span>Ps. Elina Criado</p>
-          <p class="ap-count"><b>4</b> oficinas</p>
-          <button class="aa-detail ap-btn" data-area="flia">Ver dotación</button>
+      <h2 class="reveal r1 h2-full">A una estructura centralizada y organizada en 4 áreas temáticas</h2>
+      <div class="org reveal r2">
+        <div class="org-node org-root">
+          <span class="org-node-title">Corte Suprema de Justicia</span>
         </div>
-        <ul class="ap-offices"><li>RUPAT</li><li>Gabinete Flia y Suc.</li><li>Servicio de Revinculación</li><li>Gabinete Psicosocial Monteros</li></ul>
-      </div>
-      <div class="area-panel" id="apanel-violencia">
-        <div class="ap-info">
-          <h3>Área de Violencia</h3>
-          <p class="ap-ref"><span>Referente</span>Abog. Natalia Spedaletti</p>
-          <p class="ap-count"><b>6</b> oficinas</p>
-          <button class="aa-detail ap-btn" data-area="violencia">Ver dotación</button>
+        <div class="org-v org-v1"></div>
+        <div class="org-node org-dir">
+          <span class="org-node-title">Dirección</span>
+          <span class="org-node-sub">Abordajes Técnicos Especializados (OATE)</span>
         </div>
-        <ul class="ap-offices"><li>OVD Capital</li><li>OVD Monteros</li><li>OVD Concepción</li><li>OVD Este</li><li>OVD Trancas</li><li>OM - AGR</li></ul>
-      </div>
-      <div class="area-panel" id="apanel-multifuero">
-        <div class="ap-info">
-          <h3>Área Multifuero</h3>
-          <p class="ap-ref"><span>Referente</span>Dra. María José Gandur</p>
-          <p class="ap-count"><b>9</b> oficinas</p>
-          <button class="aa-detail ap-btn" data-area="multifuero">Ver dotación</button>
-        </div>
-        <ul class="ap-offices"><li>CPM Capital</li><li>CPM Concepción</li><li>CPM Monteros</li><li>Gabinete Multifuero Capital</li><li>Gabinete Multifuero Concepción</li><li>Gabinete Multifuero Monteros</li><li>Gabinete Técnico - Probation y Condenas Condicionales</li><li>Gabinete Técnico - Condenas Efectiva</li><li>Gabinete Técnico Ejecución Penal - Concepción</li></ul>
-      </div>
-      <div class="area-panel" id="apanel-penal">
-        <div class="ap-info">
-          <h3>Área Penal</h3>
-          <p class="ap-ref"><span>Referente</span>Ts. Adriana Barroso</p>
-          <p class="ap-count"><b>5</b> oficinas</p>
-          <button class="aa-detail ap-btn" data-area="penal">Ver dotación</button>
-        </div>
-        <ul class="ap-offices"><li>OAVD Capital</li><li>OAVD Concepción</li><li>OAVD Monteros</li><li>GENNYA</li><li>Gabinete Penal Concepción</li></ul>
-      </div>
+        <div class="org-v org-v2"></div>
+        <div class="org-branch">
+          <button class="org-leaf" data-area="flia" style="--i:0">
+            <span class="org-leaf-name">Área Familia</span>
+            <span class="org-leaf-ref">Ps. Elina Criado</span>
+            <span class="org-leaf-meta"><b>3</b> oficinas · ver dotación</span>
+          </button>
+          <button class="org-leaf" data-area="violencia" style="--i:1">
+            <span class="org-leaf-name">Área Violencia</span>
+            <span class="org-leaf-ref">Abog. Natalia Spedaletti</span>
+            <span class="org-leaf-meta"><b>6</b> oficinas · ver dotación</span>
+          </button>
+          <button class="org-leaf" data-area="penal" style="--i:2">
+            <span class="org-leaf-name">Área Penal</span>
+            <span class="org-leaf-ref">Ts. Adriana Barroso</span>
+            <span class="org-leaf-meta"><b>8</b> oficinas · ver dotación</span>
+          </button>
+          <button class="org-leaf" data-area="multifuero" style="--i:3">
+            <span class="org-leaf-name">Área Multifuero</span>
+            <span class="org-leaf-ref">Dra. María José Gandur</span>
+            <span class="org-leaf-meta"><b>5</b> oficinas · ver dotación</span>
+          </button>
         </div>
       </div>
     </div>
@@ -1277,6 +1295,7 @@
         <p class="am-kicker">Dotación por área</p>
         <h3 class="am-title" id="amTitle"></h3>
         <p class="am-ref" id="amRef"></p>
+        <div class="am-offices" id="amOffices"></div>
       </div>
       <button class="am-close" id="amClose" aria-label="Cerrar">Cerrar</button>
     </div>
@@ -1394,6 +1413,7 @@
     });
   }
   areaTabs.forEach(t => t.addEventListener('click', () => setAreaPanel(t.dataset.apanel)));
+  document.querySelectorAll('.org-leaf').forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); openAreaModal(btn.dataset.area); }));
   document.querySelectorAll('.area-acc-head').forEach(head => {
     head.addEventListener('click', () => {
       head.closest('.area-acc-item').classList.toggle('open');
@@ -1404,18 +1424,22 @@
   const AREA_DATA = {
     flia: {
       name: 'Área de Flia', ref: 'Referente: Psic. Elina Criado', total: 78,
+      offices: ['RUPAT', 'Gabinete Flia y Suc.', 'Servicio de Revinculación'],
       rows: [['Psicólogos', 31], ['Trabajadores sociales', 27], ['Otros', 20]]
     },
     violencia: {
       name: 'Área de Violencia', ref: 'Referente: Abog. Natalia Spedaletti', total: 81,
+      offices: ['OVD Capital', 'OVD Monteros', 'OVD Concepción', 'OVD Este', 'OVD Trancas', 'OM - AGR'],
       rows: [['Psicólogos', 19], ['Trabajadores sociales', 17], ['Abogados', 22], ['Otros', 23]]
     },
     multifuero: {
       name: 'Área Multifuero', ref: 'Referente: Dra. María José Gandur', total: 65,
+      offices: ['CPM Capital', 'CPM Concepción', 'CPM Monteros', 'Gabinete Multifuero Capital', 'Gabinete Multifuero Concepción'],
       rows: [['Psicólogos', 10], ['Trabajadores sociales', 5], ['Psiquiatras', 16], ['Médicos', 17], ['Otros', 17]]
     },
     penal: {
       name: 'Área Penal', ref: 'Referente: Ts. Adriana Barroso', total: 66,
+      offices: ['OAVD Capital', 'OAVD Concepción', 'OAVD Monteros', 'GENNYA', 'Gabinete Penal Concepción', 'Gabinete Técnico - Probation y Condenas Condicionales', 'Gabinete Técnico - Condenas Efectiva', 'Gabinete Técnico Ejecución Penal - Concepción'],
       rows: [['Psicólogos', 39], ['Trabajadores sociales', 16], ['Abogados', 4], ['Otros', 7]]
     }
   };
@@ -1430,6 +1454,7 @@
     if (!d) return;
     amTitle.textContent = d.name;
     amRef.textContent = d.ref;
+    document.getElementById('amOffices').innerHTML = (d.offices || []).map(o => '<span>' + o + '</span>').join('');
     amTotal.textContent = d.total;
     const max = Math.max(...d.rows.map(r => r[1]));
     amRows.innerHTML = d.rows.map(([label, n]) => {
