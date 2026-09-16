@@ -290,11 +290,20 @@
 
 
   /* escenas 01–02: título a la misma altura */
-  .scene.top-align{justify-content:flex-start;padding-top:15vh;}
+  .scene.top-align{justify-content:flex-start;padding-top:11vh;}
+
+  /* escena 02: ecosistemas anidados Poder Judicial ⊃ Dirección ⊃ áreas */
+  .eco-box{position:relative;border:1px dashed var(--line);border-radius:4px;}
+  .eco-pj{margin-top:2rem;padding:1.8rem 1.2rem 1.2rem;}
+  .eco-dir{border-color:var(--accent);padding:1.7rem 1.2rem 1.2rem;}
+  .eco-label{position:absolute;top:-13px;left:1.4rem;background:var(--paper);padding:0 .6rem;font-size:1.4rem;color:var(--muted);letter-spacing:.02em;font-family:'Fraunces',serif;}
+  .eco-dir > .eco-label{color:var(--accent);font-size:1.5rem;}
+  .eco-dir .area-tabs{margin-top:0;}
+  .eco-dir .area-panel{margin-top:1.1rem;}
 
   /* ---- scene 02: áreas en tabs (proyector) ---- */
   .area-tabs{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem;}
-  .area-tab{font-family:'Public Sans',sans-serif;font-size:1.25rem;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line);border-radius:20px;padding:.75rem 1.7rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;display:inline-flex;align-items:center;gap:.6rem;}
+  .area-tab{font-family:'Public Sans',sans-serif;font-size:1.1rem;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line);border-radius:20px;padding:.6rem 1.4rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;display:inline-flex;align-items:center;gap:.6rem;}
   .area-tab .k{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--accent);}
   .area-tab:hover{color:var(--ink);border-color:var(--accent);}
   .area-tab.active{color:var(--paper);background:var(--ink);border-color:var(--ink);}
@@ -303,14 +312,14 @@
   .area-panel.active{display:grid;}
   .area-panel .ap-info{animation:indmIn .45s ease both;}
   .area-panel .ap-offices{animation:indmIn .45s ease .12s both;}
-  .ap-info h3{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(2.2rem,3.6vw,3rem);line-height:1.1;color:var(--ink);margin:0;}
-  .ap-ref{margin:1rem 0 0;font-size:clamp(1.2rem,1.8vw,1.5rem);color:var(--ink);line-height:1.4;}
+  .ap-info h3{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(2rem,3.2vw,2.6rem);line-height:1.1;color:var(--ink);margin:0;}
+  .ap-ref{margin:.8rem 0 0;font-size:clamp(1.15rem,1.6vw,1.35rem);color:var(--ink);line-height:1.4;}
   .ap-ref span{display:block;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.2rem;}
-  .ap-count{margin:1.2rem 0 0;font-size:1.2rem;color:var(--muted);}
-  .ap-count b{font-family:'Fraunces',serif;font-weight:440;font-size:2.4rem;color:var(--ink);margin-right:.4rem;line-height:1;}
-  .ap-btn{margin-top:1.4rem;font-size:1rem;padding:.6rem 1.4rem;}
-  .ap-offices{list-style:none;margin:0;padding:1.4rem 1.6rem;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.6rem;}
-  .ap-offices li{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink);line-height:1.35;padding-left:1.1rem;position:relative;}
+  .ap-count{margin:.9rem 0 0;font-size:1.1rem;color:var(--muted);}
+  .ap-count b{font-family:'Fraunces',serif;font-weight:440;font-size:2rem;color:var(--ink);margin-right:.4rem;line-height:1;}
+  .ap-btn{margin-top:1rem;font-size:1rem;padding:.6rem 1.4rem;}
+  .ap-offices{list-style:none;margin:0;padding:1.1rem 1.3rem;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1.4rem;align-content:start;}
+  .ap-offices li{font-size:clamp(1rem,1.35vw,1.15rem);color:var(--ink);line-height:1.3;padding-left:1.1rem;position:relative;}
   .ap-offices li::before{content:'';position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--accent);}
 
   /* escena 06: ajuste para 768px de alto */
@@ -628,6 +637,7 @@
     #topbar{top:2.2vh;right:3vw;}
     .area-acc{grid-template-columns:1fr;gap:.7rem;}
     .area-panel{grid-template-columns:1fr;gap:1.2rem;}
+    .eco-pj,.eco-dir{padding:1.8rem .9rem 1rem;}
     .ap-offices{grid-template-columns:1fr;}
     .area-hub{display:none;}
     .fam-grid{grid-template-columns:1fr;gap:.8rem;}
@@ -718,6 +728,10 @@
     <div class="scene-inner">
       <!-- <h2 class="reveal r1" style="font-size:45px">De una estructura descentralizada a una estructura centralizada, organizada en 4 áreas</h2> -->
       <h2 class="reveal r1 h2-full" style="font-size:47px;">A una estructura centralizada y organizada en 4 áreas</h2>
+      <div class="eco-box eco-pj reveal r2">
+        <span class="eco-label">Corte Suprema</span>
+        <div class="eco-box eco-dir">
+          <span class="eco-label">Abodajes Técnicos Especializados (OATE)</span>
       <div class="area-tabs reveal r2" role="tablist">
         <button class="area-tab active" data-apanel="flia"><span class="k">01</span>Vínculos, Familia e Infancias</button>
         <button class="area-tab" data-apanel="violencia"><span class="k">02</span>Violencia y Gestión del Riesgo</button>
@@ -759,6 +773,8 @@
           <button class="aa-detail ap-btn" data-area="penal">Ver dotación</button>
         </div>
         <ul class="ap-offices"><li>OAVD Capital</li><li>OAVD Concepción</li><li>OAVD Monteros</li><li>GENNYA</li><li>Gabinete Penal Concepción</li></ul>
+      </div>
+        </div>
       </div>
     </div>
   </section>
