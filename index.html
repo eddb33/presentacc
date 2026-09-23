@@ -241,17 +241,22 @@
   .vio-big .vc-actions .aa-detail{font-size:1rem;padding:.6rem 1.4rem;}
 
   /* ---- scene: área multifuero — pool de psiquiatras ---- */
-  .mf-wrap{margin-top:1.8rem;display:grid;grid-template-columns:1fr 1.15fr;gap:1.4rem;align-items:stretch;}
+  .mf-wrap{margin-top:1.4rem;display:grid;grid-template-columns:1fr 1.45fr;gap:1.2rem;align-items:stretch;}
+  .mf-fit{justify-content:flex-start;padding-top:10vh;padding-bottom:2vh;}
+  .mf-fit .scene-num{top:3vh;}
+  .mf-fit .fam-card{padding:1rem 1.2rem .9rem;gap:.5rem;}
+  .mf-fit .fam-text{line-height:1.35;}
+  .mf-fit .fam-next{padding-top:.6rem;}
   .mf-cards{display:flex;flex-direction:column;gap:1rem;}
   .mf-cards .fam-card{flex:1;}
-  .mf-diagram{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.3rem 1.4rem 1.1rem;display:flex;flex-direction:column;}
+  .mf-diagram{border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.2rem 1rem 1rem;display:flex;flex-direction:column;justify-content:center;}
   .mf-diagram .vc-title{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--ink);line-height:1.2;margin:0;}
   .mf-diagram .vc-sub{font-size:.78rem;color:var(--muted);margin:.3rem 0 0;line-height:1.45;}
-  .mf-diagram svg{width:100%;height:auto;display:block;margin-top:1rem;flex:1;font-family:'Public Sans',sans-serif;overflow:visible;}
-  .mf-diagram .md-lbl{font-size:12px;fill:var(--ink-soft);}
-  .mf-diagram .md-lbl.strong{fill:var(--ink);font-weight:600;font-size:12px;}
-  .mf-diagram .md-cap{font-size:10.5px;fill:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
-  .mf-diagram .md-pool{font-family:'Fraunces',serif;font-size:15px;fill:var(--ink);}
+  .mf-diagram svg{width:100%;height:auto;display:block;margin-top:.6rem;font-family:'Public Sans',sans-serif;overflow:visible;}
+  .mf-diagram .md-lbl{font-size:15px;fill:var(--ink-soft);}
+  .mf-diagram .md-lbl.strong{fill:var(--ink);font-weight:600;font-size:12.5px;}
+  .mf-diagram .md-cap{font-size:12.5px;fill:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+  .mf-diagram .md-pool{font-family:'Fraunces',serif;font-size:16.5px;fill:var(--ink);}
   .mf-diagram .md-doc{opacity:0;transform:translateX(-14px);transition:opacity .5s ease,transform .5s ease;}
   .mf-diagram .md-doc.d1{transition-delay:.45s}.mf-diagram .md-doc.d2{transition-delay:.55s}.mf-diagram .md-doc.d3{transition-delay:.65s}.mf-diagram .md-doc.d4{transition-delay:.75s}.mf-diagram .md-doc.d5{transition-delay:.85s}
   .scene.in-view .mf-diagram .md-doc{opacity:1;transform:none;}
@@ -378,6 +383,34 @@
   .reg-fit .reg-step{padding:.4rem 0;}
   .reg-fit .reg-caps{margin-top:.5rem;}
   .reg-fit .reg-cap{padding:.5rem .4rem;}
+
+  /* ---- scene 07 B: regularización, versión alternativa (sin mapa) ---- */
+  .rg2{justify-content:flex-start;padding-top:9vh;padding-bottom:2vh;}
+  .rg2 .scene-num{top:3.5vh;}
+  .rg2-band{margin-top:1.6rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;padding:1.2rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .rg2-fig{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:.35rem;}
+  .rg2-fig .n{font-family:'Fraunces',serif;font-size:clamp(2rem,3.2vw,2.7rem);line-height:1;color:var(--ink);white-space:nowrap;}
+  .rg2-fig:first-child .n{color:var(--accent);}
+  .rg2-fig .c{font-size:1rem;color:var(--muted);line-height:1.4;}
+  .rg2-fig.is-state{gap:.5rem;}
+  .rg2-fig .c b{color:var(--ink-soft);font-weight:600;}
+  .rg2-grid{margin-top:1.6rem;display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:1.2rem;align-items:stretch;}
+  .rg2-card{position:relative;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);padding:1.3rem 1.4rem 1.2rem;display:flex;flex-direction:column;gap:.6rem;transition:border-color .2s;}
+  .rg2-card:hover{border-color:var(--accent);}
+  .rg2-card::before{content:'';position:absolute;left:0;top:1.3rem;bottom:1.2rem;width:2px;background:var(--line);transform:scaleY(0);transform-origin:top;transition:transform .6s ease .4s;}
+  .rg2-card.is-core::before{background:var(--accent);}
+  .rg2-card.is-next::before{background:var(--ink);}
+  .scene.in-view .rg2-card::before{transform:scaleY(1);}
+  .rg2-card header{display:flex;align-items:baseline;justify-content:space-between;gap:.8rem;flex-wrap:wrap;}
+  .rg2-card h3{font-family:'Fraunces',serif;font-weight:440;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.15;color:var(--ink);margin:0;}
+  .rg2-sub{margin:0;font-size:1rem;color:var(--muted);line-height:1.4;}
+  .rg2-card .reg-caps{margin-top:.3rem;}
+  .rg2-card .reg-caps-2{grid-template-columns:1fr 1fr;}
+  .rg2-out{margin:auto 0 0;font-size:1.05rem;color:var(--ink-soft);line-height:1.45;padding-top:.7rem;border-top:1px solid var(--line);}
+  .rg2-out b{color:var(--ink);font-weight:600;}
+  .rg2-card .reg-gal-btn{margin-top:auto;padding-top:.8rem;}
+  .rs-pill.next{background:none;color:var(--ink);border:1px solid var(--ink);}
+  .rs-pill.next::before{background:var(--ink);animation:none;}
 
   /* ---- scene: áreas acordeón ---- */
   .area-hub{width:100%;max-width:560px;display:block;margin:2rem auto 0;}
@@ -698,6 +731,7 @@
     .mf-wrap{grid-template-columns:1fr;}
     .reg-wrap{grid-template-columns:1fr;}
     .reg-caps{grid-template-columns:1fr 1fr;}
+    .rg2-band,.rg2-grid{grid-template-columns:1fr;gap:.9rem;}
     .reg-caps-2{grid-template-columns:1fr 1fr;}
     .reg-cap .hint{max-width:200px;}
     .reg-waffle{grid-template-columns:repeat(20,1fr);}
@@ -917,7 +951,7 @@
   </section>
 
   <!-- 05 — ÁREA MULTIFUERO: HITOS -->
-  <section class="scene" data-index="5">
+  <section class="scene mf-fit" data-index="5">
     <p class="scene-num">06</p>
     <div class="scene-inner">
       <p class="kicker reveal r1" style="font-size: 18px;">Área Multifuero · Ref.: Dra. María José Gandur</p>
@@ -943,76 +977,56 @@
     </div>
   </section>
 
-  <!-- 06 — REGULARIZACIÓN ADMINISTRATIVA -->
-  <section class="scene reg-fit" data-index="6">
+  <!-- 07 — REGULARIZACIÓN ADMINISTRATIVA -->
+  <section class="scene rg2" data-index="6">
     <p class="scene-num">07</p>
     <div class="scene-inner">
-      <!-- <p class="kicker reveal r1">Dirección · Nómina</p> -->
       <h2 class="reveal r1 h2-full">Hitos de Regularización administrativa</h2>
-      <!-- <h2 class="reveal r1 h2-full">Hitos de Regularización administrativa e impacto en la interoperabilidad</h2> -->
-      <div class="reg-wrap">
-        <div class="reg-panel reveal r2">
-          <p class="vc-title" style="font-size:25px">Hallazgo en la migración de la nómina</p>
-          <p class="vc-sub" style="font-size:18px">Cada punto es una persona · población aproximada: 300</p>
-          <div class="reg-waffle" style="font-size:18px" role="img" aria-label="De aproximadamente 300 agentes, más de 46 no estaban registrados bajo la dependencia de la Dirección"><i style="transition-delay:150ms"></i><i style="transition-delay:154ms"></i><i style="transition-delay:158ms"></i><i style="transition-delay:162ms"></i><i style="transition-delay:166ms"></i><i style="transition-delay:170ms"></i><i style="transition-delay:174ms"></i><i style="transition-delay:178ms"></i><i style="transition-delay:182ms"></i><i style="transition-delay:186ms"></i><i style="transition-delay:190ms"></i><i style="transition-delay:194ms"></i><i style="transition-delay:198ms"></i><i style="transition-delay:202ms"></i><i style="transition-delay:206ms"></i><i style="transition-delay:210ms"></i><i style="transition-delay:214ms"></i><i style="transition-delay:218ms"></i><i style="transition-delay:222ms"></i><i class="x" style="transition-delay:226ms"></i><i style="transition-delay:230ms"></i><i style="transition-delay:234ms"></i><i style="transition-delay:238ms"></i><i class="x" style="transition-delay:242ms"></i><i class="x" style="transition-delay:246ms"></i><i class="x" style="transition-delay:250ms"></i><i style="transition-delay:254ms"></i><i style="transition-delay:258ms"></i><i style="transition-delay:262ms"></i><i class="x" style="transition-delay:266ms"></i><i class="x" style="transition-delay:270ms"></i><i class="x" style="transition-delay:274ms"></i><i style="transition-delay:278ms"></i><i style="transition-delay:282ms"></i><i style="transition-delay:286ms"></i><i class="x" style="transition-delay:290ms"></i><i style="transition-delay:294ms"></i><i class="x" style="transition-delay:298ms"></i><i style="transition-delay:302ms"></i><i style="transition-delay:306ms"></i><i style="transition-delay:310ms"></i><i style="transition-delay:314ms"></i><i style="transition-delay:318ms"></i><i style="transition-delay:322ms"></i><i class="x" style="transition-delay:326ms"></i><i style="transition-delay:330ms"></i><i class="x" style="transition-delay:334ms"></i><i style="transition-delay:338ms"></i><i class="x" style="transition-delay:342ms"></i><i style="transition-delay:346ms"></i><i style="transition-delay:350ms"></i><i style="transition-delay:354ms"></i><i class="x" style="transition-delay:358ms"></i><i style="transition-delay:362ms"></i><i style="transition-delay:366ms"></i><i style="transition-delay:370ms"></i><i style="transition-delay:374ms"></i><i style="transition-delay:378ms"></i><i style="transition-delay:382ms"></i><i style="transition-delay:386ms"></i><i class="x" style="transition-delay:390ms"></i><i style="transition-delay:394ms"></i><i style="transition-delay:398ms"></i><i class="x" style="transition-delay:402ms"></i><i style="transition-delay:406ms"></i><i style="transition-delay:410ms"></i><i style="transition-delay:414ms"></i><i style="transition-delay:418ms"></i><i class="x" style="transition-delay:422ms"></i><i style="transition-delay:426ms"></i><i style="transition-delay:430ms"></i><i style="transition-delay:434ms"></i><i style="transition-delay:438ms"></i><i class="x" style="transition-delay:442ms"></i><i style="transition-delay:446ms"></i><i style="transition-delay:450ms"></i><i style="transition-delay:454ms"></i><i class="x" style="transition-delay:458ms"></i><i style="transition-delay:462ms"></i><i style="transition-delay:466ms"></i><i style="transition-delay:470ms"></i><i style="transition-delay:474ms"></i><i style="transition-delay:478ms"></i><i style="transition-delay:482ms"></i><i style="transition-delay:486ms"></i><i style="transition-delay:490ms"></i><i style="transition-delay:494ms"></i><i style="transition-delay:498ms"></i><i style="transition-delay:502ms"></i><i style="transition-delay:506ms"></i><i style="transition-delay:510ms"></i><i style="transition-delay:514ms"></i><i class="x" style="transition-delay:518ms"></i><i style="transition-delay:522ms"></i><i style="transition-delay:526ms"></i><i style="transition-delay:530ms"></i><i class="x" style="transition-delay:534ms"></i><i style="transition-delay:538ms"></i><i style="transition-delay:542ms"></i><i style="transition-delay:546ms"></i><i style="transition-delay:550ms"></i><i style="transition-delay:554ms"></i><i style="transition-delay:558ms"></i><i style="transition-delay:562ms"></i><i style="transition-delay:566ms"></i><i style="transition-delay:570ms"></i><i style="transition-delay:574ms"></i><i style="transition-delay:578ms"></i><i style="transition-delay:582ms"></i><i class="x" style="transition-delay:586ms"></i><i style="transition-delay:590ms"></i><i style="transition-delay:594ms"></i><i style="transition-delay:598ms"></i><i class="x" style="transition-delay:602ms"></i><i class="x" style="transition-delay:606ms"></i><i style="transition-delay:610ms"></i><i style="transition-delay:614ms"></i><i style="transition-delay:618ms"></i><i style="transition-delay:622ms"></i><i style="transition-delay:626ms"></i><i style="transition-delay:630ms"></i><i style="transition-delay:634ms"></i><i style="transition-delay:638ms"></i><i class="x" style="transition-delay:642ms"></i><i style="transition-delay:646ms"></i><i style="transition-delay:650ms"></i><i style="transition-delay:654ms"></i><i style="transition-delay:658ms"></i><i style="transition-delay:662ms"></i><i style="transition-delay:666ms"></i><i style="transition-delay:670ms"></i><i style="transition-delay:674ms"></i><i style="transition-delay:678ms"></i><i style="transition-delay:682ms"></i><i style="transition-delay:686ms"></i><i style="transition-delay:690ms"></i><i style="transition-delay:694ms"></i><i style="transition-delay:698ms"></i><i style="transition-delay:702ms"></i><i style="transition-delay:706ms"></i><i style="transition-delay:710ms"></i><i style="transition-delay:714ms"></i><i style="transition-delay:718ms"></i><i style="transition-delay:722ms"></i><i style="transition-delay:726ms"></i><i style="transition-delay:730ms"></i><i style="transition-delay:734ms"></i><i style="transition-delay:738ms"></i><i class="x" style="transition-delay:742ms"></i><i style="transition-delay:746ms"></i><i style="transition-delay:750ms"></i><i style="transition-delay:754ms"></i><i style="transition-delay:758ms"></i><i style="transition-delay:762ms"></i><i style="transition-delay:766ms"></i><i style="transition-delay:770ms"></i><i style="transition-delay:774ms"></i><i class="x" style="transition-delay:778ms"></i><i style="transition-delay:782ms"></i><i style="transition-delay:786ms"></i><i style="transition-delay:790ms"></i><i style="transition-delay:794ms"></i><i style="transition-delay:798ms"></i><i style="transition-delay:802ms"></i><i style="transition-delay:806ms"></i><i class="x" style="transition-delay:810ms"></i><i style="transition-delay:814ms"></i><i style="transition-delay:818ms"></i><i style="transition-delay:822ms"></i><i style="transition-delay:826ms"></i><i style="transition-delay:830ms"></i><i style="transition-delay:834ms"></i><i style="transition-delay:838ms"></i><i style="transition-delay:842ms"></i><i style="transition-delay:846ms"></i><i style="transition-delay:850ms"></i><i style="transition-delay:854ms"></i><i style="transition-delay:858ms"></i><i style="transition-delay:862ms"></i><i style="transition-delay:866ms"></i><i style="transition-delay:870ms"></i><i style="transition-delay:874ms"></i><i style="transition-delay:878ms"></i><i style="transition-delay:882ms"></i><i style="transition-delay:886ms"></i><i style="transition-delay:890ms"></i><i style="transition-delay:894ms"></i><i class="x" style="transition-delay:898ms"></i><i style="transition-delay:902ms"></i><i style="transition-delay:906ms"></i><i class="x" style="transition-delay:910ms"></i><i style="transition-delay:914ms"></i><i style="transition-delay:918ms"></i><i style="transition-delay:922ms"></i><i style="transition-delay:926ms"></i><i style="transition-delay:930ms"></i><i style="transition-delay:934ms"></i><i style="transition-delay:938ms"></i><i style="transition-delay:942ms"></i><i style="transition-delay:946ms"></i><i style="transition-delay:950ms"></i><i style="transition-delay:954ms"></i><i class="x" style="transition-delay:958ms"></i><i class="x" style="transition-delay:962ms"></i><i style="transition-delay:966ms"></i><i style="transition-delay:970ms"></i><i style="transition-delay:974ms"></i><i style="transition-delay:978ms"></i><i style="transition-delay:982ms"></i><i style="transition-delay:986ms"></i><i style="transition-delay:990ms"></i><i style="transition-delay:994ms"></i><i style="transition-delay:998ms"></i><i style="transition-delay:1002ms"></i><i class="x" style="transition-delay:1006ms"></i><i style="transition-delay:1010ms"></i><i style="transition-delay:1014ms"></i><i class="x" style="transition-delay:1018ms"></i><i style="transition-delay:1022ms"></i><i style="transition-delay:1026ms"></i><i style="transition-delay:1030ms"></i><i style="transition-delay:1034ms"></i><i class="x" style="transition-delay:1038ms"></i><i style="transition-delay:1042ms"></i><i style="transition-delay:1046ms"></i><i style="transition-delay:1050ms"></i><i style="transition-delay:1054ms"></i><i style="transition-delay:1058ms"></i><i style="transition-delay:1062ms"></i><i style="transition-delay:1066ms"></i><i style="transition-delay:1070ms"></i><i style="transition-delay:1074ms"></i><i style="transition-delay:1078ms"></i><i style="transition-delay:1082ms"></i><i style="transition-delay:1086ms"></i><i style="transition-delay:1090ms"></i><i style="transition-delay:1094ms"></i><i style="transition-delay:1098ms"></i><i style="transition-delay:1102ms"></i><i style="transition-delay:1106ms"></i><i style="transition-delay:1110ms"></i><i style="transition-delay:1114ms"></i><i style="transition-delay:1118ms"></i><i style="transition-delay:1122ms"></i><i style="transition-delay:1126ms"></i><i style="transition-delay:1130ms"></i><i style="transition-delay:1134ms"></i><i style="transition-delay:1138ms"></i><i style="transition-delay:1142ms"></i><i style="transition-delay:1146ms"></i><i style="transition-delay:1150ms"></i><i style="transition-delay:1154ms"></i><i style="transition-delay:1158ms"></i><i style="transition-delay:1162ms"></i><i style="transition-delay:1166ms"></i><i style="transition-delay:1170ms"></i><i style="transition-delay:1174ms"></i><i style="transition-delay:1178ms"></i><i style="transition-delay:1182ms"></i><i class="x" style="transition-delay:1186ms"></i><i style="transition-delay:1190ms"></i><i style="transition-delay:1194ms"></i><i style="transition-delay:1198ms"></i><i style="transition-delay:1202ms"></i><i style="transition-delay:1206ms"></i><i style="transition-delay:1210ms"></i><i style="transition-delay:1214ms"></i><i style="transition-delay:1218ms"></i><i style="transition-delay:1222ms"></i><i style="transition-delay:1226ms"></i><i style="transition-delay:1230ms"></i><i style="transition-delay:1234ms"></i><i style="transition-delay:1238ms"></i><i style="transition-delay:1242ms"></i><i class="x" style="transition-delay:1246ms"></i><i style="transition-delay:1250ms"></i><i class="x" style="transition-delay:1254ms"></i><i style="transition-delay:1258ms"></i><i style="transition-delay:1262ms"></i><i style="transition-delay:1266ms"></i><i style="transition-delay:1270ms"></i><i style="transition-delay:1274ms"></i><i class="x" style="transition-delay:1278ms"></i><i style="transition-delay:1282ms"></i><i style="transition-delay:1286ms"></i><i class="x" style="transition-delay:1290ms"></i><i class="x" style="transition-delay:1294ms"></i><i style="transition-delay:1298ms"></i><i style="transition-delay:1302ms"></i><i class="x" style="transition-delay:1306ms"></i><i style="transition-delay:1310ms"></i><i style="transition-delay:1314ms"></i><i class="x" style="transition-delay:1318ms"></i><i style="transition-delay:1322ms"></i><i style="transition-delay:1326ms"></i><i class="x" style="transition-delay:1330ms"></i><i style="transition-delay:1334ms"></i><i class="x" style="transition-delay:1338ms"></i><i class="x" style="transition-delay:1342ms"></i><i class="x" style="transition-delay:1346ms"></i></div>
-          <div class="reg-stats">
-            <div class="hl"><span class="num">+46</span><span class="cap" style="font-size:18px">Agentes <b>no registrados</b> bajo la dependencia de la Dirección</span></div>
-            <div><span class="num">~15 %</span><span class="cap" style="font-size:18px">de la nómina · <b>obstaculiza</b> las gestiones administrativas</span></div>
+      <div class="rg2-band reveal r2">
+        <div class="rg2-fig"><span class="n">+46 (~15 %)</span><span class="c" style="font-size: 20px;">Agentes <b>no registrados</b> bajo la dependencia de la Dirección</span></div>
+        <!-- <div class="rg2-fig"><span class="n">~15 %</span><span class="c">de la nómina · <b>obstaculiza</b> las gestiones administrativas</span></div> -->
+        <div class="rg2-fig"><span class="n">~300</span><span class="c" style="font-size: 20px;">Personas relevadas en la <b>migración de la nómina</b></span></div>
+        <div class="rg2-fig is-state"><em class="rs-pill" style="font-size: 14px;">En proceso</em><span class="c" style="font-size: 20px;">Validación de los <b>mapeos de procesos por áreas</b></span></div>
+      </div>
+
+      <div class="rg2-grid">
+        <article class="rg2-card reveal r3">
+          <header>
+            <h3>Sistematización interna</h3>
+            <em class="rs-pill done">Finalizado</em>
+          </header>
+          <p class="rg2-sub" style="font-size: 19px;">Cómo se relevó y ordenó la nómina de las 23 oficinas.</p>
+          <div class="reg-caps reg-caps-2">
+            <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg><b>Revisión normativa</b><span class="hint">Lectura de acordadas para determinar legalidad de la ubicación de cada persona</span></div>
+            <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6l1.5 1.5L12 5"/></svg><b>Control de nóminas</b><span class="hint">Verificación cruzada de las nóminas de las 23 oficinas</span></div>
           </div>
-        </div>
-        <div class="reg-panel reveal r3">
-          <p class="vc-title" style="font-size:20px">Ruta de la sistematización</p>
-          <!-- <p class="vc-sub">Gestionar la operatividad y el capital humano de las 23 oficinas</p> -->
-          <ol class="reg-steps">
-            <li class="reg-step is-done">
-              <span class="rs-n">1</span>
-              <div>
-                <!-- <b>Sistematización interna <em class="rs-pill done">Finalizado</em></b><span>Migración y consolidación de la nómina</span> -->
-                <b style="font-size:25px">Sistematización interna <em class="rs-pill done">Finalizado</em></b>
-                <div class="reg-caps reg-caps-2">
-                  <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h6M9 16h6"/></svg><b style="font-size:17px">Revisión normativa</b><span class="hint">Lectura de acordadas para determinar legalidad de la ubicación de cada persona</span></div>
-                  <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6l1.5 1.5L12 5" /></svg><b style="font-size:17px">Control de nóminas</b><span class="hint">Verificación cruzada de las nóminas de las 23 oficinas</span></div>
-                </div>
-              </div>
-            </li>
-            <li class="reg-step is-done">
-              <span class="rs-n">2</span>
-              <div>
-                <b style="font-size:25px">Hallazgos <em class="rs-pill done">Finalizado</em></b>
-                <div class="reg-caps reg-caps-2" style="width: 100%; display: flex;">
-                  <div class="reg-cap" style="width: 100%; font-size:16px">
-                    <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-5.5 6-5.5s6 2 6 5.5"/><path d="M18 8v6M15 11h6"/></svg><b style="font-size:17px">+46 agentes fuera de la dependencia</b>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="reg-step is-core">
-              <span class="rs-n">3</span>
-              <div>
-                <b style="font-size:25px">Ficha sistematizada por persona <em class="rs-pill">En Proceso</em></b>
-                <div class="reg-caps">
-                  <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 18h4l3-9 3 6 2-3h4"/></svg><b>Trazabilidad</b><span class="hint">Seguimiento del recorrido de cada agente dentro de la Dirección</span></div>
-                  <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><b>Situación actual</b><span class="hint">Oficina, cargo, funciones, y ficha de la persona en general</span></div>
-                  <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Historicidad</b><span class="hint">Registro de cambios y antecedentes a lo largo del tiempo</span></div>
-                  <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 8h13m0 0-3-3m3 3-3 3M20 16H7m0 0 3-3m-3 3 3 3"/></svg><b>Movimientos</b><span class="hint">Incorporaciones, traslados entre áreas, traslados hacia fuera y dentro de la Dirección</span></div>
-                </div>
-                <div class="reg-gal-btn">
-                  <button class="aa-detail" id="galOpen">Capturas</button>
-                </div>
-              </div>
-            </li>
-            <li class="reg-step is-end">
-              <span class="rs-n">4</span>
-              <div>
-                <!-- <b style="font-size:25px">Toma de decisiones (Herramienta de planificación interna)</b><span></span> -->
-                <b style="font-size:25px">Indicadores para toma de decisiones y planificacíon interna</b><span></span>
-                <div class="reg-gal-btn">
-                  <button class="aa-detail" id="indOpen">Indicadores propuestos</button>
-                </div>
-              </div>
-            </li>
-          </ol>
-        </div>
+          <p class="rg2-out"><b>Resultado:</b> +46 agentes fuera de la dependencia.</p>
+        </article>
+
+        <article class="rg2-card is-core reveal r4">
+          <header>
+            <h3>Ficha sistematizada por persona</h3>
+            <em class="rs-pill">En proceso</em>
+          </header>
+          <!-- <p class="rg2-sub">Una persona, un registro: lo que la ficha permite ver.</p> -->
+          <div class="reg-caps">
+            <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 18h4l3-9 3 6 2-3h4"/></svg><b>Trazabilidad</b><span class="hint">Seguimiento del recorrido de cada agente dentro de la Dirección</span></div>
+            <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><b>Situación actual</b><span class="hint">Oficina, cargo, funciones, y ficha de la persona en general</span></div>
+            <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Historicidad</b><span class="hint">Registro de cambios y antecedentes a lo largo del tiempo</span></div>
+            <div class="reg-cap has-hint" tabindex="0"><svg viewBox="0 0 24 24"><path d="M4 8h13m0 0-3-3m3 3-3 3M20 16H7m0 0 3-3m-3 3 3 3"/></svg><b>Movimientos</b><span class="hint">Incorporaciones, traslados entre áreas, traslados hacia fuera y dentro de la Dirección</span></div>
+          </div>
+          <div class="reg-gal-btn"><button class="aa-detail" id="galOpen">Capturas</button></div>
+        </article>
+
+        <article class="rg2-card is-next reveal r5">
+          <header>
+            <h3>Indicadores y planificación</h3>
+            <em class="rs-pill next">Próximo</em>
+          </header>
+          <p class="rg2-sub">Para qué sirve todo lo anterior: decidir con datos.</p>
+          <p class="rg2-out" style="font-size: 19px;">Indicadores para la toma de decisiones y la planificación interna de la Dirección.</p>
+          <div class="reg-gal-btn"><button class="aa-detail" id="indOpen">Indicadores propuestos</button></div>
+        </article>
       </div>
     </div>
   </section>
@@ -1241,15 +1255,15 @@
     <div class="indm-panel active" id="ipanel-totales">
       <div>
         <h4>Totales</h4>
-        <p class="q">Responde: <b>¿cuántos somos y de qué perfil?</b></p>
-        <p class="desc">Cantidad, percentiles, tasas de agentes por profesión, tipo de función actuando sobre el padrón completo.</p>
+        <p class="q">Responde: <b>¿Cuántos de cada profesion y perfil hay (por area, centro judicial, oficina ) ?</b></p>
+        <p class="desc">Cantidades, percentiles, tasas de agentes por profesión, tipo de función actuando sobre el padrón completo.</p>
         <ul><li>Psicólogos</li><li>Trabajadores sociales</li><li>Psiquiatras</li><li>Otras profesiones</li></ul>
       </div>
       <div class="vis"><svg viewBox="0 0 400 220" role="img" aria-label="296 personas: psicólogos 35 %, trabajadores sociales 23 %, psiquiatras 5 %, otras 37 %">
-<text x="0" y="34" font-family="Fraunces" font-size="40" fill="var(--ink)">296</text><text x="86" y="34" font-size="15" fill="var(--muted)">personas en el padrón</text>
+<text x="0" y="34" font-family="Fraunces" font-size="40" fill="var(--ink)">% X.X</text><text x="120" y="34" font-size="15" fill="var(--muted)">personas en el padrón</text>
 <rect x="0" y="60" width="140" height="44" fill="var(--ink)"/><rect x="142" y="60" width="90" height="44" fill="var(--accent)"/><rect x="234" y="60" width="20" height="44" fill="var(--accent-soft)"/><rect x="256" y="60" width="144" height="44" fill="var(--line)"/>
-<text x="70" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--paper)">35 %</text><text x="187" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--paper)">23 %</text><text x="328" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">37 %</text>
-<g font-size="15" fill="var(--ink-soft)"><rect x="0" y="126" width="12" height="12" fill="var(--ink)"/><text x="20" y="137">Psicólogos · 104</text><rect x="200" y="126" width="12" height="12" fill="var(--accent)"/><text x="220" y="137">Trab. sociales · 67</text><rect x="0" y="156" width="12" height="12" fill="var(--accent-soft)"/><text x="20" y="167">Psiquiatras · 16</text><rect x="200" y="156" width="12" height="12" fill="var(--line)"/><text x="220" y="167">Otras profesiones · 109</text></g>
+<text x="70" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--paper)">X.X %</text><text x="187" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--paper)">X.X %</text><text x="328" y="88" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">X.X %</text>
+<g font-size="15" fill="var(--ink-soft)"><rect x="0" y="126" width="12" height="12" fill="var(--ink)"/><text x="20" y="137">Psicólogos · XX</text><rect x="200" y="126" width="12" height="12" fill="var(--accent)"/><text x="220" y="137">Trab. sociales · XX</text><rect x="0" y="156" width="12" height="12" fill="var(--accent-soft)"/><text x="20" y="167">Psiquiatras · XX</text><rect x="200" y="156" width="12" height="12" fill="var(--line)"/><text x="220" y="167">Otras profesiones · XX</text></g>
 </svg></div>
     </div>
     <div class="indm-panel" id="ipanel-distribuciones">
@@ -1265,7 +1279,7 @@
       <div class="vis"><svg viewBox="0 0 400 220" role="img" aria-label="Dotación por área, cuatro barras horizontales">
 <g font-size="15" fill="var(--ink)"><text x="0" y="30">Área A</text><text x="0" y="80">Área B</text><text x="0" y="130">Área C</text><text x="0" y="180">Área D</text></g>
 <g fill="var(--accent)"><rect x="80" y="14" width="280" height="24" rx="3"/><rect x="80" y="64" width="222" height="24" rx="3"/><rect x="80" y="114" width="160" height="24" rx="3"/><rect x="80" y="164" width="110" height="24" rx="3"/></g>
-<g font-size="15" font-weight="600" fill="var(--ink)"><text x="368" y="32">68</text><text x="310" y="82">54</text><text x="248" y="132">39</text><text x="198" y="182">27</text></g>
+<g font-size="15" font-weight="600" fill="var(--ink)"><text x="368" y="32">X</text><text x="310" y="82">Y</text><text x="248" y="132">Z</text><text x="198" y="182">M</text></g>
 <!-- <text x="0" y="212" font-size="13" fill="var(--muted)">Ranking de oficinas: Central 22 · Norte 19 · Sur 16 · Este 14 · Oeste 12</text> -->
 </svg></div>
     </div>
@@ -1281,15 +1295,15 @@
     <div class="indm-panel" id="ipanel-flujos">
       <div>
         <h4>Flujos de personal</h4>
-        <p class="q">Responde: <b>¿cómo se mueve el personal en el tiempo?</b></p>
+        <p class="q">Responde: <b>¿Cómo se mueve el personal en el tiempo?</b></p>
         <p class="desc">Ingresos y egresos en la estructura de la dirección; Traslados, cambios de cargo, tasa de rotación y de movilidad interna.</p>
         <ul><li>Rotación</li><li>Movilidad interna</li><li>Ingresos / egresos</li></ul>
       </div>
       <div class="vis"><svg viewBox="0 0 400 220" role="img" aria-label="Flujos: ingresos, egresos y cambios de cargo en el área">
 <rect x="120" y="70" width="160" height="70" rx="3" stroke="var(--ink)" fill="var(--paper)"/><text x="200" y="112" text-anchor="middle" font-family="Fraunces" font-size="18" fill="var(--ink)">Dirección</text>
-<line x1="10" y1="92" x2="116" y2="92" stroke="var(--accent)" stroke-width="2"/><path d="M108 84l8 8-8 8" stroke="var(--accent)" stroke-width="2" fill="none"/><text x="10" y="76" font-size="15" font-weight="600" fill="var(--ink)">+9 ingresos</text>
-<line x1="284" y1="118" x2="390" y2="118" stroke="var(--muted)" stroke-width="2"/><path d="M382 110l8 8-8 8" stroke="var(--muted)" stroke-width="2" fill="none"/><text x="284" y="146" font-size="15" font-weight="600" fill="var(--ink)">−5 traslados</text>
-<path d="M200 140 C 150 195, 250 195, 200 142" stroke="var(--line)" stroke-width="2" fill="none"/><text x="200" y="212" text-anchor="middle" font-size="15" fill="var(--ink-soft)">7 cambios de cargo</text>
+<line x1="10" y1="92" x2="116" y2="92" stroke="var(--accent)" stroke-width="2"/><path d="M108 84l8 8-8 8" stroke="var(--accent)" stroke-width="2" fill="none"/><text x="10" y="76" font-size="15" font-weight="600" fill="var(--ink)">+X ingresos</text>
+<line x1="284" y1="118" x2="390" y2="118" stroke="var(--muted)" stroke-width="2"/><path d="M382 110l8 8-8 8" stroke="var(--muted)" stroke-width="2" fill="none"/><text x="284" y="146" font-size="15" font-weight="600" fill="var(--ink)">−Y traslados</text>
+<path d="M200 140 C 150 195, 250 195, 200 142" stroke="var(--line)" stroke-width="2" fill="none"/><text x="200" y="212" text-anchor="middle" font-size="15" fill="var(--ink-soft)">X cambios de cargo</text>
 <text x="10" y="30" font-size="15" fill="var(--ink-soft)">Rotación <tspan font-weight="600" fill="var(--ink)">X,X %</tspan> · Movilidad interna <tspan font-weight="600" fill="var(--ink)">Y,Y %</tspan></text>
 </svg></div>
     </div>
